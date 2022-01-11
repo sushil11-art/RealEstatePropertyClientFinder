@@ -4,18 +4,13 @@ import 'package:property_client_finder_app/controllers/client/client_controller.
 import 'package:property_client_finder_app/routes.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({Key? key}) : super(key: key);
+  // const BottomNavBar({Key? key}) : super(key: key);
+  // final ClientController clientController = Get.find<ClientController>();
+  final ClientController clientController = Get.put(ClientController());
 
   @override
   Widget build(BuildContext context) {
-    final ClientController clientController = Get.put(ClientController());
     return Container(
-      // padding: EdgeInsets.only(
-      //   top: 20,
-      //   left: 40,
-      //   right: 40,
-      //   bottom: 30,
-      // ),
       height: 60,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -57,9 +52,12 @@ class BottomNavBar extends StatelessWidget {
                 size: 30,
               ),
               onPressed: () {
-                // clientController.clientList();
-                Get.offAndToNamed(Routes.clients);
-              },
+                print(clientController.fetchClients);
+                clientController.fetchClients();
+                // Get.offAndToNamed(Routes.clients);
+              }
+              // clientController.clientList
+              ,
             ),
           ),
         ],

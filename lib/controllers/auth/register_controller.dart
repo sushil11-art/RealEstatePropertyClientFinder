@@ -14,6 +14,7 @@ class RegisterController extends GetxController {
   final usernameController = TextEditingController();
 
   final box = GetStorage();
+  var isLoading = false.obs;
 
   var email = "";
   var password = "";
@@ -60,11 +61,13 @@ class RegisterController extends GetxController {
       return;
     }
     registerFormKey.currentState!.save();
-    EasyLoading.show(status: 'Loading');
+    isLoading.value = true;
+    // EasyLoading.show(status: 'Loading');
 
     var response =
         await RegitserServices.registerBroker(email, password, username);
     if (response.statusCode == 200) {
+      isLoading.value = false;
       Get.snackbar('Register Success', "Account created successfully",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.green,
@@ -75,6 +78,7 @@ class RegisterController extends GetxController {
       // }
     }
     if (response.statusCode == 400) {
+      isLoading.value = false;
       await Get.dialog(AlertDialog(
         title: const Text('Registration failed'),
         content: const Text('User with that email already exists'),
@@ -86,6 +90,7 @@ class RegisterController extends GetxController {
       ));
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {
+      isLoading.value = false;
       await Get.dialog(AlertDialog(
         title: const Text('Registration failed'),
         content: const Text('An error occured,please try again later'),

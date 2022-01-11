@@ -65,7 +65,7 @@ class PropertyDetails extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () {
-            Get.offAndToNamed(Routes.home);
+            Get.offAndToNamed(Routes.tabScreen);
           },
         ),
         title: const Text(

@@ -2,6 +2,7 @@ import 'package:get/state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+// import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 import 'package:property_client_finder_app/controllers/upload/upload_file_controller.dart';
@@ -13,7 +14,7 @@ import 'package:property_client_finder_app/services/property/home_services.dart'
 
 // import 'package:property_client_finder_app/services/property/land_services.dart';
 import 'package:property_client_finder_app/services/upload/image_upload_services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 // integrate google map flutter
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -37,6 +38,8 @@ class HomeController extends GetxController {
   final streetController = TextEditingController();
 
   final box = GetStorage();
+  var isLoading = false.obs;
+
   MapController mapController = Get.put(MapController());
   ImageUploadController imageUploadController =
       Get.put(ImageUploadController());
@@ -84,6 +87,7 @@ class HomeController extends GetxController {
     wardController.dispose();
     streetController.dispose();
     propertyListController.fetchProperties();
+    // clientController.fetchClients();
     super.onClose();
   }
 
@@ -129,8 +133,8 @@ class HomeController extends GetxController {
     // check whether user has uploaded images or not
     if (imageUploadController.imageFileList!.isEmpty) {
       // check whether user upload at least one image or not
-      Get.snackbar(
-          'Error occured', "Upload at least one image of your property",
+      Get.snackbar('Error occured',
+          "Upload at least one and lesst than 10 image of your property",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,
           margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
@@ -160,7 +164,8 @@ class HomeController extends GetxController {
       return;
     }
     // store latitude and longitude in vairable
-    EasyLoading.show(status: 'Loading');
+    // EasyLoading.show(status: 'Loading');
+    isLoading.value = true;
     var res = await ImageUploadServices.uploadImages(
         imageUploadController.imageFileList!);
     var responseData = await http.Response.fromStream(res);
@@ -173,7 +178,8 @@ class HomeController extends GetxController {
       // return;
     }
     if ((responseData.statusCode == 400) || (responseData.statusCode == 500)) {
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = false;
       Get.snackbar('Error occured', "Uploading images failed",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,
@@ -206,7 +212,8 @@ class HomeController extends GetxController {
     var response = await HomeServices.addHome(data);
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      EasyLoading.dismiss();
+      isLoading.value = false;
+      // EasyLoading.dismiss();
       Get.snackbar('Property uploaded', "Home details uploaded successfully",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.green,
@@ -214,10 +221,12 @@ class HomeController extends GetxController {
           snackPosition: SnackPosition.TOP,
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
-      Get.offAndToNamed(Routes.home);
+      Get.offAndToNamed(Routes.tabScreen);
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {
-      EasyLoading.dismiss();
+      isLoading.value = false;
+
+      // EasyLoading.dismiss();
 
       Get.snackbar('Error occured', "Failed to upload property details",
           duration: const Duration(seconds: 5),

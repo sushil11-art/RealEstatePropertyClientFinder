@@ -15,7 +15,7 @@ class ClientDetails extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     print("yeta chai k vairaxa");
     print(clientController.clientDescription);
-    print(clientController.clientList);
+    // print(clientController.clientList);
     var name;
     var email;
     var phone;
@@ -34,41 +34,41 @@ class ClientDetails extends StatelessWidget {
     var floors;
     // print(clientController.clientDescription);
     // print(clientController.clientDescription.requiredlocation);
-    // name = clientController.clientDescription["name"];
-    // email = clientController.clientDescription["email"];
-    // phone = clientController.clientDescription["phone"];
-    // district =
-    //     clientController.clientDescription["requiredlocation"]["district"];
-    // province =
-    //     clientController.clientDescription["requiredlocation"]["province"];
-    // municipality =
-    //     clientController.clientDescription["requiredlocation"]["municipality"];
-    // ward = clientController.clientDescription["requiredlocation"]["ward"];
-    // street = clientController.clientDescription["requiredlocation"]["street"];
+    name = clientController.clientDescription["name"];
+    email = clientController.clientDescription["email"];
+    phone = clientController.clientDescription["phone"];
+    district =
+        clientController.clientDescription["requiredlocation"]["district"];
+    province =
+        clientController.clientDescription["requiredlocation"]["province"];
+    municipality =
+        clientController.clientDescription["requiredlocation"]["municipality"];
+    ward = clientController.clientDescription["requiredlocation"]["ward"];
+    street = clientController.clientDescription["requiredlocation"]["street"];
 
     var propertyType = "Land";
-    // landArea = clientController.clientDescription["landArea"];
-    // roadAccess = clientController.clientDescription["roadAccess"];
-    // waterSupply = clientController.clientDescription["waterSupply"];
+    landArea = clientController.clientDescription["landArea"];
+    roadAccess = clientController.clientDescription["roadAccess"];
+    waterSupply = clientController.clientDescription["waterSupply"];
 
-    // if (clientController.clientDescription["propertyType"] == 1) {
-    //   propertyType = "House";
-    //   kitchens = clientController.clientDescription["kitchens"];
-    //   bathrooms = clientController.clientDescription["bathrooms"];
-    //   bedrooms = clientController.clientDescription["bedrooms"];
-    //   floors = clientController.clientDescription["floors"];
-    // }
+    if (clientController.clientDescription["propertyType"] == 1) {
+      propertyType = "House";
+      kitchens = clientController.clientDescription["kitchens"];
+      bathrooms = clientController.clientDescription["bathrooms"];
+      bedrooms = clientController.clientDescription["bedrooms"];
+      floors = clientController.clientDescription["floors"];
+    }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.redAccent,
         title: const Text('Client Details',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Get.offAndToNamed(Routes.clients);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        //   onPressed: () {
+        //     Get.offAndToNamed(Routes.tabScreen);
+        //   },
+        // ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -91,14 +91,15 @@ class ClientDetails extends StatelessWidget {
             clientInfo(name, email, phone),
             propertyInfo(propertyType, landArea, roadAccess, waterSupply,
                 kitchens, bathrooms, bedrooms, floors),
-            locationInfo()
+            locationInfo(district, province, municipality, ward, street)
           ],
         ),
       ),
     );
   }
 
-  Card locationInfo() {
+  Card locationInfo(
+      var district, var province, var municipality, var ward, var street) {
     return Card(
       elevation: 10,
       margin: EdgeInsets.all(12),
@@ -115,7 +116,7 @@ class ClientDetails extends StatelessWidget {
                 SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'District:-',
+                    'District:-$district',
                     style: TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
@@ -126,15 +127,15 @@ class ClientDetails extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.accessibility,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Province:-',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    'Province:-$province.toString()',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -144,15 +145,15 @@ class ClientDetails extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.multiline_chart_outlined,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Municipality:-',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    'Municipality:-$municipality',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -162,15 +163,15 @@ class ClientDetails extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.water_damage,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Ward:-',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    'Ward:-${ward.toString()}',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
               ],
@@ -180,15 +181,15 @@ class ClientDetails extends StatelessWidget {
             margin: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.streetview,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Street:-',
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    'Street:-$ward.toString()',
+                    style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
               ],

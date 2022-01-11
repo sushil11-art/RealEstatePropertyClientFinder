@@ -31,6 +31,7 @@ class LandController extends GetxController {
   final streetController = TextEditingController();
 
   final box = GetStorage();
+  var isLoading = false.obs;
   MapController mapController = Get.put(MapController());
   ImageUploadController imageUploadController =
       Get.put(ImageUploadController());
@@ -130,8 +131,8 @@ class LandController extends GetxController {
     // if(){
 
     // }
-    print(mapController.latitude);
-    print(mapController.longitude);
+    // print(mapController.latitude);
+    // print(mapController.longitude);
 
     if ((mapController.latitude) == null ||
         (mapController.longitude) == null ||
@@ -146,7 +147,8 @@ class LandController extends GetxController {
       return;
     }
     // store latitude and longitude in vairable
-    EasyLoading.show(status: 'Loading');
+    isLoading.value = true;
+    // EasyLoading.show(status: 'Loading');
     var res = await ImageUploadServices.uploadImages(
         imageUploadController.imageFileList!);
     var responseData = await http.Response.fromStream(res);
@@ -159,7 +161,8 @@ class LandController extends GetxController {
       // return;
     }
     if ((responseData.statusCode == 400) || (responseData.statusCode == 500)) {
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = false;
       Get.snackbar('Error occured', "Uploading images failed",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,
@@ -187,7 +190,8 @@ class LandController extends GetxController {
     var response = await LandServices.addLand(data);
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = false;
 
       Get.snackbar('Property uploaded', "Land details uploaded successfully",
           duration: const Duration(seconds: 5),
@@ -196,10 +200,11 @@ class LandController extends GetxController {
           snackPosition: SnackPosition.TOP,
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
-      Get.offAndToNamed(Routes.home);
+      Get.offAndToNamed(Routes.tabScreen);
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = false;
       Get.snackbar('Error occured', "Failed to upload property details",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,

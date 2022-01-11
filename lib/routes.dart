@@ -1,4 +1,5 @@
 abstract class Routes {
+  static const tabScreen = "/tabScreen";
   static const home = '/home';
   static const addLand = '/add-land';
   static const addHome = "/add-home";

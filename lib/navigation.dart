@@ -8,8 +8,13 @@ import 'package:property_client_finder_app/screens/map/map_screen.dart';
 import 'package:property_client_finder_app/screens/property/add_home_screen.dart';
 import 'package:property_client_finder_app/screens/property/add_land_screen.dart';
 import 'package:property_client_finder_app/screens/property/property_details_screen.dart';
+import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 
 final appPages = [
+  GetPage(
+    name: Routes.tabScreen,
+    page: () => TabScreen(),
+  ),
   GetPage(
     name: Routes.home,
     page: () => HomeScreen(),

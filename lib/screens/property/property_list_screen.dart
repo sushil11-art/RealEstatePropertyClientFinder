@@ -18,7 +18,7 @@ class PropertyList extends StatelessWidget {
     //   return const Center(child: CircularProgressIndicator());
     // }
     // return GetX<PropertyListController>(builder: (controller) {
-    return Obx(() => ListView.builder(
+    return ListView.builder(
         // shrinkWrap: true,
         // primary: false,
         // scrollDirection: Axis.vertical,
@@ -28,7 +28,7 @@ class PropertyList extends StatelessWidget {
           return PropertyItem(
               index: index,
               property: propertyListController.propertyList[index]);
-        }));
+        });
     // });
     // });
   }

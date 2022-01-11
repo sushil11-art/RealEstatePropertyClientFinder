@@ -8,42 +8,41 @@ import 'package:property_client_finder_app/routes.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:property_client_finder_app/services/client/client_services.dart';
 
-// import 'package:http/http.dart' as http;
-// import 'package:property_client_finder_app/models/property.dart';
-// import 'package:property_client_finder_app/services/property/property_list_services.dart';
-
 class ClientController extends GetxController {
   // List propertyList = [].obs;
   var clientList = [].obs;
   var clientDescription = {}.obs;
+
+  var isLoading = false.obs;
 
   // var clientDescription;
   @override
   void onInit() {
     // TODO: implement onInit
     fetchClients();
-
     super.onInit();
   }
 
   void fetchClients() async {
-    EasyLoading.show(status: 'Loading');
+    // EasyLoading.show(status: 'Loading');
+    print("thiss block is fired");
+    isLoading.value = true;
+    var clientsList = await ClientServices.getClients();
+    clientList.value = clientsList;
+    // Get.offAndToNamed(Routes.clients);
+    isLoading.value = false;
 
-    try {
-      var clientsList = await ClientServices.getClients();
-      clientList.value = clientsList;
-    } catch (e) {
-      print(e);
-    }
-    EasyLoading.dismiss();
+    // EasyLoading.dismiss();
   }
 
   void deleteClient(clientId) async {
-    EasyLoading.show(status: 'Loading');
+    // EasyLoading.show(status: 'Loading');
+    isLoading.value = true;
     var response = await ClientServices.deleteClient(clientId);
     if (response.statusCode == 200) {
       // var data = json.decode(response.body);
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = false;
       Get.snackbar('Client', "Cleint deleted successfully",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.green,
@@ -51,10 +50,11 @@ class ClientController extends GetxController {
           snackPosition: SnackPosition.TOP,
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
-      Get.offAndToNamed(Routes.clients);
+      // Get.offAndToNamed(Routes.clients);
     }
     if ((response.statusCode == 500) || (response.statusCode == 400)) {
-      EasyLoading.dismiss();
+      // EasyLoading.dismiss();
+      isLoading.value = true;
       Get.snackbar('Error occured', "Failed to delete client details",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,
@@ -68,7 +68,8 @@ class ClientController extends GetxController {
   }
 
   void clientDetails(clientId) async {
-    EasyLoading.show(status: 'Loading');
+    // EasyLoading.show(status: 'Loading');
+    isLoading.value = true;
     try {
       var response = await ClientServices.clientDetails(clientId);
       if (response.statusCode == 200) {
@@ -78,12 +79,15 @@ class ClientController extends GetxController {
         print("yo chai controller vitra");
         print(clientDescription);
 
-        Get.offAndToNamed(Routes.clientDetails);
-        EasyLoading.dismiss();
+        Get.toNamed(Routes.clientDetails);
+        isLoading.value = false;
+        // fetchClients();
+        // EasyLoading.dismiss();
       }
       // print(propertyDescription);
       if ((response.statusCode == 400) || (response.statusCode == 500)) {
-        EasyLoading.dismiss();
+        // EasyLoading.dismiss();
+        isLoading.value = false;
         Get.snackbar('Error occured', "Failed to fetch client details",
             duration: const Duration(seconds: 5),
             backgroundColor: Colors.red,
@@ -92,7 +96,8 @@ class ClientController extends GetxController {
             snackStyle: SnackStyle.FLOATING);
       }
     } catch (e) {
-      EasyLoading.dismiss();
+      isLoading.value = false;
+      // EasyLoading.dismiss();
       Get.snackbar('Error occured', "Something went wrong",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,

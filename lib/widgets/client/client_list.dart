@@ -7,11 +7,12 @@ import 'package:property_client_finder_app/routes.dart';
 
 class ClientList extends StatelessWidget {
   // const ClientList({Key? key}) : super(key: key);
+  // ClientList({required this.clientController});
+  // ClientController clientController;
   final ClientController clientController = Get.put(ClientController());
-
   @override
   Widget build(BuildContext context) {
-    return Obx(() => ListView.builder(
+    return ListView.builder(
         itemCount: clientController.clientList.length,
         itemBuilder: (context, index) {
           return Card(
@@ -45,20 +46,23 @@ class ClientList extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.redAccent),
                     onPressed: () {
-                      Blurry(
-                          icon: Icons.delete,
-                          themeColor: Colors.pink,
-                          title: 'Delete Client',
-                          description: 'Remove your client?',
-                          confirmButtonText: 'Confirm',
-                          onConfirmButtonPressed: () {
-                            clientController.deleteClient(
-                                clientController.clientList[index]["id"]);
-                          }).show(context);
+                      clientController.deleteClient(
+                          clientController.clientList[index]["id"]);
+                      // Blurry(
+                      //     icon: Icons.delete,
+                      //     themeColor: Colors.pink,
+                      //     title: 'Delete Client',
+                      //     description: 'Remove your client?',
+                      //     confirmButtonText: 'Confirm',
+                      //     onConfirmButtonPressed: () {
+                      //       clientController.deleteClient(
+                      //           clientController.clientList[index]["id"]);
+                      //     }).show(context);
+                      // Navigator.pop(context);
                     },
                   ),
                 ])),
           );
-        }));
+        });
   }
 }
