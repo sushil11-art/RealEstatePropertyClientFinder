@@ -17,7 +17,7 @@ class MapScreen extends StatelessWidget {
   Future<void> _goToCurrentLocation() async {
     final GoogleMapController controller =
         await mapController.controller.future;
-    await controller.animateCamera(
+    await animateController.animateCamera(
         CameraUpdate.newCameraPosition(mapController.kGooglePlex));
   }
 
