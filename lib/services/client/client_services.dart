@@ -76,4 +76,61 @@ class ClientServices {
       print(e);
     }
   }
+
+  static Future addClient(data) async {
+    try {
+      final url = API.localApiUrl + "addClient";
+      var body = json.encode(data);
+      final response = await http.post(
+          Uri.parse(
+            url,
+          ),
+          headers: <String, String>{
+            'Content-Type': 'Application/json; charset=UTF-8',
+            'authorization': token
+          },
+          body: body);
+
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future editClient(data, clientId) async {
+    try {
+      final url = API.localApiUrl + "editClient/$clientId";
+      var body = json.encode(data);
+      final response = await http.put(
+          Uri.parse(
+            url,
+          ),
+          headers: <String, String>{
+            'Content-Type': 'Application/json; charset=UTF-8',
+            'authorization': token
+          },
+          body: body);
+
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future getMatchingPropertiesForClient(clientId) async {
+    try {
+      var url = API.localApiUrl + "allProperty/$clientId";
+      final response = await http.get(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'Application/json; charset=UTF-8',
+          'authorization': token
+        },
+      );
+      // List decoded = json.decode(response.body);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

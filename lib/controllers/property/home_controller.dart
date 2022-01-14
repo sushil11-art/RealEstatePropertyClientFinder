@@ -15,6 +15,7 @@ import 'package:property_client_finder_app/services/property/home_services.dart'
 // import 'package:property_client_finder_app/services/property/land_services.dart';
 import 'package:property_client_finder_app/services/upload/image_upload_services.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 // integrate google map flutter
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -39,6 +40,7 @@ class HomeController extends GetxController {
 
   final box = GetStorage();
   var isLoading = false.obs;
+  var editMode = false.obs;
 
   MapController mapController = Get.put(MapController());
   ImageUploadController imageUploadController =
@@ -47,6 +49,7 @@ class HomeController extends GetxController {
   PropertyListController propertyListController =
       Get.find<PropertyListController>();
 
+  var propertyId;
   var price;
   var landArea;
   var roadAccess;
@@ -209,7 +212,12 @@ class HomeController extends GetxController {
       'images': images
     };
 
-    var response = await HomeServices.addHome(data);
+    var response;
+    if (editMode.value) {
+      response = await HomeServices.editHome(data, propertyId);
+    } else {
+      response = await HomeServices.addHome(data);
+    }
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       isLoading.value = false;
@@ -221,6 +229,7 @@ class HomeController extends GetxController {
           snackPosition: SnackPosition.TOP,
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
+      clearController();
       Get.offAndToNamed(Routes.tabScreen);
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {
@@ -245,5 +254,70 @@ class HomeController extends GetxController {
       //   ],
       // ));
     }
+  }
+
+  void setPropertyInfo(
+    id,
+    price,
+    landArea,
+    roadAccess,
+    waterSupply,
+    kitchens,
+    bathrooms,
+    bedrooms,
+    floors,
+  ) async {
+    propertyId = id;
+    priceController.text = price.toString();
+    landAreaController.text = landArea.toString();
+    roadAccessConttroller.text = roadAccess.toString();
+    waterSupplyController.text = waterSupply;
+    kitchenController.text = kitchens.toString();
+    bathroomController.text = bathrooms.toString();
+    bedroomController.text = bedrooms.toString();
+    floorController.text = floors.toString();
+  }
+
+  void setLocationInfo(
+      district, province, municipality, ward, street, latitude, longitude) {
+    districtController.text = district;
+    provinceController.text = province.toString();
+    municipalityController.text = municipality;
+    wardController.text = ward.toString();
+    streetController.text = street;
+    mapController.latitude = latitude;
+    mapController.longitude = longitude;
+    var pos = LatLng(latitude, longitude);
+    mapController.selectLocation(pos);
+  }
+
+  void clearText() {
+    priceController.clear();
+    landAreaController.clear();
+    roadAccessConttroller.clear();
+    waterSupplyController.clear();
+    kitchenController.clear();
+    bathroomController.clear();
+    bedroomController.clear();
+    floorController.clear();
+    provinceController.clear();
+    districtController.clear();
+    municipalityController.clear();
+    wardController.clear();
+    streetController.clear();
+  }
+
+  void clearController() {
+    // final ClientController clientController = Get.put(ClientController());
+    // clientController.fetchClients();
+    clearText();
+    // propertyCurrentItem.value = "Land";
+    editMode.value = false;
+    // propertyType.value = false;
+    imageUploadController.imageFileList = [];
+    mapController.location = null;
+    mapController.latitude = null;
+    mapController.longitude = null;
+    // mapController.dispose();
   }
 }

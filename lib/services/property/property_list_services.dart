@@ -90,4 +90,21 @@ class PropertyListServices {
       print(e);
     }
   }
+
+  static Future getMatchingClientsForProperty(propertyId) async {
+    try {
+      var url = API.localApiUrl + "allClient/$propertyId";
+      final response = await http.get(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'Application/json; charset=UTF-8',
+          'authorization': token
+        },
+      );
+      // List decoded = json.decode(response.body);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+  }
 }

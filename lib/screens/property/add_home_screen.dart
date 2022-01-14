@@ -15,13 +15,19 @@ class AddHome extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
                 elevation: 10,
-                title: const Text(
-                  "Add Home",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 20),
-                ),
+                title: homeController.editMode.value
+                    ? const Text("Edit Home Details",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 20))
+                    : const Text(
+                        "Add Home Details",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontSize: 20),
+                      ),
                 backgroundColor: Colors.redAccent),
             body: SingleChildScrollView(
               child: Container(

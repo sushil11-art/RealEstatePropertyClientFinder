@@ -16,6 +16,8 @@ class RegisterController extends GetxController {
   final box = GetStorage();
   var isLoading = false.obs;
 
+  var isPasswordInvisible = true.obs;
+
   var email = "";
   var password = "";
   var username = "";
@@ -31,6 +33,10 @@ class RegisterController extends GetxController {
     passwordController.dispose();
     usernameController.dispose();
     super.onClose();
+  }
+
+  void togglePassword() {
+    isPasswordInvisible.value = !isPasswordInvisible.value;
   }
 
   String? validateEmail(String? value) {

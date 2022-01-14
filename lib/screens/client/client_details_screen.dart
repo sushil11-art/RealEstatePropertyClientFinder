@@ -13,8 +13,8 @@ class ClientDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    print("yeta chai k vairaxa");
-    print(clientController.clientDescription);
+    // print("yeta chai k vairaxa");
+    // print(clientController.clientDescription);
     // print(clientController.clientList);
     var name;
     var email;
@@ -63,12 +63,6 @@ class ClientDetails extends StatelessWidget {
         backgroundColor: Colors.redAccent,
         title: const Text('Client Details',
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-        //   onPressed: () {
-        //     Get.offAndToNamed(Routes.tabScreen);
-        //   },
-        // ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -102,18 +96,18 @@ class ClientDetails extends StatelessWidget {
       var district, var province, var municipality, var ward, var street) {
     return Card(
       elevation: 10,
-      margin: EdgeInsets.all(12),
+      margin: const EdgeInsets.all(12),
       child: Column(
         children: [
           Container(
             margin: const EdgeInsets.all(10),
             child: Row(
               children: [
-                Icon(
+                const Icon(
                   Icons.directions_train_rounded,
                   color: Colors.blue,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Flexible(
                   child: Text(
                     'District:-$district',
@@ -134,7 +128,7 @@ class ClientDetails extends StatelessWidget {
                 const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Province:-$province.toString()',
+                    'Province:-${province.toString()}',
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
@@ -170,7 +164,7 @@ class ClientDetails extends StatelessWidget {
                 const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Ward:-${ward.toString()}',
+                    'Ward:-$ward',
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
@@ -188,7 +182,7 @@ class ClientDetails extends StatelessWidget {
                 const SizedBox(width: 10),
                 Flexible(
                   child: Text(
-                    'Street:-$ward.toString()',
+                    'Street:-$street',
                     style: const TextStyle(fontWeight: FontWeight.w500),
                   ),
                 )
@@ -254,7 +248,7 @@ class ClientDetails extends StatelessWidget {
                   SizedBox(width: 10),
                   Flexible(
                     child: Text(
-                      'Road access:-{$roadAcess}',
+                      'Road access:-$roadAcess',
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   )

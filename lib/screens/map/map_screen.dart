@@ -22,6 +22,7 @@ class MapScreen extends StatelessWidget {
       target: LatLng(mapController.latitude, mapController.longitude),
       zoom: 14.4746,
     );
+
     controller.animateCamera(CameraUpdate.newCameraPosition(propertyLocation));
   }
 
@@ -70,7 +71,14 @@ class MapScreen extends StatelessWidget {
                 mapType: MapType.normal,
                 initialCameraPosition: mapController.kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
-                  mapController.controller.complete(controller);
+                  if (!(mapController.controller.isCompleted)) {
+                    mapController.controller.complete(controller);
+                    // mapController.controller =
+                    //     controller as Completer<GoogleMapController>;
+                  } else {
+                    //other calling, later is true,
+                    //don't call again completer()
+                  }
                 },
                 onLongPress: mapController.selectLocation,
                 markers: {

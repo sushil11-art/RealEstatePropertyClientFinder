@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:get/get.dart';
-import 'package:blurry/blurry.dart';
+// import 'package:blurry/blurry.dart';
 // import 'package:blurry/resources/arrays.dart';
 // import 'package:property_client_finder_app/routes.dart';
 
@@ -20,6 +21,7 @@ class PropertyItem extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     final PropertyListController propertyListController =
         Get.put(PropertyListController());
+    final ClientController clientController = Get.put(ClientController());
     var price;
     var title;
     var address = property.location.district +
@@ -135,6 +137,8 @@ class PropertyItem extends StatelessWidget {
                     ),
                     onPressed: () {
                       // Get.toNamed(Routes.addLand);
+                      propertyListController
+                          .matchingClientsForProperty(property.id);
                     },
                     style: TextButton.styleFrom(
                       // primary: Colors.pink[600],
@@ -152,6 +156,7 @@ class PropertyItem extends StatelessWidget {
                       color: Colors.blue,
                     ),
                     onPressed: () {
+                      propertyListController.getProperty(property.id);
                       // Get.toNamed(Routes.addLand);
                     },
                     style: TextButton.styleFrom(
@@ -170,18 +175,36 @@ class PropertyItem extends StatelessWidget {
                       color: Colors.redAccent,
                     ),
                     onPressed: () {
-                      Blurry(
-                          icon: Icons.delete,
-                          themeColor: Colors.pink,
-                          title: 'Delete Property',
-                          description: 'Remove your property?',
-                          confirmButtonText: 'Confirm',
-                          onConfirmButtonPressed: () {
-                            propertyListController.deleteProperty(
-                                property.id, property.landId, property.homeId);
-                          }).show(context);
-
-                      // Get.toNamed(Routes.addLand);s
+                      showModalBottomSheet(
+                          context: context,
+                          backgroundColor:
+                              const Color.fromRGBO(255, 253, 208, 1),
+                          builder: (BuildContext context) {
+                            return Wrap(children: [
+                              ListTile(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                leading: const Icon(
+                                  Icons.cancel,
+                                  color: Colors.green,
+                                ),
+                                title: const Text('Cancel'),
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  propertyListController.deleteProperty(
+                                      property.id,
+                                      property.landId,
+                                      property.homeId);
+                                  Navigator.pop(context);
+                                },
+                                leading: const Icon(Icons.confirmation_num,
+                                    color: Colors.red),
+                                title: const Text('Confirm'),
+                              ),
+                            ]);
+                          });
                     },
                     style: TextButton.styleFrom(
                       // primary: Colors.pink[600],

@@ -61,13 +61,13 @@ class PropertyDetails extends StatelessWidget {
         .generateImageUrl(propertyController.propertyDescription["images"]);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Get.offAndToNamed(Routes.tabScreen);
-          },
-        ),
+        backgroundColor: Colors.green,
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+        //   onPressed: () {
+        //     Get.offAndToNamed(Routes.tabScreen);
+        //   },
+        // ),
         title: const Text(
           'Property Details',
           style: TextStyle(

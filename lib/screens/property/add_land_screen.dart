@@ -16,13 +16,21 @@ class AddLand extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
               elevation: 10,
-              title: const Text(
-                "Add Land",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: 20),
-              ),
+              title: landController.editMode.value
+                  ? const Text(
+                      "Edit Land Details",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20),
+                    )
+                  : const Text(
+                      "Add Land Details",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontSize: 20),
+                    ),
               backgroundColor: Colors.redAccent),
           body: SingleChildScrollView(
             child: Container(

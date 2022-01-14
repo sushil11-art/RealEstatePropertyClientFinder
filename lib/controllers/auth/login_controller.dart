@@ -17,9 +17,11 @@ class LoginController extends GetxController {
   var isLoading = false.obs;
   final box = GetStorage();
 
+  var isPasswordInvisible = true.obs;
+
   var email = "";
   var password = "";
-  final isAuthenticated = false.obs;
+  var isAuthenticated = false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -30,6 +32,10 @@ class LoginController extends GetxController {
     emailController.dispose();
     passwordController.dispose();
     super.onClose();
+  }
+
+  void togglePassword() {
+    isPasswordInvisible.value = !isPasswordInvisible.value;
   }
 
   String? validateEmail(String? value) {
@@ -53,42 +59,7 @@ class LoginController extends GetxController {
       return;
     }
     loginFormKey.currentState!.save();
-    // final progress = ProgressHUD.of(context);
-    // progress?.show();
 
-    //   AlertDialog alert = AlertDialog(
-    //         content: Row(
-    //           children: [
-    //             CircularProgressIndicator();
-    //           ],
-    //         ),
-    //       );
-    // showDialog(
-    //   barrierDismissible: false,
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return alert;
-    //   },
-    // );
-
-    // await pr.show();
-    // EasyLoading.show(status: 'Loading');
-    // Get.dialog(AlertDialog(
-    //   // title: const Text('Registration failed'),
-    //   content: Row(
-    //     children: const [
-    //       Center(
-    //         child: CircularProgressIndicator(),
-    //       )
-    //     ],
-    //   ),
-
-    //   // actions: [
-    //   //   TextButton(
-    //   //       onPressed: () => Get.back(), // Close the dialog
-    //   //       child: const Text('Close'))
-    //   // ],
-    // ));
     isLoading.value = true;
 
     var response = await LoginServices.loginBroker(email, password);

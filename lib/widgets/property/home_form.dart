@@ -299,12 +299,18 @@ class HomeForm extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     height: 60,
-                    child: const Center(
-                      child: Text('Add Land',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                    child: Center(
+                      child: homeController.editMode.value
+                          ? const Text('Update Home',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ))
+                          : const Text('Add Home',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              )),
                     ),
                     decoration: BoxDecoration(
                       color: Colors.red[700],

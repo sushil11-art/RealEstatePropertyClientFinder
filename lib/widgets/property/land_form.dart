@@ -219,12 +219,18 @@ class LandForm extends StatelessWidget {
                   child: Container(
                     width: double.infinity,
                     height: 60,
-                    child: const Center(
-                      child: Text('Add Land',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
+                    child: Center(
+                      child: landController.editMode.value
+                          ? const Text('Update Land',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ))
+                          : const Text('Add Land',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              )),
                     ),
                     decoration: BoxDecoration(
                       color: Colors.red[700],

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:blurry/blurry.dart';
+// import 'package:blurry/blurry.dart';
 import 'package:get/state_manager.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:get/get.dart';
-import 'package:property_client_finder_app/routes.dart';
+// import 'package:property_client_finder_app/routes.dart';
 
 class ClientList extends StatelessWidget {
-  // const ClientList({Key? key}) : super(key: key);
-  // ClientList({required this.clientController});
-  // ClientController clientController;
   final ClientController clientController = Get.put(ClientController());
   @override
   Widget build(BuildContext context) {
@@ -20,8 +17,9 @@ class ClientList extends StatelessWidget {
             elevation: 6,
             child: ListTile(
                 onTap: () {
-                  clientController
-                      .clientDetails(clientController.clientList[index]["id"]);
+                  clientController.matchingPropertiesForClient(
+                      clientController.clientList[index]["id"]);
+
                   // Get.offAndToNamed(Routes.clientDetails);
                 },
                 leading: const CircleAvatar(
@@ -40,25 +38,51 @@ class ClientList extends StatelessWidget {
                 trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                   // Text('Land'),
                   IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.redAccent),
-                    onPressed: () {},
+                    icon:
+                        const Icon(Icons.details_outlined, color: Colors.blue),
+                    onPressed: () {
+                      clientController.clientDetails(
+                          clientController.clientList[index]["id"]);
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.green),
+                    onPressed: () {
+                      clientController
+                          .getDetails(clientController.clientList[index]["id"]);
+                    },
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete, color: Colors.redAccent),
                     onPressed: () {
-                      clientController.deleteClient(
-                          clientController.clientList[index]["id"]);
-                      // Blurry(
-                      //     icon: Icons.delete,
-                      //     themeColor: Colors.pink,
-                      //     title: 'Delete Client',
-                      //     description: 'Remove your client?',
-                      //     confirmButtonText: 'Confirm',
-                      //     onConfirmButtonPressed: () {
-                      //       clientController.deleteClient(
-                      //           clientController.clientList[index]["id"]);
-                      //     }).show(context);
-                      // Navigator.pop(context);
+                      showModalBottomSheet(
+                          context: context,
+                          backgroundColor:
+                              const Color.fromRGBO(255, 253, 208, 1),
+                          builder: (BuildContext context) {
+                            return Wrap(children: [
+                              ListTile(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                leading: const Icon(
+                                  Icons.cancel,
+                                  color: Colors.green,
+                                ),
+                                title: const Text('Cancel'),
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  clientController.deleteClient(
+                                      clientController.clientList[index]["id"]);
+                                  Navigator.pop(context);
+                                },
+                                leading: const Icon(Icons.confirmation_num,
+                                    color: Colors.red),
+                                title: const Text('Confirm'),
+                              ),
+                            ]);
+                          });
                     },
                   ),
                 ])),

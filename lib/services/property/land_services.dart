@@ -27,4 +27,24 @@ class LandServices {
       // return e;
     }
   }
+
+  static Future editLand(data, propertyId) async {
+    try {
+      var body = json.encode(data);
+      var url = API.localApiUrl + 'editLand/$propertyId';
+      final response = await http.put(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'Application/json; charset=UTF-8',
+          'authorization': token
+        },
+        body: body,
+      );
+      // print(response);
+      return response;
+    } catch (e) {
+      print(e);
+      // return e;
+    }
+  }
 }
