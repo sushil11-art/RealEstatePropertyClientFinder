@@ -17,8 +17,8 @@ class MapController extends GetxController {
   var longitude;
 
   void selectLocation(LatLng pos) async {
-    print(latitude);
-    print(longitude);
+    // print(latitude);
+    // print(longitude);
 
     // print(pos.latitude);
 
@@ -35,9 +35,9 @@ class MapController extends GetxController {
 
     latitude = pos.latitude;
     longitude = pos.longitude;
-    print(latitude);
+    // print(latitude);
 
-    print(longitude);
+    // print(longitude);
     update();
     // Reset destination
     // _destination = null;

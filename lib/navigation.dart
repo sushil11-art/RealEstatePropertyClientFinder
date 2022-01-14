@@ -4,7 +4,6 @@ import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/screens/client/client_details_screen.dart';
 import 'package:property_client_finder_app/screens/client/clients_screen.dart';
 import 'package:property_client_finder_app/screens/client/add_client_screen.dart';
-import 'package:property_client_finder_app/screens/client/edit_client_screen.dart';
 import 'package:property_client_finder_app/screens/client/matching_clients_screen.dart';
 
 import 'package:property_client_finder_app/screens/home/home_screen.dart';
@@ -34,7 +33,6 @@ final appPages = [
     page: () => AddHome(),
   ),
   GetPage(name: Routes.addClient, page: () => AddClient()),
-  GetPage(name: Routes.editClient, page: () => EditClientScreen()),
   GetPage(
     name: Routes.propertyDetails,
     page: () => PropertyDetails(),

@@ -4,10 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'dart:convert';
-// import 'package:http/http.dart' as http;
-// import 'package:property_client_finder_app/routes.dart';
+
 import 'package:property_client_finder_app/services/client/client_services.dart';
-// import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -142,7 +140,7 @@ class AddClientController extends GetxController {
   }
 
   String? validatePropertyType(var value) {
-    print(value);
+    // print(value);
     if (value == null) {
       return "Please choose type of your property";
     }

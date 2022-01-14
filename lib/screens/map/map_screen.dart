@@ -7,23 +7,41 @@ import 'package:get/get.dart';
 
 class MapScreen extends StatelessWidget {
   // const MapScreen({Key? key}) : super(key: key);
+  late GoogleMapController animateController;
+
+  void dispose() {
+    mapController.dispose();
+  }
+
   final MapController mapController = Get.put(MapController());
   Future<void> _goToCurrentLocation() async {
     final GoogleMapController controller =
         await mapController.controller.future;
-    controller.animateCamera(
+    await controller.animateCamera(
         CameraUpdate.newCameraPosition(mapController.kGooglePlex));
   }
 
   Future<void> _goToPropertyLocation() async {
-    final GoogleMapController controller =
-        await mapController.controller.future;
-    final CameraPosition propertyLocation = CameraPosition(
-      target: LatLng(mapController.latitude, mapController.longitude),
-      zoom: 14.4746,
-    );
+    // final GoogleMapController controller =
+    //     await mapController.controller.future;
 
-    controller.animateCamera(CameraUpdate.newCameraPosition(propertyLocation));
+    // print("mapcontroller");
+    // print(mapController);
+    // print("latitude");
+    // print(mapController.latitude);
+    // print("longitude");
+    // print(mapController.longitude);
+    // print("controller haii");
+    // print(controller);
+    LatLng latLng = LatLng(mapController.latitude, mapController.longitude);
+    CameraUpdate cameraUpdate = CameraUpdate.newLatLngZoom(latLng, 17.4);
+    // final CameraPosition propertyLocation = CameraPosition(
+    //   target: LatLng(mapController.latitude, mapController.longitude),
+    //   zoom: 14.4746,
+    // );
+    await animateController.animateCamera(cameraUpdate);
+    // await controller
+    //     .animateCamera(CameraUpdate.newCameraPosition(propertyLocation));
   }
 
   @override
@@ -71,6 +89,7 @@ class MapScreen extends StatelessWidget {
                 mapType: MapType.normal,
                 initialCameraPosition: mapController.kGooglePlex,
                 onMapCreated: (GoogleMapController controller) {
+                  animateController = controller;
                   if (!(mapController.controller.isCompleted)) {
                     mapController.controller.complete(controller);
                     // mapController.controller =

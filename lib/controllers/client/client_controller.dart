@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/controllers/client/add_client_controller.dart';
-import 'package:property_client_finder_app/controllers/client/edit_client_controller.dart';
 // import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/routes.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -20,7 +19,6 @@ class ClientController extends GetxController {
   var isLoading = false.obs;
 
   AddClientController addClientController = Get.put(AddClientController());
-  EditClientController editClientController = Get.put(EditClientController());
 
   // var clientDescription;
   @override
@@ -32,7 +30,7 @@ class ClientController extends GetxController {
 
   void fetchClients() async {
     // EasyLoading.show(status: 'Loading');
-    print("thiss block is fired");
+    // print("thiss block is fired");
     isLoading.value = true;
     var clientsList = await ClientServices.getClients();
     clientList.value = clientsList;

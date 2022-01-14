@@ -308,8 +308,9 @@ class HomeController extends GetxController {
   }
 
   void clearController() {
-    // final ClientController clientController = Get.put(ClientController());
-    // clientController.fetchClients();
+    final PropertyListController propertyListController =
+        Get.put(PropertyListController());
+    propertyListController.fetchProperties();
     clearText();
     // propertyCurrentItem.value = "Land";
     editMode.value = false;
