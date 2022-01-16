@@ -27,7 +27,7 @@ class LandForm extends StatelessWidget {
                   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                   controller: landController.priceController,
                   onSaved: (value) {
-                    landController.price = value!;
+                    landController.price = value!.trim();
                   },
                   validator: (value) {
                     return landController.validatePriceOrLand(value);
@@ -48,7 +48,7 @@ class LandForm extends StatelessWidget {
 
                   controller: landController.landAreaController,
                   onSaved: (value) {
-                    landController.landArea = value!;
+                    landController.landArea = value!.trim();
                   },
                   validator: (value) {
                     return landController.validatePriceOrLand(value);
@@ -69,7 +69,7 @@ class LandForm extends StatelessWidget {
                   // keyboardType: TextInputType.number,
                   controller: landController.roadAccessConttroller,
                   onSaved: (value) {
-                    landController.roadAccess = value!;
+                    landController.roadAccess = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -87,7 +87,7 @@ class LandForm extends StatelessWidget {
                 child: TextFormField(
                   controller: landController.waterSupplyController,
                   onSaved: (value) {
-                    landController.waterSupply = value!;
+                    landController.waterSupply = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -107,7 +107,7 @@ class LandForm extends StatelessWidget {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: landController.provinceController,
                   onSaved: (value) {
-                    landController.province = value!;
+                    landController.province = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -125,7 +125,7 @@ class LandForm extends StatelessWidget {
                 child: TextFormField(
                   controller: landController.districtController,
                   onSaved: (value) {
-                    landController.district = value!;
+                    landController.district = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -143,7 +143,7 @@ class LandForm extends StatelessWidget {
                 child: TextFormField(
                   controller: landController.municipalityController,
                   onSaved: (value) {
-                    landController.municipality = value!;
+                    landController.municipality = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -163,7 +163,7 @@ class LandForm extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
-                    landController.ward = value!;
+                    landController.ward = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);
@@ -181,7 +181,7 @@ class LandForm extends StatelessWidget {
                 child: TextFormField(
                   controller: landController.streetController,
                   onSaved: (value) {
-                    landController.street = value!;
+                    landController.street = value!.trim();
                   },
                   validator: (value) {
                     return landController.validateData(value);

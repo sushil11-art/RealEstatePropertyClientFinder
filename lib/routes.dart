@@ -1,5 +1,7 @@
 abstract class Routes {
   static const tabScreen = "/tabScreen";
+  static const login = "/login";
+  static const register = "/register";
   static const home = '/home';
   static const addLand = '/add-land';
   static const addHome = "/add-home";

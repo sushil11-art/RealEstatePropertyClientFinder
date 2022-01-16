@@ -3,17 +3,22 @@ import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/property/home_controller.dart';
 import 'package:property_client_finder_app/controllers/property/land_controller.dart';
+import 'package:property_client_finder_app/models/property_list.dart';
 // import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/routes.dart';
+// import 'package:property_client_finder_app/screens/property/property_list_screen.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 // import 'package:property_client_finder_app/services/client/client_services.dart';
 
 // import 'package:http/http.dart' as http;
 // import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/services/property/property_list_services.dart';
+import 'package:property_client_finder_app/models/property_list.dart';
 
 class PropertyListController extends GetxController {
   // List propertyList = [].obs;
@@ -44,15 +49,25 @@ class PropertyListController extends GetxController {
     // EasyLoading.show(status: 'Loading');
     isLoading.value = true;
     try {
-      var propertiesList = await PropertyListServices.getProperties();
-      propertyList.value = propertiesList.properties;
-      // print(propertiesList.properties[0].id);
-      // update();
+      var response = await PropertyListServices.getProperties();
+      // print(response.statusCode);
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        LogoutController().logout();
+      }
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        List decoded = json.decode(response.body);
+
+        PropertyList propertiesList = PropertyList.fromJson(decoded);
+
+        propertyList.value = propertiesList.properties;
+      }
     } catch (e) {
       print(e);
     }
     // EasyLoading.dismiss();
-    isLoading.value = false;
   }
 
   void matchingClientsForProperty(propertyId) async {
@@ -60,6 +75,11 @@ class PropertyListController extends GetxController {
 
     var response =
         await PropertyListServices.getMatchingClientsForProperty(propertyId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       List decoded = json.decode(response.body);
       matchingClientList.value = decoded;
@@ -83,6 +103,11 @@ class PropertyListController extends GetxController {
     isLoading.value = true;
     var response =
         await PropertyListServices.deleteProperty(propertyId, landId, homeId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
 
     if (response.statusCode == 200) {
       // var data = json.decode(response.body);
@@ -114,28 +139,24 @@ class PropertyListController extends GetxController {
   void propertyDetails(propertyId) async {
     // EasyLoading.show(status: 'Loading');
     isLoading.value = true;
-    try {
-      var response = await PropertyListServices.propertyDetails(propertyId);
-      if (response.statusCode == 200) {
-        var decodedResponse = json.decode(response.body);
-        propertyDescription.value = decodedResponse;
-        Get.toNamed(Routes.propertyDetails);
-        isLoading.value = false;
-        // EasyLoading.dismiss();
-      }
-      // print(propertyDescription);
-      if ((response.statusCode == 400) || (response.statusCode == 500)) {
-        isLoading.value = false;
-        Get.snackbar('Error occured', "Failed to fetch property details",
-            duration: const Duration(seconds: 5),
-            backgroundColor: Colors.red,
-            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-            snackPosition: SnackPosition.TOP,
-            snackStyle: SnackStyle.FLOATING);
-      }
-    } catch (e) {
+
+    var response = await PropertyListServices.propertyDetails(propertyId);
+    if (response.statusCode == 401) {
       isLoading.value = false;
-      Get.snackbar('Error occured', "Something went wrong",
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
+    if (response.statusCode == 200) {
+      var decodedResponse = json.decode(response.body);
+      propertyDescription.value = decodedResponse;
+      Get.toNamed(Routes.propertyDetails);
+      isLoading.value = false;
+      // EasyLoading.dismiss();
+    }
+    // print(propertyDescription);
+    if ((response.statusCode == 400) || (response.statusCode == 500)) {
+      isLoading.value = false;
+      Get.snackbar('Error occured', "Failed to fetch property details",
           duration: const Duration(seconds: 5),
           backgroundColor: Colors.red,
           margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
@@ -147,6 +168,11 @@ class PropertyListController extends GetxController {
   void getProperty(propertyId) async {
     isLoading.value = true;
     var response = await PropertyListServices.propertyDetails(propertyId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       var propertyDescription = json.decode(response.body);
       var province = propertyDescription["location"]["province"];

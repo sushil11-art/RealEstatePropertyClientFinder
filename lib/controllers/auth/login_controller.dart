@@ -3,14 +3,16 @@ import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
+// import 'package:property_client_finder_app/config/shared_preferences.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'package:property_client_finder_app/services/auth/auth_services.dart';
 // import 'package:property_client_finder_app/screens/home/home_screen.dart';
 import 'package:property_client_finder_app/services/auth/login_services.dart';
 // import 'package:progress_dialog/progress_dialog.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginController extends GetxController {
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final loginFormKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -29,8 +31,8 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
-    emailController.dispose();
-    passwordController.dispose();
+    // emailController.dispose();
+    // passwordController.dispose();
     super.onClose();
   }
 
@@ -71,12 +73,28 @@ class LoginController extends GetxController {
 
       var results = json.decode(response.body);
       // print(results["token"]);
-      await box.write('token', results["token"]);
 
-      if (!(box.read('token').isEmpty)) {
-        isAuthenticated.value = true;
+      // await StorageManager().setUserToken(results["token"]);
+      await box.write('token', results["token"]);
+      final authService = Get.put(AuthService());
+      // final authService = Get.find<AuthService>();
+      authService.setIsAuthenticated(box.read('token'));
+      if (authService.isAuthenticated.value) {
         Get.offAndToNamed(Routes.tabScreen);
+      } else {
+        clearController();
+        Get.snackbar('Something went wrong', "Please try again",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            margin: const EdgeInsets.only(bottom: 40),
+            snackPosition: SnackPosition.BOTTOM,
+            snackStyle: SnackStyle.FLOATING);
       }
+      // if (!(box.read('token').isEmpty)) {
+
+      //   isAuthenticated.value = true;
+      //   Get.offAndToNamed(Routes.tabScreen);
+      // }
     }
     if ((response.statusCode == 400) ||
         (response.statusCode == 500) ||
@@ -97,5 +115,10 @@ class LoginController extends GetxController {
     // await pr.hide();
     // EasyLoading.dismiss();
     // Get.back();
+  }
+
+  void clearController() {
+    emailController.clear();
+    passwordController.clear();
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/controllers/auth/register_controller.dart';
+import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/screens/auth/login_screen.dart';
 import 'package:property_client_finder_app/widgets/auth/auth_image.dart';
 import 'package:property_client_finder_app/widgets/auth/auth_title.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_client_finder_app/controllers/auth/login_controller.dart';
+import 'package:property_client_finder_app/routes.dart';
 // import 'package:property_client_finder_app/controllers/auth/login_controller.dart';
 
 import 'package:property_client_finder_app/screens/auth/register_screen.dart';
@@ -49,6 +50,7 @@ class LoginScreen extends StatelessWidget {
                                   ),
                                   TextButton(
                                       onPressed: () {
+                                        // Navigator.of(context).
                                         Get.off(RegisterScreen());
                                       },
                                       child: const Text('Register',

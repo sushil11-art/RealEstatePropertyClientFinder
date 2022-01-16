@@ -28,7 +28,7 @@ class HomeForm extends StatelessWidget {
                   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                   controller: homeController.priceController,
                   onSaved: (value) {
-                    homeController.price = value!;
+                    homeController.price = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validatePriceOrLandOrFloor(value);
@@ -49,7 +49,7 @@ class HomeForm extends StatelessWidget {
 
                   controller: homeController.landAreaController,
                   onSaved: (value) {
-                    homeController.landArea = value!;
+                    homeController.landArea = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validatePriceOrLandOrFloor(value);
@@ -70,7 +70,7 @@ class HomeForm extends StatelessWidget {
                   // keyboardType: TextInputType.number,
                   controller: homeController.roadAccessConttroller,
                   onSaved: (value) {
-                    homeController.roadAccess = value!;
+                    homeController.roadAccess = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -88,7 +88,7 @@ class HomeForm extends StatelessWidget {
                 child: TextFormField(
                   controller: homeController.waterSupplyController,
                   onSaved: (value) {
-                    homeController.waterSupply = value!;
+                    homeController.waterSupply = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -108,7 +108,7 @@ class HomeForm extends StatelessWidget {
                   controller: homeController.kitchenController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
-                    homeController.kitchens = value!;
+                    homeController.kitchens = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -128,7 +128,7 @@ class HomeForm extends StatelessWidget {
                   controller: homeController.bathroomController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
-                    homeController.bathrooms = value!;
+                    homeController.bathrooms = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -148,7 +148,7 @@ class HomeForm extends StatelessWidget {
                   controller: homeController.bedroomController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
-                    homeController.bedrooms = value!;
+                    homeController.bedrooms = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -167,7 +167,7 @@ class HomeForm extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   controller: homeController.floorController,
                   onSaved: (value) {
-                    homeController.floors = value!;
+                    homeController.floors = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validatePriceOrLandOrFloor(value);
@@ -187,7 +187,7 @@ class HomeForm extends StatelessWidget {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   controller: homeController.provinceController,
                   onSaved: (value) {
-                    homeController.province = value!;
+                    homeController.province = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -205,7 +205,7 @@ class HomeForm extends StatelessWidget {
                 child: TextFormField(
                   controller: homeController.districtController,
                   onSaved: (value) {
-                    homeController.district = value!;
+                    homeController.district = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -223,7 +223,7 @@ class HomeForm extends StatelessWidget {
                 child: TextFormField(
                   controller: homeController.municipalityController,
                   onSaved: (value) {
-                    homeController.municipality = value!;
+                    homeController.municipality = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -243,7 +243,7 @@ class HomeForm extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
-                    homeController.ward = value!;
+                    homeController.ward = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);
@@ -261,7 +261,7 @@ class HomeForm extends StatelessWidget {
                 child: TextFormField(
                   controller: homeController.streetController,
                   onSaved: (value) {
-                    homeController.street = value!;
+                    homeController.street = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validateData(value);

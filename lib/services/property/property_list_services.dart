@@ -21,11 +21,12 @@ class PropertyListServices {
           'authorization': token
         },
       );
-      List decoded = json.decode(response.body);
+      // List decoded = json.decode(response.body);
       // print(decojded);
-      PropertyList propertyList = PropertyList.fromJson(decoded);
+      // PropertyList propertyList = PropertyList.fromJson(decoded);
       // print(propertyList.properties);
-      return propertyList;
+      // return propertyList;
+      return response;
     } catch (e) {
       print(e);
       // rethrow;

@@ -22,7 +22,7 @@ class LoginForm extends StatelessWidget {
                     child: TextFormField(
                       controller: loginController.emailController,
                       onSaved: (value) {
-                        loginController.email = value!;
+                        loginController.email = value!.trim();
                       },
                       validator: (value) {
                         return loginController.validateEmail(value);
@@ -40,7 +40,7 @@ class LoginForm extends StatelessWidget {
                     child: TextFormField(
                       controller: loginController.passwordController,
                       onSaved: (value) {
-                        loginController.password = value!;
+                        loginController.password = value!.trim();
                       },
                       validator: (value) {
                         return loginController.validatePassword(value);

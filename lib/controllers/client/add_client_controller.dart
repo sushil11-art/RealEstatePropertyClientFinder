@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'dart:convert';
@@ -10,7 +12,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class AddClientController extends GetxController {
-  GlobalKey<FormState> clientFormKey = GlobalKey<FormState>();
+  final clientFormKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
@@ -233,6 +235,12 @@ class AddClientController extends GetxController {
       response = await ClientServices.editClient(data, clientId);
     } else {
       response = await ClientServices.addClient(data);
+    }
+
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
     }
     if (response.statusCode == 200) {
       var data = json.decode(response.body);

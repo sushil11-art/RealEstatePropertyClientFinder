@@ -44,7 +44,7 @@ class Settings extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: TextFormField(
-                                keyboardType: TextInputType.number,
+                                // keyboardType: TextInputType.number,
                                 obscureText:
                                     changePassword.isOldInvisible.value,
                                 controller:
@@ -75,7 +75,7 @@ class Settings extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: TextFormField(
-                                keyboardType: TextInputType.number,
+                                // keyboardType: TextInputType.number,
                                 obscureText:
                                     changePassword.isNewInvisible.value,
 

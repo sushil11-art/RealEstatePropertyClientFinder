@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'dart:convert';
 
 import 'package:property_client_finder_app/services/auth/chane_password_service.dart';
 
 class ChangePassword extends GetxController {
-  GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
+  final passwordFormKey = GlobalKey<FormState>();
   final oldPasswordController = TextEditingController();
   final newPasswordController = TextEditingController();
 
@@ -64,6 +66,11 @@ class ChangePassword extends GetxController {
     isLoading.value = true;
     var response =
         await PasswordServices.changePassword(oldPassword, newPassword);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       isLoading.value = false;
 

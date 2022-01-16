@@ -3,6 +3,9 @@ import 'package:get/state_manager.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
+// import 'package:property_client_finder_app/controllers/auth/login_controller.dart';
 import 'package:property_client_finder_app/controllers/client/add_client_controller.dart';
 // import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/routes.dart';
@@ -32,10 +35,20 @@ class ClientController extends GetxController {
     // EasyLoading.show(status: 'Loading');
     // print("thiss block is fired");
     isLoading.value = true;
-    var clientsList = await ClientServices.getClients();
-    clientList.value = clientsList;
+    var response = await ClientServices.getClients();
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
+    if (response.statusCode == 200) {
+      isLoading.value = false;
+
+      List decoded = json.decode(response.body);
+      clientList.value = decoded;
+    }
+
     // Get.offAndToNamed(Routes.clients);
-    isLoading.value = false;
 
     // EasyLoading.dismiss();
   }
@@ -44,6 +57,11 @@ class ClientController extends GetxController {
     // EasyLoading.show(status: 'Loading');
     isLoading.value = true;
     var response = await ClientServices.deleteClient(clientId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       // var data = json.decode(response.body);
       // EasyLoading.dismiss();
@@ -77,6 +95,11 @@ class ClientController extends GetxController {
 
     var response =
         await ClientServices.getMatchingPropertiesForClient(clientId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       List decoded = json.decode(response.body);
       matchingPropertyList.value = decoded;
@@ -101,6 +124,12 @@ class ClientController extends GetxController {
     isLoading.value = true;
     try {
       var response = await ClientServices.clientDetails(clientId);
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+
+        LogoutController().logout();
+      }
       if (response.statusCode == 200) {
         var decodedResponse = json.decode(response.body);
         clientDescription.value = decodedResponse;
@@ -140,6 +169,12 @@ class ClientController extends GetxController {
     isLoading.value = true;
 
     var response = await ClientServices.clientDetails(clientId);
+    if (response.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+
+      LogoutController().logout();
+    }
     if (response.statusCode == 200) {
       var clientDescription = json.decode(response.body);
       var clientId = clientDescription["id"];

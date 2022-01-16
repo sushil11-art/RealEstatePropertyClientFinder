@@ -69,7 +69,7 @@ class _AddClientState extends State<AddClient> {
                           child: TextFormField(
                             controller: addClientController.nameController,
                             onSaved: (value) {
-                              addClientController.name = value!;
+                              addClientController.name = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -87,7 +87,7 @@ class _AddClientState extends State<AddClient> {
                           child: TextFormField(
                             controller: addClientController.emailController,
                             onSaved: (value) {
-                              addClientController.email = value!;
+                              addClientController.email = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateEmail(value);
@@ -144,7 +144,7 @@ class _AddClientState extends State<AddClient> {
                             //   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                             //   // controller: homeController.priceController,
                             //   // onSaved: (value) {
-                            //   //   homeController.price = value!;
+                            //   //   homeController.price = value!.trim();
                             //   // },
                             //   // validator: (value) {
                             //   //   return homeController.validatePriceOrLandOrFloor(value);
@@ -179,7 +179,7 @@ class _AddClientState extends State<AddClient> {
                             onSaved: (value) {
                               // print(value);
 
-                              // addClientController.type = value!.trim();
+                              // addClientController.type = value!.trim().trim();
                             },
                             items: dropdownItems,
                             decoration: InputDecoration(
@@ -197,7 +197,7 @@ class _AddClientState extends State<AddClient> {
                             // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                             controller: addClientController.priceController,
                             onSaved: (value) {
-                              addClientController.price = value!;
+                              addClientController.price = value!.trim();
                             },
                             validator: (value) {
                               return addClientController
@@ -219,7 +219,7 @@ class _AddClientState extends State<AddClient> {
 
                             controller: addClientController.landAreaController,
                             onSaved: (value) {
-                              addClientController.landArea = value!;
+                              addClientController.landArea = value!.trim();
                             },
                             validator: (value) {
                               return addClientController
@@ -242,7 +242,7 @@ class _AddClientState extends State<AddClient> {
                             controller:
                                 addClientController.roadAccessConttroller,
                             onSaved: (value) {
-                              addClientController.roadAccess = value!;
+                              addClientController.roadAccess = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -262,7 +262,7 @@ class _AddClientState extends State<AddClient> {
                             controller:
                                 addClientController.waterSupplyController,
                             onSaved: (value) {
-                              addClientController.waterSupply = value!;
+                              addClientController.waterSupply = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -285,7 +285,7 @@ class _AddClientState extends State<AddClient> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onSaved: (value) {
-                                addClientController.kitchens = value!;
+                                addClientController.kitchens = value!.trim();
                               },
                               validator: (value) {
                                 return addClientController.validateData(value);
@@ -309,7 +309,7 @@ class _AddClientState extends State<AddClient> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onSaved: (value) {
-                                addClientController.bathrooms = value!;
+                                addClientController.bathrooms = value!.trim();
                               },
                               validator: (value) {
                                 return addClientController.validateData(value);
@@ -332,7 +332,7 @@ class _AddClientState extends State<AddClient> {
                                 FilteringTextInputFormatter.digitsOnly
                               ],
                               onSaved: (value) {
-                                addClientController.bedrooms = value!;
+                                addClientController.bedrooms = value!.trim();
                               },
                               validator: (value) {
                                 return addClientController.validateData(value);
@@ -352,7 +352,7 @@ class _AddClientState extends State<AddClient> {
                               keyboardType: TextInputType.number,
                               controller: addClientController.floorController,
                               onSaved: (value) {
-                                addClientController.floors = value!;
+                                addClientController.floors = value!.trim();
                               },
                               validator: (value) {
                                 return addClientController
@@ -376,7 +376,7 @@ class _AddClientState extends State<AddClient> {
                             ],
                             controller: addClientController.provinceController,
                             onSaved: (value) {
-                              addClientController.province = value!;
+                              addClientController.province = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -394,7 +394,7 @@ class _AddClientState extends State<AddClient> {
                           child: TextFormField(
                             controller: addClientController.districtController,
                             onSaved: (value) {
-                              addClientController.district = value!;
+                              addClientController.district = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -414,7 +414,7 @@ class _AddClientState extends State<AddClient> {
                             controller:
                                 addClientController.municipalityController,
                             onSaved: (value) {
-                              addClientController.municipality = value!;
+                              addClientController.municipality = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -437,7 +437,7 @@ class _AddClientState extends State<AddClient> {
                               FilteringTextInputFormatter.digitsOnly
                             ],
                             onSaved: (value) {
-                              addClientController.ward = value!;
+                              addClientController.ward = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);
@@ -455,7 +455,7 @@ class _AddClientState extends State<AddClient> {
                           child: TextFormField(
                             controller: addClientController.streetController,
                             onSaved: (value) {
-                              addClientController.street = value!;
+                              addClientController.street = value!.trim();
                             },
                             validator: (value) {
                               return addClientController.validateData(value);

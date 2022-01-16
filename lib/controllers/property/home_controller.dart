@@ -2,6 +2,7 @@ import 'package:get/state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 // import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
@@ -22,7 +23,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'dart:async';
 
 class HomeController extends GetxController {
-  GlobalKey<FormState> homeFormKey = GlobalKey<FormState>();
+  final homeFormKey = GlobalKey<FormState>();
   final priceController = TextEditingController();
   final landAreaController = TextEditingController();
   final roadAccessConttroller = TextEditingController();
@@ -183,12 +184,7 @@ class HomeController extends GetxController {
     if ((responseData.statusCode == 400) || (responseData.statusCode == 500)) {
       // EasyLoading.dismiss();
       isLoading.value = false;
-      Get.snackbar('Error occured', "Uploading images failed",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.red,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
+      InvalidToken().showSnackBar();
       return;
     }
     var latitude = mapController.latitude;

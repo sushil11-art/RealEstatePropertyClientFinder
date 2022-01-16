@@ -21,7 +21,7 @@ class RegisterForm extends StatelessWidget {
                     child: TextFormField(
                       controller: registerController.emailController,
                       onSaved: (value) {
-                        registerController.email = value!;
+                        registerController.email = value!.trim();
                       },
                       validator: (value) {
                         return registerController.validateEmail(value);
@@ -39,7 +39,7 @@ class RegisterForm extends StatelessWidget {
                     child: TextFormField(
                       controller: registerController.usernameController,
                       onSaved: (value) {
-                        registerController.username = value!;
+                        registerController.username = value!.trim();
                       },
                       validator: (value) {
                         return registerController.validateUsername(value);
@@ -57,7 +57,7 @@ class RegisterForm extends StatelessWidget {
                     child: TextFormField(
                       controller: registerController.passwordController,
                       onSaved: (value) {
-                        registerController.password = value!;
+                        registerController.password = value!.trim();
                       },
                       validator: (value) {
                         return registerController.validatePassword(value);

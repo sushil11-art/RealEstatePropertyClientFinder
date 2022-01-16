@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+// import 'package:property_client_finder_app/config/logout_controller.dart';
+// import 'package:property_client_finder_app/routes.dart';
+// import 'package:property_client_finder_app/screens/auth/login_screen.dart';
 // import 'package:property_client_finder_app/controllers/tabs/tab_controller.dart';
 import 'package:property_client_finder_app/screens/client/clients_screen.dart';
 import 'package:property_client_finder_app/screens/home/home_screen.dart';
 import 'package:get/get.dart';
 import 'package:property_client_finder_app/screens/settings/setting_screen.dart';
+import 'package:property_client_finder_app/services/property/property_list_services.dart';
+// import 'package:restart_app/restart_app.dart';
 
 class TabScreen extends StatefulWidget {
   // const TabScreen({Key? key}) : super(key: key);
@@ -12,7 +18,32 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
+  // final LogoutController logoutController = Get.put(LogoutController());
   int _selectedPageIndex = 0;
+
+  // Future checkStatus() async {
+  //   final response = await PropertyListServices.getProperties();
+  //   if (response.statusCode == 401) {
+  //     Get.snackbar('Invalid token', "Login session expired",
+  //         duration: const Duration(seconds: 5),
+  //         backgroundColor: Colors.red,
+  //         margin:
+  //             const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
+  //         snackPosition: SnackPosition.BOTTOM,
+  //         snackStyle: SnackStyle.FLOATING);
+  //     LogoutController().logout();
+  //   }
+  // }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   // if (response.statusCode == 401) {
+  //   //   LogoutController().logout();
+  //   // }
+  //   checkStatus();
+  //   super.initState();
+  // }
 
   void _selectPage(int index) {
     setState(() {
@@ -51,9 +82,16 @@ class _TabScreenState extends State<TabScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                LogoutController().logout();
+                // Restart.restartApp(webOrigin: Routes.login);
+                // Get.offAllNamed(Routes.login);
+                // Get.offNamedUntil(Routes.login, (route) => true);
+                // Get.back();
+                // logoutController.logout();
+              },
               icon: const Icon(
-                Icons.more_vert,
+                Icons.logout,
                 color: Colors.red,
               ))
         ],

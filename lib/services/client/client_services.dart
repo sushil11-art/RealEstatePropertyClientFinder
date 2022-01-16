@@ -21,12 +21,13 @@ class ClientServices {
           'authorization': token
         },
       );
-      List decoded = json.decode(response.body);
+      // List decoded = json.decode(response.body);
       // print(decoded);
       // print(decojded);
       // PropertyList propertyList = PropertyList.fromJson(decoded);
       // print(propertyList.properties);
-      return decoded;
+      return response;
+      // return decoded;
     } catch (e) {
       print(e);
       // rethrow;

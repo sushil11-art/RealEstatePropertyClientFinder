@@ -1,6 +1,9 @@
 // import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_client_finder_app/middleware/auth_middleware.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'package:property_client_finder_app/screens/auth/login_screen.dart';
+import 'package:property_client_finder_app/screens/auth/register_screen.dart';
 import 'package:property_client_finder_app/screens/client/client_details_screen.dart';
 import 'package:property_client_finder_app/screens/client/clients_screen.dart';
 import 'package:property_client_finder_app/screens/client/add_client_screen.dart';
@@ -16,29 +19,51 @@ import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 
 final appPages = [
   GetPage(
-    name: Routes.tabScreen,
-    page: () => TabScreen(),
-  ),
+      name: Routes.tabScreen,
+      page: () => TabScreen(),
+      middlewares: [AuthGuard()]),
   GetPage(
     name: Routes.home,
     page: () => HomeScreen(),
   ),
-  GetPage(name: Routes.clients, page: () => ClientScreen()),
   GetPage(
-    name: Routes.addLand,
-    page: () => AddLand(),
+    name: Routes.login,
+    page: () => LoginScreen(),
   ),
   GetPage(
-    name: Routes.addHome,
-    page: () => AddHome(),
+    name: Routes.register,
+    page: () => RegisterScreen(),
   ),
-  GetPage(name: Routes.addClient, page: () => AddClient()),
   GetPage(
-    name: Routes.propertyDetails,
-    page: () => PropertyDetails(),
-  ),
-  GetPage(name: Routes.clientDetails, page: () => ClientDetails()),
-  GetPage(name: Routes.matchingClients, page: () => MatchingClients()),
-  GetPage(name: Routes.matchingProperties, page: () => MatchingProperty()),
-  GetPage(name: Routes.picklocation, page: () => MapScreen())
+      name: Routes.clients,
+      page: () => ClientScreen(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.addLand, page: () => AddLand(), middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.addHome, page: () => AddHome(), middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.addClient,
+      page: () => AddClient(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.propertyDetails,
+      page: () => PropertyDetails(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.clientDetails,
+      page: () => ClientDetails(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.matchingClients,
+      page: () => MatchingClients(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.matchingProperties,
+      page: () => MatchingProperty(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.picklocation,
+      page: () => MapScreen(),
+      middlewares: [AuthGuard()])
 ];

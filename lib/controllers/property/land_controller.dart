@@ -2,6 +2,8 @@ import 'package:get/state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 import 'package:property_client_finder_app/controllers/upload/upload_file_controller.dart';
@@ -19,7 +21,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'dart:async';
 
 class LandController extends GetxController {
-  GlobalKey<FormState> landFormKey = GlobalKey<FormState>();
+  final landFormKey = GlobalKey<FormState>();
   final priceController = TextEditingController();
   final landAreaController = TextEditingController();
   final roadAccessConttroller = TextEditingController();
@@ -157,6 +159,12 @@ class LandController extends GetxController {
     var responseData = await http.Response.fromStream(res);
     var decodedData = json.decode(responseData.body) as Map<String, dynamic>;
     // print(decodedData["data"]["images"]);
+    if (responseData.statusCode == 401) {
+      isLoading.value = false;
+      InvalidToken().showSnackBar();
+      LogoutController().logout();
+      return;
+    }
     if (responseData.statusCode == 200) {
       for (var image in decodedData["data"]["images"]) {
         images.add(image);
