@@ -65,56 +65,66 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(255, 253, 208, 1),
-        leading: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.menu, color: Colors.red),
+    return WillPopScope(
+      onWillPop: () async {
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(content: Text('The System Back Button is Deactivated')));
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.redAccent,
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.menu, color: Colors.black),
+          ),
+          title: Text(
+            _pages[_selectedPageIndex]['title'] as String,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                // fontStyle: FontStyle.italic,
+                color: Colors.black,
+                fontSize: 20),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  LogoutController().logout();
+                  // LogoutController().logoutContext(context);
+                  // Restart.restartApp(webOrigin: Routes.login);
+                  // Get.offAllNamed(Routes.login);
+                  // Get.offNamedUntil(Routes.login, (route) => true);
+                  // Get.back();
+                  // logoutController.logout();
+                },
+                icon: const Icon(
+                  Icons.logout,
+                  color: Colors.black,
+                ))
+          ],
         ),
-        title: Text(
-          _pages[_selectedPageIndex]['title'] as String,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              // fontStyle: FontStyle.italic,
-              color: Colors.black,
-              fontSize: 20),
+        body: _pages[_selectedPageIndex]['page'] as Widget,
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.redAccent,
+          unselectedItemColor: Colors.pink,
+          // onTap: controller.changeTabIndex,
+          onTap: _selectPage,
+          currentIndex: _selectedPageIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Clients',
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                LogoutController().logout();
-                // Restart.restartApp(webOrigin: Routes.login);
-                // Get.offAllNamed(Routes.login);
-                // Get.offNamedUntil(Routes.login, (route) => true);
-                // Get.back();
-                // logoutController.logout();
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.red,
-              ))
-        ],
-      ),
-      body: _pages[_selectedPageIndex]['page'] as Widget,
-      bottomNavigationBar: BottomNavigationBar(
-        // onTap: controller.changeTabIndex,
-        onTap: _selectPage,
-        currentIndex: _selectedPageIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Clients',
-          ),
-        ],
       ),
     );
   }

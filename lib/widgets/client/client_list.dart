@@ -38,15 +38,15 @@ class ClientList extends StatelessWidget {
                 trailing: Row(mainAxisSize: MainAxisSize.min, children: [
                   // Text('Land'),
                   IconButton(
-                    icon:
-                        const Icon(Icons.details_outlined, color: Colors.blue),
+                    icon: const Icon(Icons.details_outlined,
+                        color: Colors.redAccent),
                     onPressed: () {
                       clientController.clientDetails(
                           clientController.clientList[index]["id"]);
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.edit, color: Colors.green),
+                    icon: Icon(Icons.edit, color: Colors.pink[400]),
                     onPressed: () {
                       clientController
                           .getDetails(clientController.clientList[index]["id"]);

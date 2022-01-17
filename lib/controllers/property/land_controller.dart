@@ -48,9 +48,9 @@ class LandController extends GetxController {
   var landArea;
   var roadAccess;
   var waterSupply;
-  var province;
-  var district;
-  var municipality;
+  var province = "".obs;
+  var district = "".obs;
+  var municipality = "".obs;
   var ward;
   var street;
 
@@ -189,9 +189,9 @@ class LandController extends GetxController {
       'landArea': double.parse(landArea),
       'roadAccess': roadAccess,
       'waterSupply': waterSupply,
-      'province': int.parse(province),
-      'district': district,
-      'municipality': municipality,
+      'province': int.parse(province.value),
+      'district': district.value,
+      'municipality': municipality.value,
       'ward': int.parse(ward),
       'street': street,
       'latitude': latitude,
@@ -249,11 +249,10 @@ class LandController extends GetxController {
     waterSupplyController.text = waterSupply;
   }
 
-  void setLocationInfo(
-      district, province, municipality, ward, street, latitude, longitude) {
-    districtController.text = district;
-    provinceController.text = province.toString();
-    municipalityController.text = municipality;
+  void setLocationInfo(dist, prov, muni, ward, street, latitude, longitude) {
+    district.value = dist;
+    province.value = prov.toString();
+    municipality.value = muni;
     wardController.text = ward.toString();
     streetController.text = street;
     mapController.latitude = latitude;
@@ -271,9 +270,12 @@ class LandController extends GetxController {
     // bathroomController.clear();
     // bedroomController.clear();
     // floorController.clear();
-    provinceController.clear();
-    districtController.clear();
-    municipalityController.clear();
+    province.value = "";
+    district.value = "";
+    municipality.value = "";
+    // provinceController.clear();
+    // districtController.clear();
+    // municipalityController.clear();
     wardController.clear();
     streetController.clear();
   }

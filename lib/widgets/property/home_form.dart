@@ -4,11 +4,94 @@ import 'package:property_client_finder_app/controllers/property/home_controller.
 // import 'package:property_client_finder_app/controllers/property/land_controller.dart';
 import 'package:get/get.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'dart:convert';
+import 'package:dropdown_search/dropdown_search.dart';
+
 // import 'package:get/get.dart';
 // import 'package:property_client_finder_app/screens/map/map_screen.dart';
 
-class HomeForm extends StatelessWidget {
+class HomeForm extends StatefulWidget {
   const HomeForm({Key? key}) : super(key: key);
+
+  @override
+  State<HomeForm> createState() => _HomeFormState();
+}
+
+class _HomeFormState extends State<HomeForm> {
+  // late List<DropdownMenuItem<String>> _dropDownMenuProvince;
+  List<String> _dropDownMenuDistrict = [];
+  List<String> _dropDownMenuMunicipality = [];
+
+  // String? _currentProvince;
+  // String? _currentDistrict;
+  // String? _currentMunicipality;
+
+  List _items = [];
+
+  List province = ["1", "2", "3", "4", "5", "6", "7"];
+
+  // Fetch content from the json file
+  Future<void> readJson() async {
+    final String response = await rootBundle.loadString('assets/address.json');
+    final data = await json.decode(response);
+    setState(() {
+      _items = data;
+    });
+    // print(_items);
+  }
+
+  void districtData(String value) {
+    // isProvinceSelected = false;
+    setState(() {
+      _dropDownMenuDistrict = [];
+      _dropDownMenuMunicipality = [];
+      // _currentDistrict = "";
+      // _currentProvince = "";
+      var province = int.parse(value.toString());
+      // print(_dropDownMenuDistrict);
+      var newData =
+          _items.where((item) => item["province"] == province).toList();
+
+      var districts = [];
+      for (var element in newData) {
+        districts.add(element["district"]);
+      }
+      districts = districts.toSet().toList();
+
+      List<String> districtData = [];
+      for (String district in districts) {
+        districtData.add(district);
+      }
+      _dropDownMenuDistrict = districtData;
+    });
+  }
+
+  void nagarpalikaData(String value) {
+    setState(() {
+      var district = value.toString();
+      var newData =
+          _items.where((item) => item["district"] == district).toList();
+
+      var nagarpalika = [];
+      for (var element in newData) {
+        nagarpalika.add(element["nagarpalika"]);
+      }
+      nagarpalika = nagarpalika.toSet().toList();
+      List<String> nagarpalikaData = [];
+      for (String nagarpalika in nagarpalika) {
+        nagarpalikaData.add(nagarpalika);
+      }
+      _dropDownMenuMunicipality = nagarpalikaData;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    // readJsonData();
+    readJson();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -182,60 +265,175 @@ class HomeForm extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  controller: homeController.provinceController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  items: const ["1", "2", "3", "4", "5", "6", "7"],
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Select Province",
+                    prefixIcon: const Icon(Icons.accessibility),
+                    labelText: "Province",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select province";
+                    } else {
+                      return null;
+                    }
+                  },
+                  selectedItem: homeController.province.value.length == 1
+                      ? homeController.province.value
+                      : null,
+                  autoValidateMode: AutovalidateMode.always,
                   onSaved: (value) {
-                    homeController.province = value!.trim();
+                    // print(value);
+                    homeController.province.value = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validateData(value);
+                  onChanged: (value) {
+                    districtData(value!);
+                    // print(value);
                   },
-                  decoration: InputDecoration(
-                      labelText: "Province",
-                      prefixIcon: const Icon(Icons.accessibility),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: homeController.districtController,
-                  onSaved: (value) {
-                    homeController.district = value!.trim();
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  items: _dropDownMenuDistrict,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Select District",
+                    labelText: "District",
+                    prefixIcon: const Icon(Icons.directions_transit_sharp),
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  // validator: (String? value) {
+                  //   return homeController.validateData(value!);
+                  // },
+                  selectedItem: homeController.district.value.length > 1
+                      ? homeController.district.value
+                      : null,
+
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select district";
+                    } else {
+                      return null;
+                    }
                   },
-                  validator: (value) {
-                    return homeController.validateData(value);
+
+                  autoValidateMode: AutovalidateMode.always,
+                  onSaved: (String? value) {
+                    homeController.district.value = value!.trim();
                   },
-                  decoration: InputDecoration(
-                      labelText: "District",
-                      prefixIcon: const Icon(Icons.directions_transit_sharp),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
+                  onChanged: (value) {
+                    nagarpalikaData(value!);
+                    // districtData(value);
+                  },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  controller: homeController.municipalityController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  items: _dropDownMenuMunicipality,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Select Municipality",
+                    labelText: "Municipality",
+                    prefixIcon: const Icon(Icons.multiline_chart_outlined),
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select municipality";
+                    } else {
+                      return null;
+                    }
+                  },
+                  selectedItem: homeController.municipality.value.length > 1
+                      ? homeController.municipality.value
+                      : null,
+
+                  autoValidateMode: AutovalidateMode.always,
                   onSaved: (value) {
-                    homeController.municipality = value!.trim();
+                    homeController.municipality.value = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validateData(value);
+                  // validator: (value) {
+                  //   return landController.validateData(value);
+                  // },
+                  onChanged: (value) {
+                    // nagarpalikaData(value!);
+                    // districtData(value);
                   },
-                  decoration: InputDecoration(
-                      labelText: "Municipality",
-                      prefixIcon: const Icon(Icons.multiline_chart_outlined),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              //     controller: homeController.provinceController,
+              //     onSaved: (value) {
+              //       homeController.province = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validateData(value);
+              //     },
+              //     decoration: InputDecoration(
+              //         labelText: "Province",
+              //         prefixIcon: const Icon(Icons.accessibility),
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     controller: homeController.districtController,
+              //     onSaved: (value) {
+              //       homeController.district = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validateData(value);
+              //     },
+              //     decoration: InputDecoration(
+              //         labelText: "District",
+              //         prefixIcon: const Icon(Icons.directions_transit_sharp),
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     controller: homeController.municipalityController,
+              //     onSaved: (value) {
+              //       homeController.municipality = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validateData(value);
+              //     },
+              //     decoration: InputDecoration(
+              //         labelText: "Municipality",
+              //         prefixIcon: const Icon(Icons.multiline_chart_outlined),
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(

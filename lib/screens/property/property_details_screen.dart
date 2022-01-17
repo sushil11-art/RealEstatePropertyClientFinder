@@ -61,7 +61,7 @@ class PropertyDetails extends StatelessWidget {
         .generateImageUrl(propertyController.propertyDescription["images"]);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.redAccent,
         // leading: IconButton(
         //   icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
         //   onPressed: () {
@@ -125,8 +125,8 @@ class PropertyDetails extends StatelessWidget {
                       bottomRight: Radius.circular(40)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.green,
-                      blurRadius: 50, // soften the shadow
+                      color: Colors.red,
+                      blurRadius: 10, // soften the shadow
                       // spreadRadius: 5.0, //extend the shadow
                       offset: Offset(
                         0, // Move to right 10  horizontally

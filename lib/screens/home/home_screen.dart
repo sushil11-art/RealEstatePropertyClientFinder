@@ -22,30 +22,6 @@ class HomeScreen extends StatelessWidget {
     return Obx(() => ModalProgressHUD(
           inAsyncCall: propertyListController.isLoading.value,
           child: Scaffold(
-            // appBar: AppBar(
-            //   backgroundColor: const Color.fromRGBO(255, 253, 208, 1),
-            //   leading: IconButton(
-            //     onPressed: () {},
-            //     icon: const Icon(Icons.menu, color: Colors.red),
-            //   ),
-            //   title: const Text(
-            //     'Real Estate',
-            //     style: TextStyle(
-            //         fontWeight: FontWeight.bold,
-            //         fontStyle: FontStyle.italic,
-            //         color: Colors.black,
-            //         fontSize: 20),
-            //   ),
-            //   actions: [
-            //     IconButton(
-            //         onPressed: () {},
-            //         icon: const Icon(
-            //           Icons.more_vert,
-            //           color: Colors.red,
-            //         ))
-            //   ],
-            // ),
-            // bottomNavigationBar: BottomNavBar(),
             body: Column(
               children: [
                 Container(
@@ -71,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                           )),
                       ElevatedButton(
                           onPressed: () {
-                            landController.clearController();
+                            homeController.clearController();
                             Get.toNamed(Routes.addHome);
                           },
                           style: ElevatedButton.styleFrom(

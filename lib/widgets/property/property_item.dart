@@ -153,7 +153,7 @@ class PropertyItem extends StatelessWidget {
                 TextButton.icon(
                     icon: const Icon(
                       Icons.edit,
-                      color: Colors.blue,
+                      color: Colors.deepOrangeAccent,
                     ),
                     onPressed: () {
                       propertyListController.getProperty(property.id);

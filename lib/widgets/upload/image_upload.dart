@@ -23,6 +23,7 @@ class ImageUpload extends StatelessWidget {
         children: [
           Center(
             child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(primary: Colors.redAccent),
                 onPressed: imageUploadController.showDialog,
                 icon: const Icon(Icons.camera_alt),
                 label: const Text('Upload pictures')),

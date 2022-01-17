@@ -64,9 +64,9 @@ class AddClientController extends GetxController {
   var bathrooms;
   var bedrooms;
   var floors;
-  var province;
-  var district;
-  var municipality;
+  var province = "".obs;
+  var district = "".obs;
+  var municipality = "".obs;
   var ward;
   var street;
   var latitude;
@@ -106,9 +106,12 @@ class AddClientController extends GetxController {
     bathroomController.clear();
     bedroomController.clear();
     floorController.clear();
-    provinceController.clear();
-    districtController.clear();
-    municipalityController.clear();
+    province.value = "";
+    district.value = "";
+    municipality.value = "";
+    // provinceController.clear();
+    // districtController.clear();
+    // municipalityController.clear();
     wardController.clear();
     streetController.clear();
   }
@@ -219,9 +222,9 @@ class AddClientController extends GetxController {
       'bathrooms': bathrooms,
       'bedrooms': bedrooms,
       'floors': floors,
-      'province': int.parse(province),
-      'district': district,
-      'municipality': municipality,
+      'province': int.parse(province.value),
+      'district': district.value,
+      'municipality': municipality.value,
       'ward': int.parse(ward),
       'street': street,
       'latitude': latitude,
@@ -293,10 +296,10 @@ class AddClientController extends GetxController {
   }
 
   void setInitialLocation(
-      district, province, municipality, ward, street, latitude, longitude) {
-    districtController.text = district;
-    provinceController.text = province.toString();
-    municipalityController.text = municipality;
+      dist, prov, munici, ward, street, latitude, longitude) {
+    district.value = dist;
+    province.value = prov.toString();
+    municipality.value = munici;
     wardController.text = ward.toString();
     streetController.text = street;
     mapController.latitude = latitude;

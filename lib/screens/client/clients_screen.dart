@@ -37,6 +37,7 @@ class ClientScreen extends StatelessWidget {
                 FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.add),
+              backgroundColor: Colors.red,
               onPressed: () {
                 addClientController.clearController();
                 Get.toNamed(Routes.addClient);
