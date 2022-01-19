@@ -7,6 +7,8 @@ import 'package:property_client_finder_app/controllers/client/add_client_control
 import 'package:property_client_finder_app/routes.dart';
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:property_client_finder_app/controllers/map/map_controller.dart';
+import 'package:property_client_finder_app/screens/map/selected_map_area.dart';
 
 class AddClient extends StatefulWidget {
   // const AddClient({Key? key}) : super(key: key);
@@ -111,6 +113,7 @@ class _AddClientState extends State<AddClient> {
 
   @override
   Widget build(BuildContext context) {
+    final MapController mapController = Get.put(MapController());
     return Obx(() => ModalProgressHUD(
           inAsyncCall: addClientController.isLoading.value,
           child: Scaffold(
@@ -593,6 +596,16 @@ class _AddClientState extends State<AddClient> {
                                     borderSide: const BorderSide(width: 2))),
                           ),
                         ),
+                        GetBuilder<MapController>(
+                            init: MapController(),
+                            builder: (context) {
+                              if ((mapController.latitude != null) &&
+                                  (mapController.longitude != null)) {
+                                return SelectedMapArea();
+                              } else {
+                                return Container();
+                              }
+                            }),
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: TextButton.icon(

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:property_client_finder_app/controllers/map/map_controller.dart';
 import 'package:property_client_finder_app/controllers/property/land_controller.dart';
 import 'package:get/get.dart';
 // import 'package:property_client_finder_app/helpers/read_json.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:property_client_finder_app/screens/map/selected_map_area.dart';
 
 // import 'package:get/get.dart';
 // import 'package:property_client_finder_app/screens/map/map_screen.dart';
@@ -96,6 +98,8 @@ class _LandFormState extends State<LandForm> {
   @override
   Widget build(BuildContext context) {
     final LandController landController = Get.put(LandController());
+
+    final MapController mapController = Get.put(MapController());
     return Container(
       margin: const EdgeInsets.all(8),
       child: Form(
@@ -338,6 +342,16 @@ class _LandFormState extends State<LandForm> {
                           borderSide: const BorderSide(width: 2))),
                 ),
               ),
+              GetBuilder<MapController>(
+                  init: MapController(),
+                  builder: (context) {
+                    if ((mapController.latitude != null) &&
+                        (mapController.longitude != null)) {
+                      return SelectedMapArea();
+                    } else {
+                      return Container();
+                    }
+                  }),
               Center(
                 child: Padding(
                   padding: const EdgeInsets.all(10),

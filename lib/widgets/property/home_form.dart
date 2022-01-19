@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:property_client_finder_app/controllers/map/map_controller.dart';
+import 'package:property_client_finder_app/screens/map/selected_map_area.dart';
 
 // import 'package:get/get.dart';
 // import 'package:property_client_finder_app/screens/map/map_screen.dart';
@@ -96,6 +98,8 @@ class _HomeFormState extends State<HomeForm> {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
+    final MapController mapController = Get.put(MapController());
+
     return Container(
       margin: const EdgeInsets.all(8),
       child: Form(
@@ -472,6 +476,16 @@ class _HomeFormState extends State<HomeForm> {
                           borderSide: const BorderSide(width: 2))),
                 ),
               ),
+              GetBuilder<MapController>(
+                  init: MapController(),
+                  builder: (context) {
+                    if ((mapController.latitude != null) &&
+                        (mapController.longitude != null)) {
+                      return SelectedMapArea();
+                    } else {
+                      return Container();
+                    }
+                  }),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextButton.icon(
