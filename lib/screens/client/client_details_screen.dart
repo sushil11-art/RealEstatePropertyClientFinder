@@ -47,7 +47,7 @@ class ClientDetails extends StatelessWidget {
     street = clientController.clientDescription["requiredlocation"]["street"];
 
     var propertyType = "Land";
-    landArea = clientController.clientDescription["landArea"];
+    landArea = clientController.clientDescription["area"];
     roadAccess = clientController.clientDescription["roadAccess"];
     waterSupply = clientController.clientDescription["waterSupply"];
 
@@ -230,7 +230,7 @@ class ClientDetails extends StatelessWidget {
                   const SizedBox(width: 10),
                   Flexible(
                     child: Text(
-                      'Land Area:-$landArea${' '}${'aana'}',
+                      'Land Area:-$landArea',
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   )

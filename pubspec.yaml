@@ -53,6 +53,8 @@ dependencies:
   intl_phone_number_input: ^0.7.0+2
   shared_preferences: ^2.0.12
   dropdown_search: ^2.0.1
+  shimmer: ^2.0.0
+  fancy_shimmer_image: ^2.0.1+1
 
 
 

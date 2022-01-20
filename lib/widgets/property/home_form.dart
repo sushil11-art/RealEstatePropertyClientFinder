@@ -134,9 +134,9 @@ class _HomeFormState extends State<HomeForm> {
                   keyboardType: TextInputType.number,
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
-                  controller: homeController.landAreaController,
+                  controller: homeController.ropaniController,
                   onSaved: (value) {
-                    homeController.landArea = value!.trim();
+                    homeController.ropani = value!.trim();
                   },
                   validator: (value) {
                     return homeController.validatePriceOrLandOrFloor(value);
@@ -145,7 +145,30 @@ class _HomeFormState extends State<HomeForm> {
                   decoration: InputDecoration(
                       // suffixIcon: const Icon(Icons.landscape_rounded),
                       prefixIcon: const Icon(Icons.landscape_rounded),
-                      labelText: "Land Area",
+                      labelText: "Ropani",
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(width: 2))),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+                  controller: homeController.aanaController,
+                  onSaved: (value) {
+                    homeController.aana = value!.trim();
+                  },
+                  validator: (value) {
+                    return homeController.validatePriceOrLandOrFloor(value);
+                  },
+                  // obscureText: true,
+                  decoration: InputDecoration(
+                      // suffixIcon: const Icon(Icons.landscape_rounded),
+                      prefixIcon: const Icon(Icons.archive_sharp),
+                      labelText: "Aana",
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(width: 2))),

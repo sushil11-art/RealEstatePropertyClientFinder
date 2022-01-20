@@ -19,6 +19,9 @@ class AddClientController extends GetxController {
   // final propertyController = TextEditingController();
   final priceController = TextEditingController();
   final landAreaController = TextEditingController();
+  final ropaniController = TextEditingController();
+  final aanaController = TextEditingController();
+
   final roadAccessConttroller = TextEditingController();
   final waterSupplyController = TextEditingController();
   final kitchenController = TextEditingController();
@@ -58,6 +61,8 @@ class AddClientController extends GetxController {
   var type;
   var price;
   var landArea;
+  var ropani;
+  var aana;
   var roadAccess;
   var waterSupply;
   var kitchens;
@@ -100,6 +105,8 @@ class AddClientController extends GetxController {
     phoneController.clear();
     priceController.clear();
     landAreaController.clear();
+    ropaniController.clear();
+    aanaController.clear();
     roadAccessConttroller.clear();
     waterSupplyController.clear();
     kitchenController.clear();
@@ -215,7 +222,10 @@ class AddClientController extends GetxController {
       'phone': phoneNumber,
       'price': double.parse(price),
       'propertyType': type,
-      'landArea': double.parse(landArea),
+      // 'landArea': double.parse(landArea),
+      'ropani': double.parse(ropani),
+      'aana': double.parse(aana),
+
       'roadAccess': roadAccess,
       'waterSupply': waterSupply,
       'kitchens': kitchens,

@@ -279,9 +279,9 @@ class _AddClientState extends State<AddClient> {
                             keyboardType: TextInputType.number,
                             // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
-                            controller: addClientController.landAreaController,
+                            controller: addClientController.ropaniController,
                             onSaved: (value) {
-                              addClientController.landArea = value!.trim();
+                              addClientController.ropani = value!.trim();
                             },
                             validator: (value) {
                               return addClientController
@@ -291,7 +291,31 @@ class _AddClientState extends State<AddClient> {
                             decoration: InputDecoration(
                                 // suffixIcon: const Icon(Icons.landscape_rounded),
                                 prefixIcon: const Icon(Icons.landscape_rounded),
-                                labelText: "Land Area",
+                                labelText: "Ropani",
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: const BorderSide(width: 2))),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+                            controller: addClientController.aanaController,
+                            onSaved: (value) {
+                              addClientController.aana = value!.trim();
+                            },
+                            validator: (value) {
+                              return addClientController
+                                  .validatePriceOrLandOrFloor(value);
+                            },
+                            // obscureText: true,
+                            decoration: InputDecoration(
+                                // suffixIcon: const Icon(Icons.landscape_rounded),
+                                prefixIcon: const Icon(Icons.archive_sharp),
+                                labelText: "Aana",
                                 enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     borderSide: const BorderSide(width: 2))),

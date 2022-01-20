@@ -26,6 +26,9 @@ class HomeController extends GetxController {
   final homeFormKey = GlobalKey<FormState>();
   final priceController = TextEditingController();
   final landAreaController = TextEditingController();
+  final ropaniController = TextEditingController();
+  final aanaController = TextEditingController();
+
   final roadAccessConttroller = TextEditingController();
   final waterSupplyController = TextEditingController();
   final kitchenController = TextEditingController();
@@ -53,6 +56,8 @@ class HomeController extends GetxController {
   var propertyId;
   var price;
   var landArea;
+  var ropani;
+  var aana;
   var roadAccess;
   var waterSupply;
   var kitchens;
@@ -191,7 +196,9 @@ class HomeController extends GetxController {
     var longitude = mapController.longitude;
     Map data = {
       'price': double.parse(price),
-      'landArea': double.parse(landArea),
+      'ropani': double.parse(ropani),
+      'aana': double.parse(aana),
+      // 'landArea': double.parse(landArea),
       'roadAccess': roadAccess,
       'waterSupply': waterSupply,
       'kitchens': int.parse(kitchens),
@@ -289,6 +296,8 @@ class HomeController extends GetxController {
   void clearText() {
     priceController.clear();
     landAreaController.clear();
+    ropaniController.clear();
+    aanaController.clear();
     roadAccessConttroller.clear();
     waterSupplyController.clear();
     kitchenController.clear();

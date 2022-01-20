@@ -24,6 +24,9 @@ class LandController extends GetxController {
   final landFormKey = GlobalKey<FormState>();
   final priceController = TextEditingController();
   final landAreaController = TextEditingController();
+  final ropaniController = TextEditingController();
+  final aanaController = TextEditingController();
+
   final roadAccessConttroller = TextEditingController();
   final waterSupplyController = TextEditingController();
   final provinceController = TextEditingController();
@@ -46,6 +49,8 @@ class LandController extends GetxController {
 
   var price;
   var landArea;
+  var ropani;
+  var aana;
   var roadAccess;
   var waterSupply;
   var province = "".obs;
@@ -186,7 +191,9 @@ class LandController extends GetxController {
     var longitude = mapController.longitude;
     Map data = {
       'price': double.parse(price),
-      'landArea': double.parse(landArea),
+      'ropani': double.parse(ropani),
+      'aana': double.parse(aana),
+      // 'landArea': double.parse(landArea),
       'roadAccess': roadAccess,
       'waterSupply': waterSupply,
       'province': int.parse(province.value),
@@ -264,6 +271,8 @@ class LandController extends GetxController {
   void clearText() {
     priceController.clear();
     landAreaController.clear();
+    ropaniController.clear();
+    aanaController.clear();
     roadAccessConttroller.clear();
     waterSupplyController.clear();
     // kitchenController.clear();

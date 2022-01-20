@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PropertyDetails extends StatelessWidget {
   final imageUrl = CreateImageUrl();
@@ -32,18 +33,20 @@ class PropertyDetails extends StatelessWidget {
     municipality =
         propertyController.propertyDescription["location"]["municipality"];
     ward = propertyController.propertyDescription["location"]["ward"];
+    landArea = propertyController.propertyDescription["area"];
+
     street = propertyController.propertyDescription["location"]["street"];
 
     if (propertyController.propertyDescription["home"] == null) {
       price = propertyController.propertyDescription["land"]["price"];
-      landArea = propertyController.propertyDescription["land"]["landArea"];
+      // landArea = propertyController.propertyDescription["land"]["landArea"];
       roadAccess = propertyController.propertyDescription["land"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["land"]["waterSupply"];
       title = "Land";
     } else {
       price = propertyController.propertyDescription["home"]["price"];
-      landArea = propertyController.propertyDescription["home"]["landArea"];
+      // landArea = propertyController.propertyDescription["home"]["landArea"];
       roadAccess = propertyController.propertyDescription["home"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["home"]["waterSupply"];
@@ -83,25 +86,69 @@ class PropertyDetails extends StatelessWidget {
                 itemBuilder:
                     (BuildContext context, int itemIndex, int pageViewIndex) {
                   return Container(
-                      margin: const EdgeInsets.only(top: 8, left: 5, right: 5),
-                      decoration: BoxDecoration(
-                        // boxShadow: const [
-                        //   BoxShadow(
-                        //     color: Colors.redAccent,
-                        //     blurRadius: 50, // soften the shadow
-                        //     // spreadRadius: 5.0, //extend the shadow
-                        //     offset: Offset(
-                        //       0, // Move to right 10  horizontally
-                        //       10, // Move to bottom 10 Vertically
-                        //     ),
-                        //   )
-                        // ],
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                          image: NetworkImage(images[itemIndex]),
-                          fit: BoxFit.cover,
-                        ),
-                      ));
+                    margin: const EdgeInsets.only(top: 8, left: 5, right: 5),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    width: double.infinity,
+                    child: Image.network(
+                      images[itemIndex],
+                      fit: BoxFit.cover,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Container(
+                          decoration: const BoxDecoration(
+                              // borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage("assets/images/home.jpg"),
+                            // image: AssetImage("assets/images/home.jpg")
+                          )),
+                        );
+                      },
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return Shimmer.fromColors(
+                          baseColor: Colors.red,
+                          highlightColor: Colors.yellow,
+                          child: const Text(
+                            'Shimmer',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
+                        // return Center(
+                        //   child: CircularProgressIndicator(
+                        //     value: loadingProgress.expectedTotalBytes != null
+                        //         ? loadingProgress.cumulativeBytesLoaded /
+                        //             loadingProgress.expectedTotalBytes!
+                        //         : null,
+                        //   ),
+                        // );
+                      },
+                    ),
+                    // decoration: BoxDecoration(
+                    //   // boxShadow: const [
+                    //   //   BoxShadow(
+                    //   //     color: Colors.redAccent,
+                    //   //     blurRadius: 50, // soften the shadow
+                    //   //     // spreadRadius: 5.0, //extend the shadow
+                    //   //     offset: Offset(
+                    //   //       0, // Move to right 10  horizontally
+                    //   //       10, // Move to bottom 10 Vertically
+                    //   //     ),
+                    //   //   )
+                    //   // ],
+                    //   borderRadius: BorderRadius.circular(10.0),
+                    //   image: DecorationImage(
+                    //     image: NetworkImage(images[itemIndex]),
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // )
+                  );
                 },
                 options: CarouselOptions(
                   height: 180.0,
@@ -178,7 +225,7 @@ class PropertyDetails extends StatelessWidget {
                           width: 10,
                         ),
                         Flexible(
-                          child: Text('${landArea.toString()} aana',
+                          child: Text('$landArea',
                               overflow: TextOverflow.visible,
                               style: const TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 16)),

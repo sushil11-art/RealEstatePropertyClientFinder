@@ -135,9 +135,9 @@ class _LandFormState extends State<LandForm> {
                   keyboardType: TextInputType.number,
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
-                  controller: landController.landAreaController,
+                  controller: landController.ropaniController,
                   onSaved: (value) {
-                    landController.landArea = value!.trim();
+                    landController.ropani = value!.trim();
                   },
                   validator: (value) {
                     return landController.validatePriceOrLand(value);
@@ -146,7 +146,30 @@ class _LandFormState extends State<LandForm> {
                   decoration: InputDecoration(
                       // suffixIcon: const Icon(Icons.landscape_rounded),
                       prefixIcon: const Icon(Icons.landscape_rounded),
-                      labelText: "Land Area",
+                      labelText: "Ropani",
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(width: 2))),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+                  controller: landController.aanaController,
+                  onSaved: (value) {
+                    landController.aana = value!.trim();
+                  },
+                  validator: (value) {
+                    return landController.validatePriceOrLand(value);
+                  },
+                  // obscureText: true,
+                  decoration: InputDecoration(
+                      // suffixIcon: const Icon(Icons.landscape_rounded),
+                      prefixIcon: const Icon(Icons.archive_sharp),
+                      labelText: "Aana",
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(width: 2))),
