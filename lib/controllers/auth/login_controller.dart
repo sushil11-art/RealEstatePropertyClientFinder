@@ -3,13 +3,9 @@ import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
-// import 'package:property_client_finder_app/config/shared_preferences.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
-// import 'package:property_client_finder_app/screens/home/home_screen.dart';
 import 'package:property_client_finder_app/services/auth/login_services.dart';
-// import 'package:progress_dialog/progress_dialog.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class LoginController extends GetxController {
   final loginFormKey = GlobalKey<FormState>();

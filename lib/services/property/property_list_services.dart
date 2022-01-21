@@ -21,11 +21,7 @@ class PropertyListServices {
           'authorization': token
         },
       );
-      // List decoded = json.decode(response.body);
-      // print(decojded);
-      // PropertyList propertyList = PropertyList.fromJson(decoded);
-      // print(propertyList.properties);
-      // return propertyList;
+    
       return response;
     } catch (e) {
       print(e);
@@ -35,18 +31,13 @@ class PropertyListServices {
   }
 
   static Future deleteProperty(propertyId, landId, homeId) async {
-    // print(propertyId);
-    // print(landId);
-    // print(homeId);
-    // Map<String, dynamic> queryParams = {'propertyId': propertyId};
+ 
     var base_url = API.localApiUrl;
     try {
       var url;
       if (homeId == null) {
-        // url = 'http://10.0.2.2:3005/api/v1/deleteLand/${propertyId}';
         url = base_url + "deleteLand/$propertyId";
       } else {
-        // url = 'http://10.0.2.2:3005/api/v1/deleteHome/${propertyId}';
         url = base_url + "deleteHome/$propertyId";
       }
       // print(url);
@@ -59,20 +50,16 @@ class PropertyListServices {
           'authorization': token
         },
       );
-      // print(resposnse);
-      // return response;
-      // var decoded = json.decode(response.body);
+
       return response;
     } catch (e) {
       print(e);
-      // return e;
-      // print(e);
+  
     }
   }
 
   static Future propertyDetails(propertyId) async {
     try {
-      // final url = 'http://10.0.2.2:3005/api/v1/getProperty/$propertyId';
       final url = API.localApiUrl + "getProperty/${propertyId}";
 
       final response = await http.get(
@@ -84,8 +71,7 @@ class PropertyListServices {
           'authorization': token
         },
       );
-      // var propertyDetails = json.decode(response.body);
-      // return propertyDetails;
+  
       return response;
     } catch (e) {
       print(e);
@@ -102,7 +88,6 @@ class PropertyListServices {
           'authorization': token
         },
       );
-      // List decoded = json.decode(response.body);
       return response;
     } catch (e) {
       print(e);

@@ -11,8 +11,7 @@ var token = box.read('token');
 class ClientServices {
   static Future getClients() async {
     try {
-      // Map data = {'email': email, 'password': password};
-      // var body = json.encode(data);
+ 
       var url = API.localApiUrl + "allClient";
       final response = await http.get(
         Uri.parse(url),
@@ -21,17 +20,12 @@ class ClientServices {
           'authorization': token
         },
       );
-      // List decoded = json.decode(response.body);
-      // print(decoded);
-      // print(decojded);
-      // PropertyList propertyList = PropertyList.fromJson(decoded);
-      // print(propertyList.properties);
+   
       return response;
       // return decoded;
     } catch (e) {
       print(e);
-      // rethrow;
-      // return e;
+ 
     }
   }
 
@@ -53,8 +47,7 @@ class ClientServices {
       return response;
     } catch (e) {
       print(e);
-      // return e;
-      // print(e);
+   
     }
   }
 
@@ -128,7 +121,6 @@ class ClientServices {
           'authorization': token
         },
       );
-      // List decoded = json.decode(response.body);
       return response;
     } catch (e) {
       print(e);

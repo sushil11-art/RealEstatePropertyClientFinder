@@ -9,14 +9,8 @@ import 'package:property_client_finder_app/controllers/client/client_controller.
 import 'package:property_client_finder_app/controllers/property/home_controller.dart';
 import 'package:property_client_finder_app/controllers/property/land_controller.dart';
 import 'package:property_client_finder_app/models/property_list.dart';
-// import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/routes.dart';
-// import 'package:property_client_finder_app/screens/property/property_list_screen.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
-// import 'package:property_client_finder_app/services/client/client_services.dart';
 
-// import 'package:http/http.dart' as http;
-// import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/services/property/property_list_services.dart';
 import 'package:property_client_finder_app/models/property_list.dart';
 

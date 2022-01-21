@@ -27,7 +27,6 @@ class PropertyDetails extends StatelessWidget {
     var bathrooms;
     var bedrooms;
     var floors;
-    // print(propertyController.propertyDescription["location"]["province"]);
     province = propertyController.propertyDescription["location"]["province"];
     district = propertyController.propertyDescription["location"]["district"];
     municipality =
@@ -39,14 +38,12 @@ class PropertyDetails extends StatelessWidget {
 
     if (propertyController.propertyDescription["home"] == null) {
       price = propertyController.propertyDescription["land"]["price"];
-      // landArea = propertyController.propertyDescription["land"]["landArea"];
       roadAccess = propertyController.propertyDescription["land"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["land"]["waterSupply"];
       title = "Land";
     } else {
       price = propertyController.propertyDescription["home"]["price"];
-      // landArea = propertyController.propertyDescription["home"]["landArea"];
       roadAccess = propertyController.propertyDescription["home"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["home"]["waterSupply"];
@@ -55,11 +52,9 @@ class PropertyDetails extends StatelessWidget {
       bedrooms = propertyController.propertyDescription["home"]["bedrooms"];
       floors = propertyController.propertyDescription["home"]["floors"];
       title = "Home";
-      // price = property.home["price"];
-      // title = "Home for Sale";
+
     }
-    // print(price);
-    // print(property.images);
+   
     List<String> images = imageUrl
         .generateImageUrl(propertyController.propertyDescription["images"]);
     return Scaffold(
@@ -120,34 +115,10 @@ class PropertyDetails extends StatelessWidget {
                             ),
                           ),
                         );
-                        // return Center(
-                        //   child: CircularProgressIndicator(
-                        //     value: loadingProgress.expectedTotalBytes != null
-                        //         ? loadingProgress.cumulativeBytesLoaded /
-                        //             loadingProgress.expectedTotalBytes!
-                        //         : null,
-                        //   ),
-                        // );
+                       
                       },
                     ),
-                    // decoration: BoxDecoration(
-                    //   // boxShadow: const [
-                    //   //   BoxShadow(
-                    //   //     color: Colors.redAccent,
-                    //   //     blurRadius: 50, // soften the shadow
-                    //   //     // spreadRadius: 5.0, //extend the shadow
-                    //   //     offset: Offset(
-                    //   //       0, // Move to right 10  horizontally
-                    //   //       10, // Move to bottom 10 Vertically
-                    //   //     ),
-                    //   //   )
-                    //   // ],
-                    //   borderRadius: BorderRadius.circular(10.0),
-                    //   image: DecorationImage(
-                    //     image: NetworkImage(images[itemIndex]),
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // )
+                  
                   );
                 },
                 options: CarouselOptions(

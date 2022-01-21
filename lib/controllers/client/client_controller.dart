@@ -1,15 +1,11 @@
 import 'package:get/state_manager.dart';
-// import 'package:property_client_finder_app/models/property.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
-// import 'package:property_client_finder_app/controllers/auth/login_controller.dart';
 import 'package:property_client_finder_app/controllers/client/add_client_controller.dart';
-// import 'package:property_client_finder_app/models/property.dart';
 import 'package:property_client_finder_app/routes.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:property_client_finder_app/services/client/client_services.dart';
 
 class ClientController extends GetxController {

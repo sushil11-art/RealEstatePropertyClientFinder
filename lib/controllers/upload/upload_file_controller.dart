@@ -34,16 +34,7 @@ class ImageUploadController extends GetxController {
               height: 1,
               color: Colors.blue,
             ),
-            // ListTile(
-            //   onTap: () {
-            //     // _openCamera(context);
-            //   },
-            //   title: const Text("Camera"),
-            //   leading: const Icon(
-            //     Icons.camera,
-            //     color: Colors.blue,
-            //   ),
-            // ),
+          
           ],
         ),
       ),

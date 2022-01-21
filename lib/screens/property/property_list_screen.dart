@@ -11,20 +11,9 @@ class PropertyList extends StatelessWidget {
     final PropertyListController propertyListController =
         Get.put(PropertyListController());
 
-    // return GetBuilder<PropertyListController>(
-    //     init: PropertyListController(),
-    //     builder: (context) {
-    // if (propertyListController.propertyList.isEmpty) {
-    //   return const Center(child: CircularProgressIndicator());
-    // }
-    // return GetX<PropertyListController>(builder: (controller) {
     return ListView.builder(
-        // shrinkWrap: true,
-        // primary: false,
-        // scrollDirection: Axis.vertical,
         itemCount: propertyListController.propertyList.length,
         itemBuilder: (context, index) {
-          // print(propertyListController.propertyList[index].id);
           return PropertyItem(
               index: index,
               property: propertyListController.propertyList[index]);
