@@ -74,7 +74,7 @@ class _TabScreenState extends State<TabScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.redAccent,
-          leading: null,
+          automaticallyImplyLeading: false,
           title: Text(
             _pages[_selectedPageIndex]['title'] as String,
             style: const TextStyle(

@@ -77,7 +77,8 @@ class LoginController extends GetxController {
       // final authService = Get.find<AuthService>();
       authService.setIsAuthenticated(box.read('token'));
       if (authService.isAuthenticated.value) {
-        Get.off(TabScreen());
+        clearController();
+        Get.offAndToNamed(Routes.tabScreen);
       } else {
         clearController();
         Get.snackbar('Something went wrong', "Please try again",
@@ -98,7 +99,6 @@ class LoginController extends GetxController {
         (response.statusCode == 422)) {
       isLoading.value = false;
       // progress?.dismiss();
-      
 
       await Get.dialog(AlertDialog(
         title: const Text('Login failed'),
