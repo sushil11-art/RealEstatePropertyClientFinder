@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
+import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/property/home_controller.dart';
 import 'package:property_client_finder_app/controllers/property/land_controller.dart';
@@ -22,11 +23,13 @@ class PropertyListController extends GetxController {
   var propertyDescription = {}.obs;
   var isLoading = false.obs;
   ClientController clientController = Get.put(ClientController());
+  GetProfile profileController = Get.put(GetProfile());
 
   @override
   void onInit() {
     // TODO: implement onInit
     fetchProperties();
+    // profileController.profileDetails();
     // clientController.fetchClients();
 
     super.onInit();

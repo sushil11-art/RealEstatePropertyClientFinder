@@ -15,6 +15,7 @@ import 'package:property_client_finder_app/screens/property/add_home_screen.dart
 import 'package:property_client_finder_app/screens/property/add_land_screen.dart';
 import 'package:property_client_finder_app/screens/property/matching_properties_screen.dart';
 import 'package:property_client_finder_app/screens/property/property_details_screen.dart';
+import 'package:property_client_finder_app/screens/settings/change_password.dart';
 import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 
 final appPages = [
@@ -63,7 +64,12 @@ final appPages = [
       page: () => MatchingProperty(),
       middlewares: [AuthGuard()]),
   GetPage(
-      name: Routes.picklocation,
-      page: () => MapScreen(),
-      middlewares: [AuthGuard()])
+      name: Routes.changePassword,
+      page: () => ChangePasswordScreen(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+    name: Routes.picklocation,
+    page: () => MapScreen(),
+    middlewares: [AuthGuard()],
+  )
 ];

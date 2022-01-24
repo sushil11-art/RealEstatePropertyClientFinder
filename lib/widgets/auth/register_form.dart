@@ -12,7 +12,7 @@ class RegisterForm extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           child: Form(
               key: registerController.registerFormKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              // autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -20,6 +20,7 @@ class RegisterForm extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: registerController.emailController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       onSaved: (value) {
                         registerController.email = value!.trim();
                       },
@@ -38,6 +39,7 @@ class RegisterForm extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: registerController.usernameController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       onSaved: (value) {
                         registerController.username = value!.trim();
                       },
@@ -56,6 +58,7 @@ class RegisterForm extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: registerController.passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       onSaved: (value) {
                         registerController.password = value!.trim();
                       },
@@ -91,29 +94,33 @@ class RegisterForm extends StatelessWidget {
                                   backgroundColor: Colors.white))
                         ],
                       )),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: () {
-                        registerController.registerBroker(context);
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 60,
-                        child: const Center(
-                          child: Text('Register',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.red[700],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  )
+                  registerController.isLoading.value
+                      ? const CircularProgressIndicator(
+                          color: Colors.red,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: InkWell(
+                            onTap: () {
+                              registerController.registerBroker(context);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 60,
+                              child: const Center(
+                                child: Text('Register',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.red[700],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        )
                 ],
               )),
         ));

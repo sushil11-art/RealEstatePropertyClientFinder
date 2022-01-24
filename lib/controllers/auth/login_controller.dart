@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
 import 'package:property_client_finder_app/services/auth/login_services.dart';
 
@@ -76,7 +77,7 @@ class LoginController extends GetxController {
       // final authService = Get.find<AuthService>();
       authService.setIsAuthenticated(box.read('token'));
       if (authService.isAuthenticated.value) {
-        Get.offAndToNamed(Routes.tabScreen);
+        Get.off(TabScreen());
       } else {
         clearController();
         Get.snackbar('Something went wrong', "Please try again",
@@ -97,6 +98,7 @@ class LoginController extends GetxController {
         (response.statusCode == 422)) {
       isLoading.value = false;
       // progress?.dismiss();
+      
 
       await Get.dialog(AlertDialog(
         title: const Text('Login failed'),

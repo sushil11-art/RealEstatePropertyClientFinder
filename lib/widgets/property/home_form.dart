@@ -104,7 +104,7 @@ class _HomeFormState extends State<HomeForm> {
       margin: const EdgeInsets.all(8),
       child: Form(
           key: homeController.homeFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -112,6 +112,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                   controller: homeController.priceController,
                   onSaved: (value) {
@@ -132,6 +133,8 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                   controller: homeController.ropaniController,
@@ -155,6 +158,8 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                   controller: homeController.aanaController,
@@ -178,6 +183,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   // keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: homeController.roadAccessConttroller,
                   onSaved: (value) {
                     homeController.roadAccess = value!.trim();
@@ -197,6 +203,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   controller: homeController.waterSupplyController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     homeController.waterSupply = value!.trim();
                   },
@@ -215,6 +222,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: homeController.kitchenController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
@@ -235,6 +243,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: homeController.bathroomController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
@@ -255,6 +264,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: homeController.bedroomController,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
@@ -275,6 +285,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: homeController.floorController,
                   onSaved: (value) {
                     homeController.floors = value!.trim();
@@ -295,6 +306,7 @@ class _HomeFormState extends State<HomeForm> {
                 child: DropdownSearch<String>(
                   mode: Mode.MENU,
                   showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
                   items: const ["1", "2", "3", "4", "5", "6", "7"],
                   dropdownSearchDecoration: InputDecoration(
                     hintText: "Select Province",
@@ -315,7 +327,7 @@ class _HomeFormState extends State<HomeForm> {
                   selectedItem: homeController.province.value.length == 1
                       ? homeController.province.value
                       : null,
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     // print(value);
                     homeController.province.value = value!.trim();
@@ -356,7 +368,7 @@ class _HomeFormState extends State<HomeForm> {
                     }
                   },
 
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (String? value) {
                     homeController.district.value = value!.trim();
                   },
@@ -392,7 +404,7 @@ class _HomeFormState extends State<HomeForm> {
                       ? homeController.municipality.value
                       : null,
 
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     homeController.municipality.value = value!.trim();
                   },
@@ -466,6 +478,7 @@ class _HomeFormState extends State<HomeForm> {
                 child: TextFormField(
                   controller: homeController.wardController,
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onSaved: (value) {
                     homeController.ward = value!.trim();
@@ -485,6 +498,7 @@ class _HomeFormState extends State<HomeForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   controller: homeController.streetController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     homeController.street = value!.trim();
                   },

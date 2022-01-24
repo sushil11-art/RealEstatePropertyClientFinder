@@ -56,10 +56,10 @@ class _TabScreenState extends State<TabScreen> {
       'page': HomeScreen(),
       'title': 'Real Estate',
     },
-    {'page': Settings(), 'title': 'Settings'},
+    {'page': ClientScreen(), 'title': 'Clients'},
     {
-      'page': ClientScreen(),
-      'title': 'Clients',
+      'page': Settings(),
+      'title': 'Profile',
     },
   ];
 
@@ -74,10 +74,7 @@ class _TabScreenState extends State<TabScreen> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.redAccent,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu, color: Colors.black),
-          ),
+          leading: null,
           title: Text(
             _pages[_selectedPageIndex]['title'] as String,
             style: const TextStyle(
@@ -105,8 +102,8 @@ class _TabScreenState extends State<TabScreen> {
         ),
         body: _pages[_selectedPageIndex]['page'] as Widget,
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.redAccent,
-          unselectedItemColor: Colors.pink,
+          selectedItemColor: Colors.red,
+          unselectedItemColor: Colors.black,
           // onTap: controller.changeTabIndex,
           onTap: _selectPage,
           currentIndex: _selectedPageIndex,
@@ -116,12 +113,12 @@ class _TabScreenState extends State<TabScreen> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
+              icon: Icon(Icons.people),
+              label: 'Clients',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              label: 'Clients',
+              label: 'Profile',
             ),
           ],
         ),

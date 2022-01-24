@@ -113,6 +113,8 @@ class _LandFormState extends State<LandForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                   controller: landController.priceController,
                   onSaved: (value) {
@@ -133,6 +135,8 @@ class _LandFormState extends State<LandForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                   controller: landController.ropaniController,
@@ -156,6 +160,8 @@ class _LandFormState extends State<LandForm> {
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
                   keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                   controller: landController.aanaController,
@@ -178,6 +184,8 @@ class _LandFormState extends State<LandForm> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+
                   // keyboardType: TextInputType.number,
                   controller: landController.roadAccessConttroller,
                   onSaved: (value) {
@@ -197,6 +205,7 @@ class _LandFormState extends State<LandForm> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: landController.waterSupplyController,
                   onSaved: (value) {
                     landController.waterSupply = value!.trim();
@@ -238,7 +247,7 @@ class _LandFormState extends State<LandForm> {
                     }
                   },
                   // selectedItem: landController.province.value,
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     // print(value);
                     landController.province.value = value!.trim();
@@ -279,7 +288,7 @@ class _LandFormState extends State<LandForm> {
                     }
                   },
 
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (String? value) {
                     landController.district.value = value!.trim();
                   },
@@ -314,7 +323,7 @@ class _LandFormState extends State<LandForm> {
                   selectedItem: landController.municipality.value.length > 1
                       ? landController.municipality.value
                       : null,
-                  autoValidateMode: AutovalidateMode.always,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     landController.municipality.value = value!.trim();
                   },
@@ -330,6 +339,7 @@ class _LandFormState extends State<LandForm> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: landController.wardController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -350,6 +360,7 @@ class _LandFormState extends State<LandForm> {
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: landController.streetController,
                   onSaved: (value) {
                     landController.street = value!.trim();

@@ -14,4 +14,5 @@ abstract class Routes {
   static const clientDetails = "/clientDetails";
   static const matchingClients = "/matching-clients";
   static const matchingProperties = "/matching-properties";
+  static const changePassword = "/change-password";
 }

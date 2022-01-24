@@ -13,7 +13,7 @@ class LoginForm extends StatelessWidget {
           margin: const EdgeInsets.all(8),
           child: Form(
               key: loginController.loginFormKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+              // autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -21,6 +21,7 @@ class LoginForm extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: loginController.emailController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       onSaved: (value) {
                         loginController.email = value!.trim();
                       },
@@ -39,6 +40,7 @@ class LoginForm extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: loginController.passwordController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       onSaved: (value) {
                         loginController.password = value!.trim();
                       },
@@ -74,29 +76,33 @@ class LoginForm extends StatelessWidget {
                                   backgroundColor: Colors.white))
                         ],
                       )),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: InkWell(
-                      onTap: () {
-                        loginController.loginBroker(context);
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 60,
-                        child: const Center(
-                          child: Text('Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.red[700],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    ),
-                  )
+                  loginController.isLoading.value
+                      ? const CircularProgressIndicator(
+                          color: Colors.red,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: InkWell(
+                            onTap: () {
+                              loginController.loginBroker(context);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 60,
+                              child: const Center(
+                                child: Text('Login',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.red[700],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        )
                 ],
               )),
         ));

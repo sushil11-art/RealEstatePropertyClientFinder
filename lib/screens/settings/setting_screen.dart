@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+import 'package:property_client_finder_app/routes.dart';
 
-import 'package:property_client_finder_app/controllers/auth/change_password_controller.dart';
+// import 'package:property_client_finder_app/controllers/auth/change_password_controller.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -11,9 +13,21 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    final ChangePassword changePassword = Get.put(ChangePassword());
+    // final ChangePassword changePassword = Get.put(ChangePassword());
+    final GetProfile getProfile = Get.put(GetProfile());
+    var username;
+    var email;
+    var properties;
+    var clients;
+    if (getProfile.profile.value != null) {
+      username = getProfile.profile["data"]["broker"]["username"];
+      email = getProfile.profile["data"]["broker"]["email"];
+      properties = getProfile.profile["data"]["propertyCount"];
+      clients = getProfile.profile["data"]["clientCount"];
+    }
+
     return Obx(() => ModalProgressHUD(
-          inAsyncCall: changePassword.isLoading.value,
+          inAsyncCall: getProfile.isLoading.value,
           child: Scaffold(
             body: SingleChildScrollView(
               child: Column(
@@ -35,100 +49,137 @@ class Settings extends StatelessWidget {
                   ),
                   Card(
                     elevation: 10,
-                    margin: const EdgeInsets.all(15),
-                    child: Form(
-                        key: changePassword.passwordFormKey,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: TextFormField(
-                                // keyboardType: TextInputType.number,
-                                obscureText:
-                                    changePassword.isOldInvisible.value,
-                                controller:
-                                    changePassword.oldPasswordController,
-                                onSaved: (value) {
-                                  changePassword.oldPassword = value!.trim();
-                                },
-                                validator: (value) {
-                                  return changePassword
-                                      .validateCurrentPassword(value);
-                                },
-                                decoration: InputDecoration(
-                                    labelText: "Current Password",
-                                    suffixIcon: IconButton(
-                                      icon: changePassword.isOldInvisible.value
-                                          ? const Icon(Icons.remove_red_eye)
-                                          : const Icon(Icons.visibility_off),
-                                      onPressed:
-                                          changePassword.toggleOldPassword,
-                                    ),
-                                    prefixIcon:
-                                        const Icon(Icons.password_rounded),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
+                    // shape: RoundedRectangleBorder(
+                    //     borderRadius: BorderRadius.circular(15)),
+                    margin: const EdgeInsets.all(12),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.person,
+                                color: Colors.orange,
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: TextFormField(
-                                // keyboardType: TextInputType.number,
-                                obscureText:
-                                    changePassword.isNewInvisible.value,
-
-                                // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
-                                controller:
-                                    changePassword.newPasswordController,
-                                onSaved: (value) {
-                                  changePassword.newPassword = value!.trim();
-                                },
-                                validator: (value) {
-                                  return changePassword
-                                      .validateNewPassword(value);
-                                },
-                                decoration: InputDecoration(
-                                    labelText: "New Password",
-                                    suffixIcon: IconButton(
-                                      icon: changePassword.isNewInvisible.value
-                                          ? const Icon(Icons.remove_red_eye)
-                                          : const Icon(Icons.visibility_off),
-                                      onPressed:
-                                          changePassword.toggleNewPassword,
-                                    ),
-                                    prefixIcon: const Icon(Icons.new_label),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: InkWell(
-                                onTap: () {
-                                  changePassword.chanePassword(context);
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 60,
-                                  child: const Center(
-                                    child: Text('Update Password',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                        )),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.red[700],
-                                    borderRadius: BorderRadius.circular(10),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  'Username:-$username',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          height: 10,
+                          thickness: 2,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.email,
+                                color: Colors.blue,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  'Email:-$email',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          height: 10,
+                          thickness: 2,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.home,
+                                color: Colors.green,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  'Total Properties:-${properties.toString()}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          height: 10,
+                          thickness: 2,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Icon(
+                                Icons.people,
+                                color: Colors.red,
+                              ),
+                              const SizedBox(width: 10),
+                              Flexible(
+                                child: Text(
+                                  'Total Clients:-${clients.toString()}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.changePassword);
+                    },
+                    child: Card(
+                      margin: const EdgeInsets.all(12),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(
+                              Icons.settings,
+                              color: Colors.red,
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: Text(
+                                'Change Password',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            const SizedBox(width: 170),
+                            const Icon(
+                              Icons.forward,
+                              color: Colors.red,
                             )
                           ],
-                        )),
+                        ),
+                      ),
+                    ),
                   )
                 ],
               ),

@@ -140,7 +140,7 @@ class _AddClientState extends State<AddClient> {
                 margin: const EdgeInsets.all(8),
                 child: Form(
                     key: addClientController.clientFormKey,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -148,6 +148,8 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: addClientController.nameController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               addClientController.name = value!.trim();
                             },
@@ -166,6 +168,8 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: addClientController.emailController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               addClientController.email = value!.trim();
                             },
@@ -189,6 +193,8 @@ class _AddClientState extends State<AddClient> {
                               validator: (value) {
                                 return addClientController.validatePhone(value);
                               },
+                              autoValidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               // onInputValidated: (value) {
                               //   print(value);
                               // },
@@ -222,7 +228,8 @@ class _AddClientState extends State<AddClient> {
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: DropdownButtonFormField(
-                            autovalidateMode: AutovalidateMode.always,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             value:
                                 addClientController.propertyCurrentItem.value,
                             onChanged: (value) {
@@ -256,6 +263,9 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+
                             // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                             controller: addClientController.priceController,
                             onSaved: (value) {
@@ -277,6 +287,9 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+
                             // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                             controller: addClientController.ropaniController,
@@ -301,6 +314,9 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+
                             // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
 
                             controller: addClientController.aanaController,
@@ -325,6 +341,9 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             // keyboardType: TextInputType.number,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+
                             controller:
                                 addClientController.roadAccessConttroller,
                             onSaved: (value) {
@@ -347,6 +366,8 @@ class _AddClientState extends State<AddClient> {
                           child: TextFormField(
                             controller:
                                 addClientController.waterSupplyController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               addClientController.waterSupply = value!.trim();
                             },
@@ -367,6 +388,8 @@ class _AddClientState extends State<AddClient> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               controller: addClientController.kitchenController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -391,6 +414,8 @@ class _AddClientState extends State<AddClient> {
                               keyboardType: TextInputType.number,
                               controller:
                                   addClientController.bathroomController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -414,6 +439,8 @@ class _AddClientState extends State<AddClient> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               controller: addClientController.bedroomController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly
                               ],
@@ -437,6 +464,8 @@ class _AddClientState extends State<AddClient> {
                             child: TextFormField(
                               keyboardType: TextInputType.number,
                               controller: addClientController.floorController,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               onSaved: (value) {
                                 addClientController.floors = value!.trim();
                               },
@@ -480,7 +509,8 @@ class _AddClientState extends State<AddClient> {
                                 addClientController.province.value.length == 1
                                     ? addClientController.province.value
                                     : null,
-                            autoValidateMode: AutovalidateMode.always,
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               // print(value);
                               addClientController.province.value =
@@ -525,7 +555,8 @@ class _AddClientState extends State<AddClient> {
                               }
                             },
 
-                            autoValidateMode: AutovalidateMode.always,
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (String? value) {
                               addClientController.district.value =
                                   value!.trim();
@@ -566,7 +597,8 @@ class _AddClientState extends State<AddClient> {
                                     ? addClientController.municipality.value
                                     : null,
 
-                            autoValidateMode: AutovalidateMode.always,
+                            autoValidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               addClientController.municipality.value =
                                   value!.trim();
@@ -584,6 +616,8 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: addClientController.wardController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly
@@ -606,6 +640,8 @@ class _AddClientState extends State<AddClient> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: addClientController.streetController,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             onSaved: (value) {
                               addClientController.street = value!.trim();
                             },

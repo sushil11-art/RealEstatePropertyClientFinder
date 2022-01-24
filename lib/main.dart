@@ -9,7 +9,8 @@ import 'package:get/get.dart';
 // import 'package:property_client_finder_app/screens/property/add_land_screen.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
-import 'package:property_client_finder_app/services/property/property_list_services.dart';
+// import 'package:property_client_finder_app/services/property/property_list_services.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() async {
   await Get.putAsync(() => AuthService().init());
@@ -24,14 +25,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // bool isValidToken = false;
+  bool isToken = false;
 
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   checkStatus();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    checkToken();
+    super.initState();
+  }
+
+  void checkToken() async {
+    final box = GetStorage();
+    var token = box.read('token');
+    if (token != null) {
+      setState(() {
+        isToken = true;
+      });
+    }
+  }
 
   // Future checkStatus() async {
   //   final response = await PropertyListServices.getProperties();
@@ -62,7 +73,7 @@ class _MyAppState extends State<MyApp> {
         // key: myAppKey,
         navigatorKey: Get.key,
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.tabScreen,
+        initialRoute: isToken ? Routes.tabScreen : Routes.login,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),

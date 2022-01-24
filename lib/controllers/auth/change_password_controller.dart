@@ -70,6 +70,7 @@ class ChangePassword extends GetxController {
       isLoading.value = false;
       InvalidToken().showSnackBar();
       LogoutController().logout();
+      return;
     }
     if (response.statusCode == 200) {
       isLoading.value = false;
