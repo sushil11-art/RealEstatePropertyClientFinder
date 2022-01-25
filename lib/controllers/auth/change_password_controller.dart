@@ -4,7 +4,7 @@ import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'dart:convert';
 
-import 'package:property_client_finder_app/services/auth/chane_password_service.dart';
+import 'package:property_client_finder_app/services/auth/change_password_service.dart';
 
 class ChangePassword extends GetxController {
   final passwordFormKey = GlobalKey<FormState>();
@@ -56,50 +56,55 @@ class ChangePassword extends GetxController {
   }
 
   void chanePassword(BuildContext context) async {
-    var valid = passwordFormKey.currentState!.validate();
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (!valid) {
-      return;
-    }
-    passwordFormKey.currentState!.save();
+    try {
+      var valid = passwordFormKey.currentState!.validate();
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (!valid) {
+        return;
+      }
+      passwordFormKey.currentState!.save();
 
-    isLoading.value = true;
-    var response =
-        await PasswordServices.changePassword(oldPassword, newPassword);
-    if (response.statusCode == 401) {
+      isLoading.value = true;
+      var response =
+          await PasswordServices.changePassword(oldPassword, newPassword);
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        LogoutController().logout();
+        return;
+      }
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+
+        var results = json.decode(response.body);
+        Get.snackbar('Password updated', "Password updated successfully",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin:
+                const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
+            snackPosition: SnackPosition.BOTTOM,
+            snackStyle: SnackStyle.FLOATING);
+        oldPasswordController.clear();
+        newPasswordController.clear();
+        // print(results["token"]);
+
+      }
+      if ((response.statusCode == 400) || (response.statusCode == 500)) {
+        isLoading.value = false;
+        Get.snackbar(
+            'Error occured', "Enter correct old password and try again later",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            margin:
+                const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
+            snackPosition: SnackPosition.BOTTOM,
+            snackStyle: SnackStyle.FLOATING);
+        // progress?.dismiss();
+
+      }
+    } catch (e) {
       isLoading.value = false;
-      InvalidToken().showSnackBar();
-      LogoutController().logout();
-      return;
-    }
-    if (response.statusCode == 200) {
-      isLoading.value = false;
-
-      var results = json.decode(response.body);
-      Get.snackbar('Password updated', "Password updated successfully",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin:
-              const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
-          snackPosition: SnackPosition.BOTTOM,
-          snackStyle: SnackStyle.FLOATING);
-      oldPasswordController.clear();
-      newPasswordController.clear();
-      // print(results["token"]);
-
-    }
-    if ((response.statusCode == 400) || (response.statusCode == 500)) {
-      isLoading.value = false;
-      Get.snackbar(
-          'Error occured', "Enter correct old password and try again later",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.red,
-          margin:
-              const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
-          snackPosition: SnackPosition.BOTTOM,
-          snackStyle: SnackStyle.FLOATING);
-      // progress?.dismiss();
-
+      InvalidToken().showErrorSnackBar();
     }
   }
 }

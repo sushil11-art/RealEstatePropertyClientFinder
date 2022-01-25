@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
-import 'dart:convert';
+// import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/screens/auth/login_screen.dart';
 import 'package:property_client_finder_app/services/auth/register_services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+// import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class RegisterController extends GetxController {
   GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
@@ -61,52 +62,55 @@ class RegisterController extends GetxController {
   }
 
   void registerBroker(BuildContext context) async {
-    var valid = registerFormKey.currentState!.validate();
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (!valid) {
-      return;
-    }
-    registerFormKey.currentState!.save();
-    isLoading.value = true;
-    // EasyLoading.show(status: 'Loading');
+    try {
+      var valid = registerFormKey.currentState!.validate();
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (!valid) {
+        return;
+      }
+      registerFormKey.currentState!.save();
+      isLoading.value = true;
 
-    var response =
-        await RegitserServices.registerBroker(email, password, username);
-    if (response.statusCode == 200) {
+      var response =
+          await RegitserServices.registerBroker(email, password, username);
+      if (response.statusCode == 200) {
+        isLoading.value = false;
+        Get.snackbar('Register Success', "Account created successfully",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin: const EdgeInsets.only(top: 60),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        Get.off(LoginScreen());
+        // }
+      }
+      if (response.statusCode == 400) {
+        isLoading.value = false;
+        await Get.dialog(AlertDialog(
+          title: const Text('Registration failed'),
+          content: const Text('User with that email already exists'),
+          actions: [
+            TextButton(
+                onPressed: () => Get.back(), // Close the dialog
+                child: const Text('Close'))
+          ],
+        ));
+      }
+      if ((response.statusCode == 500) || (response.statusCode == 422)) {
+        isLoading.value = false;
+        await Get.dialog(AlertDialog(
+          title: const Text('Registration failed'),
+          content: const Text('An error occured,please try again later'),
+          actions: [
+            TextButton(
+                onPressed: () => Get.back(), // Close the dialog
+                child: const Text('Close'))
+          ],
+        ));
+      }
+    } catch (e) {
       isLoading.value = false;
-      Get.snackbar('Register Success', "Account created successfully",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin: const EdgeInsets.only(top: 60),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      Get.off(LoginScreen());
-      // }
+      InvalidToken().showErrorSnackBar();
     }
-    if (response.statusCode == 400) {
-      isLoading.value = false;
-      await Get.dialog(AlertDialog(
-        title: const Text('Registration failed'),
-        content: const Text('User with that email already exists'),
-        actions: [
-          TextButton(
-              onPressed: () => Get.back(), // Close the dialog
-              child: const Text('Close'))
-        ],
-      ));
-    }
-    if ((response.statusCode == 500) || (response.statusCode == 422)) {
-      isLoading.value = false;
-      await Get.dialog(AlertDialog(
-        title: const Text('Registration failed'),
-        content: const Text('An error occured,please try again later'),
-        actions: [
-          TextButton(
-              onPressed: () => Get.back(), // Close the dialog
-              child: const Text('Close'))
-        ],
-      ));
-    }
-    EasyLoading.dismiss();
   }
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
@@ -52,67 +53,69 @@ class LoginController extends GetxController {
   }
 
   void loginBroker(BuildContext context) async {
-    var valid = loginFormKey.currentState!.validate();
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (!valid) {
-      return;
-    }
-    loginFormKey.currentState!.save();
-
-    isLoading.value = true;
-
-    var response = await LoginServices.loginBroker(email, password);
-    if (response.statusCode == 200) {
-      // Navigator.pop(context);
-      isLoading.value = false;
-      // progress.dismiss();
-      // progress?.dismiss();
-
-      var results = json.decode(response.body);
-      // print(results["token"]);
-
-      // await StorageManager().setUserToken(results["token"]);
-      await box.write('token', results["token"]);
-      final authService = Get.put(AuthService());
-      // final authService = Get.find<AuthService>();
-      authService.setIsAuthenticated(box.read('token'));
-      if (authService.isAuthenticated.value) {
-        clearController();
-        Get.offAndToNamed(Routes.tabScreen);
-      } else {
-        clearController();
-        Get.snackbar('Something went wrong', "Please try again",
-            duration: const Duration(seconds: 5),
-            backgroundColor: Colors.red,
-            margin: const EdgeInsets.only(bottom: 40),
-            snackPosition: SnackPosition.BOTTOM,
-            snackStyle: SnackStyle.FLOATING);
+    try {
+      var valid = loginFormKey.currentState!.validate();
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (!valid) {
+        return;
       }
-      // if (!(box.read('token').isEmpty)) {
+      loginFormKey.currentState!.save();
 
-      //   isAuthenticated.value = true;
-      //   Get.offAndToNamed(Routes.tabScreen);
-      // }
-    }
-    if ((response.statusCode == 400) ||
-        (response.statusCode == 500) ||
-        (response.statusCode == 422)) {
+      isLoading.value = true;
+
+      var response = await LoginServices.loginBroker(email, password);
+      if (response.statusCode == 200) {
+        // Navigator.pop(context);
+        isLoading.value = false;
+        // progress.dismiss();
+        // progress?.dismiss();
+
+        var results = json.decode(response.body);
+        // print(results["token"]);
+
+        // await StorageManager().setUserToken(results["token"]);
+        await box.write('token', results["token"]);
+        final authService = Get.put(AuthService());
+        // final authService = Get.find<AuthService>();
+        authService.setIsAuthenticated(box.read('token'));
+        if (authService.isAuthenticated.value) {
+          clearController();
+          Get.offAndToNamed(Routes.tabScreen);
+        } else {
+          clearController();
+          Get.snackbar('Something went wrong', "Please try again",
+              duration: const Duration(seconds: 5),
+              backgroundColor: Colors.red,
+              margin: const EdgeInsets.only(bottom: 40),
+              snackPosition: SnackPosition.BOTTOM,
+              snackStyle: SnackStyle.FLOATING);
+        }
+        // if (!(box.read('token').isEmpty)) {
+
+        //   isAuthenticated.value = true;
+        //   Get.offAndToNamed(Routes.tabScreen);
+        // }
+      }
+      if ((response.statusCode == 400) ||
+          (response.statusCode == 500) ||
+          (response.statusCode == 422)) {
+        isLoading.value = false;
+        // progress?.dismiss();
+
+        await Get.dialog(AlertDialog(
+          title: const Text('Login failed'),
+          content: const Text('Invalid email or password,please try again'),
+          actions: [
+            TextButton(
+                onPressed: () => Get.back(), // Close the dialog
+                child: const Text('Close'))
+          ],
+        ));
+      }
+    } catch (e) {
       isLoading.value = false;
-      // progress?.dismiss();
-
-      await Get.dialog(AlertDialog(
-        title: const Text('Login failed'),
-        content: const Text('Invalid email or password,please try again'),
-        actions: [
-          TextButton(
-              onPressed: () => Get.back(), // Close the dialog
-              child: const Text('Close'))
-        ],
-      ));
+      InvalidToken().showErrorSnackBar();
     }
-    // await pr.hide();
-    // EasyLoading.dismiss();
-    // Get.back();
   }
 
   void clearController() {

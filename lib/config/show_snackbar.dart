@@ -10,4 +10,13 @@ class InvalidToken {
         snackPosition: SnackPosition.BOTTOM,
         snackStyle: SnackStyle.FLOATING);
   }
+
+  void showErrorSnackBar() {
+    Get.snackbar('Server error', 'Something went wrong',
+        duration: const Duration(seconds: 5),
+        backgroundColor: Colors.red,
+        margin: const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
+        snackPosition: SnackPosition.BOTTOM,
+        snackStyle: SnackStyle.FLOATING);
+  }
 }

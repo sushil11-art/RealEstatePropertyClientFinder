@@ -131,137 +131,143 @@ class HomeController extends GetxController {
 
   // ignore: dead_code
   void addHome(BuildContext context) async {
-    var valid = homeFormKey.currentState!.validate();
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (!valid) {
-      return;
-    }
-    homeFormKey.currentState!.save();
-    List<String> images = [];
-
-    // get imageUploadController
-
-    // get mapController
-    // final MapController mapController = Get.put(MapController());
-
-    // check whether user has uploaded images or not
-    if (imageUploadController.imageFileList!.isEmpty) {
-      // check whether user upload at least one image or not
-      Get.snackbar('Error occured',
-          "Upload at least one and lesst than 10 image of your property",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.red,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      return;
-    }
-
-    // check whether user has picked location or not
-
-    // if(){
-
-    // }
-    // print(mapController.latitude);
-    // print(mapController.longitude);
-
-    if ((mapController.latitude) == null ||
-        (mapController.longitude) == null ||
-        ((mapController.longitude) == null &&
-            (mapController.latitude) == null)) {
-      Get.snackbar('Error occured', "Please pick a location in map",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      return;
-    }
-    // store latitude and longitude in vairable
-    // EasyLoading.show(status: 'Loading');
-    isLoading.value = true;
-    var res = await ImageUploadServices.uploadImages(
-        imageUploadController.imageFileList!);
-    var responseData = await http.Response.fromStream(res);
-    var decodedData = json.decode(responseData.body) as Map<String, dynamic>;
-    // print(decodedData["data"]["images"]);
-    if (responseData.statusCode == 200) {
-      for (var image in decodedData["data"]["images"]) {
-        images.add(image);
+    try {
+      var valid = homeFormKey.currentState!.validate();
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (!valid) {
+        return;
       }
-      // return;
-    }
-    if ((responseData.statusCode == 400) || (responseData.statusCode == 500)) {
-      // EasyLoading.dismiss();
-      isLoading.value = false;
-      InvalidToken().showSnackBar();
-      return;
-    }
-    var latitude = mapController.latitude;
-    var longitude = mapController.longitude;
-    Map data = {
-      'price': double.parse(price),
-      'ropani': double.parse(ropani),
-      'aana': double.parse(aana),
-      // 'landArea': double.parse(landArea),
-      'roadAccess': roadAccess,
-      'waterSupply': waterSupply,
-      'kitchens': int.parse(kitchens),
-      'bathrooms': int.parse(bathrooms),
-      'bedrooms': int.parse(bedrooms),
-      'floors': double.parse(floors),
-      'province': int.parse(province.value),
-      'district': district.value,
-      'municipality': municipality.value,
-      'ward': int.parse(ward),
-      'street': street,
-      'latitude': latitude,
-      'longitude': longitude,
-      'images': images
-    };
+      homeFormKey.currentState!.save();
+      List<String> images = [];
 
-    var response;
-    if (editMode.value) {
-      response = await HomeServices.editHome(data, propertyId);
-    } else {
-      response = await HomeServices.addHome(data);
-    }
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body);
-      isLoading.value = false;
-      // EasyLoading.dismiss();
-      Get.snackbar('Property uploaded', "Home details uploaded successfully",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      // Get.off(LoginScreen());
-      clearController();
-      getProfile.profileDetails();
-      Get.offAndToNamed(Routes.tabScreen);
-    }
-    if ((response.statusCode == 500) || (response.statusCode == 422)) {
-      isLoading.value = false;
+      // get imageUploadController
 
-      // EasyLoading.dismiss();
+      // get mapController
+      // final MapController mapController = Get.put(MapController());
 
-      Get.snackbar('Error occured', "Failed to upload property details",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.red,
-          margin:
-              const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
-          snackPosition: SnackPosition.BOTTOM,
-          snackStyle: SnackStyle.FLOATING);
-      // await Get.dialog(AlertDialog(
-      //   title: const Text('Registration failed'),
-      //   content: const Text('An error occured,please try again later'),
-      //   actions: [
-      //     TextButton(
-      //         onPressed: () => Get.back(), // Close the dialog
-      //         child: const Text('Close'))
-      //   ],
-      // ));
+      // check whether user has uploaded images or not
+      if (imageUploadController.imageFileList!.isEmpty) {
+        // check whether user upload at least one image or not
+        Get.snackbar('Error occured',
+            "Upload at least one and lesst than 10 image of your property",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        return;
+      }
+
+      // check whether user has picked location or not
+
+      // if(){
+
+      // }
+      // print(mapController.latitude);
+      // print(mapController.longitude);
+
+      if ((mapController.latitude) == null ||
+          (mapController.longitude) == null ||
+          ((mapController.longitude) == null &&
+              (mapController.latitude) == null)) {
+        Get.snackbar('Error occured', "Please pick a location in map",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        return;
+      }
+      // store latitude and longitude in vairable
+      // EasyLoading.show(status: 'Loading');
+      isLoading.value = true;
+      var res = await ImageUploadServices.uploadImages(
+          imageUploadController.imageFileList!);
+      var responseData = await http.Response.fromStream(res);
+      var decodedData = json.decode(responseData.body) as Map<String, dynamic>;
+      // print(decodedData["data"]["images"]);
+      if (responseData.statusCode == 200) {
+        for (var image in decodedData["data"]["images"]) {
+          images.add(image);
+        }
+        // return;
+      }
+      if ((responseData.statusCode == 400) ||
+          (responseData.statusCode == 500)) {
+        // EasyLoading.dismiss();
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        return;
+      }
+      var latitude = mapController.latitude;
+      var longitude = mapController.longitude;
+      Map data = {
+        'price': double.parse(price),
+        'ropani': double.parse(ropani),
+        'aana': double.parse(aana),
+        // 'landArea': double.parse(landArea),
+        'roadAccess': roadAccess,
+        'waterSupply': waterSupply,
+        'kitchens': int.parse(kitchens),
+        'bathrooms': int.parse(bathrooms),
+        'bedrooms': int.parse(bedrooms),
+        'floors': double.parse(floors),
+        'province': int.parse(province.value),
+        'district': district.value,
+        'municipality': municipality.value,
+        'ward': int.parse(ward),
+        'street': street,
+        'latitude': latitude,
+        'longitude': longitude,
+        'images': images
+      };
+
+      var response;
+      if (editMode.value) {
+        response = await HomeServices.editHome(data, propertyId);
+      } else {
+        response = await HomeServices.addHome(data);
+      }
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        isLoading.value = false;
+        // EasyLoading.dismiss();
+        Get.snackbar('Property uploaded', "Home details uploaded successfully",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        // Get.off(LoginScreen());
+        clearController();
+        getProfile.profileDetails();
+        Get.offAndToNamed(Routes.tabScreen);
+      }
+      if ((response.statusCode == 500) || (response.statusCode == 422)) {
+        isLoading.value = false;
+
+        // EasyLoading.dismiss();
+
+        Get.snackbar('Error occured', "Failed to upload property details",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            margin:
+                const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
+            snackPosition: SnackPosition.BOTTOM,
+            snackStyle: SnackStyle.FLOATING);
+        // await Get.dialog(AlertDialog(
+        //   title: const Text('Registration failed'),
+        //   content: const Text('An error occured,please try again later'),
+        //   actions: [
+        //     TextButton(
+        //         onPressed: () => Get.back(), // Close the dialog
+        //         child: const Text('Close'))
+        //   ],
+        // ));
+      }
+    } catch (e) {
+      isLoading.value = false;
+      InvalidToken().showErrorSnackBar();
     }
   }
 

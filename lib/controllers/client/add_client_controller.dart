@@ -183,112 +183,117 @@ class AddClientController extends GetxController {
   }
 
   void addClient(BuildContext context) async {
-    var valid = clientFormKey.currentState!.validate();
-    FocusScope.of(context).requestFocus(FocusNode());
-    if (!valid) {
-      return;
-    }
-    clientFormKey.currentState!.save();
+    try {
+      var valid = clientFormKey.currentState!.validate();
+      FocusScope.of(context).requestFocus(FocusNode());
+      if (!valid) {
+        return;
+      }
+      clientFormKey.currentState!.save();
 
-    if ((mapController.latitude) == null ||
-        (mapController.longitude) == null ||
-        ((mapController.longitude) == null &&
-            (mapController.latitude) == null)) {
-      Get.snackbar('Error occured', "Please pick a location in map",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      return;
-    }
-    var latitude = mapController.latitude;
-    var longitude = mapController.longitude;
+      if ((mapController.latitude) == null ||
+          (mapController.longitude) == null ||
+          ((mapController.longitude) == null &&
+              (mapController.latitude) == null)) {
+        Get.snackbar('Error occured', "Please pick a location in map",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        return;
+      }
+      var latitude = mapController.latitude;
+      var longitude = mapController.longitude;
 
-    var phoneNumber = int.parse(phone.substring(phone.length - 10));
+      var phoneNumber = int.parse(phone.substring(phone.length - 10));
 
-    var type = 1;
-    if (!(propertyType.value)) {
-      kitchens = 0;
-      bathrooms = 0;
-      bedrooms = 0;
-      floors = 0;
-      type = 0;
-    } else {
-      kitchens = int.parse(kitchens);
-      bathrooms = int.parse(bathrooms);
-      bedrooms = int.parse(bedrooms);
-      floors = double.parse(floors);
-    }
-    // print(propertyType);
-    Map data = {
-      'name': name,
-      'email': email,
-      'phone': phoneNumber,
-      'price': double.parse(price),
-      'propertyType': type,
-      // 'landArea': double.parse(landArea),
-      'ropani': double.parse(ropani),
-      'aana': double.parse(aana),
+      var type = 1;
+      if (!(propertyType.value)) {
+        kitchens = 0;
+        bathrooms = 0;
+        bedrooms = 0;
+        floors = 0;
+        type = 0;
+      } else {
+        kitchens = int.parse(kitchens);
+        bathrooms = int.parse(bathrooms);
+        bedrooms = int.parse(bedrooms);
+        floors = double.parse(floors);
+      }
+      // print(propertyType);
+      Map data = {
+        'name': name,
+        'email': email,
+        'phone': phoneNumber,
+        'price': double.parse(price),
+        'propertyType': type,
+        // 'landArea': double.parse(landArea),
+        'ropani': double.parse(ropani),
+        'aana': double.parse(aana),
 
-      'roadAccess': roadAccess,
-      'waterSupply': waterSupply,
-      'kitchens': kitchens,
-      'bathrooms': bathrooms,
-      'bedrooms': bedrooms,
-      'floors': floors,
-      'province': int.parse(province.value),
-      'district': district.value,
-      'municipality': municipality.value,
-      'ward': int.parse(ward),
-      'street': street,
-      'latitude': latitude,
-      'longitude': longitude,
-    };
-    // print(data);
-    // return;
-    isLoading.value = true;
-    var response;
-    if (editMode.value) {
-      response = await ClientServices.editClient(data, clientId);
-    } else {
-      response = await ClientServices.addClient(data);
-    }
+        'roadAccess': roadAccess,
+        'waterSupply': waterSupply,
+        'kitchens': kitchens,
+        'bathrooms': bathrooms,
+        'bedrooms': bedrooms,
+        'floors': floors,
+        'province': int.parse(province.value),
+        'district': district.value,
+        'municipality': municipality.value,
+        'ward': int.parse(ward),
+        'street': street,
+        'latitude': latitude,
+        'longitude': longitude,
+      };
+      // print(data);
+      // return;
+      isLoading.value = true;
+      var response;
+      if (editMode.value) {
+        response = await ClientServices.editClient(data, clientId);
+      } else {
+        response = await ClientServices.addClient(data);
+      }
 
-    if (response.statusCode == 401) {
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        LogoutController().logout();
+      }
+      if (response.statusCode == 200) {
+        var data = json.decode(response.body);
+        isLoading.value = false;
+        // EasyLoading.dismiss();
+        Get.snackbar('Client uploaded', "Client details uploaded successfully",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.green,
+            margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
+            snackPosition: SnackPosition.TOP,
+            snackStyle: SnackStyle.FLOATING);
+        getProfile.profileDetails();
+        clearController();
+
+        // Get.offAndToNamed(Routes.tabScreen);
+      }
+      if ((response.statusCode == 500) ||
+          (response.statusCode == 422) ||
+          (response.statusCode == 400)) {
+        isLoading.value = false;
+
+        // EasyLoading.dismiss();
+
+        Get.snackbar('Error occured', "Failed to upload client details",
+            duration: const Duration(seconds: 5),
+            backgroundColor: Colors.red,
+            margin:
+                const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
+            snackPosition: SnackPosition.BOTTOM,
+            snackStyle: SnackStyle.FLOATING);
+      }
+    } catch (e) {
       isLoading.value = false;
-      InvalidToken().showSnackBar();
-      LogoutController().logout();
-    }
-    if (response.statusCode == 200) {
-      var data = json.decode(response.body);
-      isLoading.value = false;
-      // EasyLoading.dismiss();
-      Get.snackbar('Client uploaded', "Client details uploaded successfully",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.green,
-          margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
-          snackPosition: SnackPosition.TOP,
-          snackStyle: SnackStyle.FLOATING);
-      getProfile.profileDetails();
-      clearController();
-
-      // Get.offAndToNamed(Routes.tabScreen);
-    }
-    if ((response.statusCode == 500) ||
-        (response.statusCode == 422) ||
-        (response.statusCode == 400)) {
-      isLoading.value = false;
-
-      // EasyLoading.dismiss();
-
-      Get.snackbar('Error occured', "Failed to upload client details",
-          duration: const Duration(seconds: 5),
-          backgroundColor: Colors.red,
-          margin:
-              const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
-          snackPosition: SnackPosition.BOTTOM,
-          snackStyle: SnackStyle.FLOATING);
+      InvalidToken().showErrorSnackBar();
     }
   }
 
