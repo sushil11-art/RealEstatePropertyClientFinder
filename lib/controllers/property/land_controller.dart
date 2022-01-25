@@ -18,6 +18,8 @@ import 'package:property_client_finder_app/services/upload/image_upload_services
 
 // integrate google map flutter
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+
 // import 'dart:async';
 
 class LandController extends GetxController {
@@ -45,6 +47,9 @@ class LandController extends GetxController {
 
   PropertyListController propertyListController =
       Get.find<PropertyListController>();
+
+  GetProfile getProfile = Get.put(GetProfile());
+
   var propertyId;
 
   var price;
@@ -81,6 +86,7 @@ class LandController extends GetxController {
     wardController.dispose();
     streetController.dispose();
     propertyListController.fetchProperties();
+    // getProfile.profileDetails();
     super.onClose();
   }
 
@@ -224,6 +230,7 @@ class LandController extends GetxController {
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
       clearController();
+      getProfile.profileDetails();
       Get.offAndToNamed(Routes.tabScreen);
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {

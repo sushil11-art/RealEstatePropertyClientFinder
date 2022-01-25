@@ -4,6 +4,8 @@ import 'package:property_client_finder_app/controllers/property/property_list_co
 import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:get/get.dart';
 import 'package:blurry/blurry.dart';
+import 'package:shimmer/shimmer.dart';
+
 // import 'package:blurry/resources/arrays.dart';
 // import 'package:property_client_finder_app/routes.dart';
 
@@ -52,17 +54,67 @@ class MatchingPropertyItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: width * 0.35,
-                height: height * 0.19,
-                margin: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        fit: BoxFit.cover, image: NetworkImage(images[0])
-                        // image: AssetImage("assets/images/home.jpg")
-
+                  width: width * 0.35,
+                  height: height * 0.19,
+                  margin: const EdgeInsets.all(14),
+                  child: Image.network(
+                    images[0],
+                    errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                            // borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage("assets/images/home.jpg"),
+                          // image: AssetImage("assets/images/home.jpg")
                         )),
-              ),
+                      );
+                    },
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Shimmer.fromColors(
+                        baseColor: Colors.red,
+                        highlightColor: Colors.yellow,
+                        child: const Text(
+                          'Shimmer',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                      // return FancyShimmerImage(
+                      //     shimmerBaseColor: Colors.grey,
+                      //     shimmerHighlightColor: Colors.redAccent,
+                      //     shimmerBackColor: Colors.blue,
+                      //     imageUrl:
+                      //         'https://image.shutterstock.com/image-photo/polarization-pearl-sequins-shiny-glitter-260nw-1095200171.jpg');
+                      // return Center(
+                      //   child: CircularProgressIndicator(
+                      //     value: loadingProgress.expectedTotalBytes != null
+                      //         ? loadingProgress.cumulativeBytesLoaded /
+                      //             loadingProgress.expectedTotalBytes!
+                      //         : null,
+                      //   ),
+                      // );
+                    },
+                  )
+                  //  CachedNetworkImage(
+                  //   imageUrl: images[0],
+                  //   fit: BoxFit.cover,
+                  //   placeholder: (context, url) => CircularProgressIndicator(),
+                  //   errorWidget: (context, url, error) => Icon(Icons.error),
+                  // ),
+                  // decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     image: DecorationImage(
+                  //       fit: BoxFit.cover, image: NetworkImage(images[0]),
+                  //       // image: AssetImage("assets/images/home.jpg")
+                  //     )),
+                  ),
               Expanded(
                   child: Container(
                 margin: const EdgeInsets.only(top: 14, left: 8),

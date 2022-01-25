@@ -17,6 +17,7 @@ import 'package:property_client_finder_app/services/property/home_services.dart'
 import 'package:property_client_finder_app/services/upload/image_upload_services.dart';
 // import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
 
 // integrate google map flutter
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -52,6 +53,8 @@ class HomeController extends GetxController {
 
   PropertyListController propertyListController =
       Get.find<PropertyListController>();
+
+  GetProfile getProfile = Get.put(GetProfile());
 
   var propertyId;
   var price;
@@ -96,6 +99,8 @@ class HomeController extends GetxController {
     wardController.dispose();
     streetController.dispose();
     propertyListController.fetchProperties();
+    // getProfile.profileDetails();
+
     // clientController.fetchClients();
     super.onClose();
   }
@@ -233,6 +238,7 @@ class HomeController extends GetxController {
           snackStyle: SnackStyle.FLOATING);
       // Get.off(LoginScreen());
       clearController();
+      getProfile.profileDetails();
       Get.offAndToNamed(Routes.tabScreen);
     }
     if ((response.statusCode == 500) || (response.statusCode == 422)) {

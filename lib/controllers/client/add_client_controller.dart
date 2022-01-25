@@ -5,6 +5,8 @@ import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
+import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+
 import 'dart:convert';
 
 import 'package:property_client_finder_app/services/client/client_services.dart';
@@ -47,6 +49,8 @@ class AddClientController extends GetxController {
   // PhoneNumber number = PhoneNumber(isoCode: 'NP');
 
   MapController mapController = Get.put(MapController());
+
+  GetProfile getProfile = Get.put(GetProfile());
 
   // ClientController clientController = Get.put(ClientController());
   // ImageUploadController imageUploadController =
@@ -95,8 +99,9 @@ class AddClientController extends GetxController {
     // clientController.fetchClients();
     // clearText();
     // Get.back();
+    // getProfile.profileDetails();
     Get.reset();
-    // super.onClose();
+    super.onClose();
   }
 
   void clearText() {
@@ -265,6 +270,7 @@ class AddClientController extends GetxController {
           margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
           snackPosition: SnackPosition.TOP,
           snackStyle: SnackStyle.FLOATING);
+      getProfile.profileDetails();
       clearController();
 
       // Get.offAndToNamed(Routes.tabScreen);
