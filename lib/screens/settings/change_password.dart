@@ -48,13 +48,14 @@ class ChangePasswordScreen extends StatelessWidget {
                     margin: const EdgeInsets.all(15),
                     child: Form(
                         key: changePassword.passwordFormKey,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: TextFormField(
                                 // keyboardType: TextInputType.number,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 obscureText:
                                     changePassword.isOldInvisible.value,
                                 controller:
@@ -88,6 +89,8 @@ class ChangePasswordScreen extends StatelessWidget {
                                 // keyboardType: TextInputType.number,
                                 obscureText:
                                     changePassword.isNewInvisible.value,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
 
                                 // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                                 controller:
