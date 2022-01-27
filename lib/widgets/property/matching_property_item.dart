@@ -78,7 +78,7 @@ class MatchingPropertyItem extends StatelessWidget {
                         baseColor: Colors.red,
                         highlightColor: Colors.yellow,
                         child: const Text(
-                          'Shimmer',
+                          '',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 40.0,

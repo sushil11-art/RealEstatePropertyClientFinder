@@ -52,9 +52,8 @@ class PropertyDetails extends StatelessWidget {
       bedrooms = propertyController.propertyDescription["home"]["bedrooms"];
       floors = propertyController.propertyDescription["home"]["floors"];
       title = "Home";
-
     }
-   
+
     List<String> images = imageUrl
         .generateImageUrl(propertyController.propertyDescription["images"]);
     return Scaffold(
@@ -107,7 +106,7 @@ class PropertyDetails extends StatelessWidget {
                           baseColor: Colors.red,
                           highlightColor: Colors.yellow,
                           child: const Text(
-                            'Shimmer',
+                            '',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 40.0,
@@ -115,10 +114,8 @@ class PropertyDetails extends StatelessWidget {
                             ),
                           ),
                         );
-                       
                       },
                     ),
-                  
                   );
                 },
                 options: CarouselOptions(
