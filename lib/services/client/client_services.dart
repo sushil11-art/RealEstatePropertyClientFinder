@@ -2,16 +2,19 @@ import 'package:http/http.dart' as http;
 import 'package:get_storage/get_storage.dart';
 import 'package:property_client_finder_app/helpers/api_url.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:property_client_finder_app/models/property_list.dart';
 
-final box = GetStorage();
-var token = box.read('token');
+// final box = GetStorage();
+// var token = box.read('token');
 
 class ClientServices {
   static Future getClients() async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
- 
       var url = API.localApiUrl + "allClient";
       final response = await http.get(
         Uri.parse(url),
@@ -20,17 +23,19 @@ class ClientServices {
           'authorization': token
         },
       );
-   
+
       return response;
       // return decoded;
     } catch (e) {
       print(e);
- 
     }
   }
 
   static Future deleteClient(clientId) async {
     var baseUrl = API.localApiUrl;
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       var url = baseUrl + "deleteClient/$clientId";
       // print(url);
@@ -47,11 +52,13 @@ class ClientServices {
       return response;
     } catch (e) {
       print(e);
-   
     }
   }
 
   static Future clientDetails(clientId) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       final url = API.localApiUrl + "getClient/$clientId";
 
@@ -72,6 +79,9 @@ class ClientServices {
   }
 
   static Future addClient(data) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       final url = API.localApiUrl + "addClient";
       var body = json.encode(data);
@@ -92,6 +102,9 @@ class ClientServices {
   }
 
   static Future editClient(data, clientId) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       final url = API.localApiUrl + "editClient/$clientId";
       var body = json.encode(data);
@@ -112,6 +125,9 @@ class ClientServices {
   }
 
   static Future getMatchingPropertiesForClient(clientId) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       var url = API.localApiUrl + "allProperty/$clientId";
       final response = await http.get(

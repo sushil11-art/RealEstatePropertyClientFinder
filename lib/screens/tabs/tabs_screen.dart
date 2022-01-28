@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 // import 'package:property_client_finder_app/config/logout_controller.dart';
 // import 'package:property_client_finder_app/routes.dart';
 // import 'package:property_client_finder_app/screens/auth/login_screen.dart';
@@ -65,64 +66,75 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final PropertyListController propertyListController =
+        Get.put(PropertyListController());
     return WillPopScope(
-      onWillPop: () async {
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(content: Text('The System Back Button is Deactivated')));
-        return false;
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.redAccent,
-          automaticallyImplyLeading: false,
-          title: Text(
-            _pages[_selectedPageIndex]['title'] as String,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                // fontStyle: FontStyle.italic,
-                color: Colors.black,
-                fontSize: 20),
+        onWillPop: () async {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('The System Back Button is Deactivated')));
+          return false;
+        },
+        child: Obx(
+          () => AbsorbPointer(
+            absorbing: propertyListController.isLoading.value,
+            child: Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.redAccent,
+                automaticallyImplyLeading: false,
+                title: Text(
+                  _pages[_selectedPageIndex]['title'] as String,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      // fontStyle: FontStyle.italic,
+                      color: Colors.black,
+                      fontSize: 20),
+                ),
+                // actions: [
+                //   IconButton(
+                //       onPressed: () {
+                //         LogoutController().logout();
+                //         // LogoutController().logoutContext(context);
+                //         // Restart.restartApp(webOrigin: Routes.login);
+                //         // Get.offAllNamed(Routes.login);
+                //         // Get.offNamedUntil(Routes.login, (route) => true);
+                //         // Get.back();
+                //         // logoutController.logout();
+                //       },
+                //       icon: const Icon(
+                //         Icons.logout,
+                //         color: Colors.black,
+                //       ))
+                // ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {},
+                backgroundColor: Colors.red,
+                child: const Icon(Icons.add),
+              ),
+              body: _pages[_selectedPageIndex]['page'] as Widget,
+              bottomNavigationBar: BottomNavigationBar(
+                selectedItemColor: Colors.red,
+                unselectedItemColor: Colors.black,
+                // onTap: controller.changeTabIndex,
+                onTap: _selectPage,
+                currentIndex: _selectedPageIndex,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.people),
+                    label: 'Clients',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                    label: 'Profile',
+                  ),
+                ],
+              ),
+            ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  LogoutController().logout();
-                  // LogoutController().logoutContext(context);
-                  // Restart.restartApp(webOrigin: Routes.login);
-                  // Get.offAllNamed(Routes.login);
-                  // Get.offNamedUntil(Routes.login, (route) => true);
-                  // Get.back();
-                  // logoutController.logout();
-                },
-                icon: const Icon(
-                  Icons.logout,
-                  color: Colors.black,
-                ))
-          ],
-        ),
-        body: _pages[_selectedPageIndex]['page'] as Widget,
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.black,
-          // onTap: controller.changeTabIndex,
-          onTap: _selectPage,
-          currentIndex: _selectedPageIndex,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.people),
-              label: 'Clients',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
-        ),
-      ),
-    );
+        ));
   }
 }

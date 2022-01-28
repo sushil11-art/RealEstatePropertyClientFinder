@@ -63,6 +63,7 @@ class PropertyListController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
+      LogoutController().logout();
       InvalidToken().showErrorSnackBar();
       // print(e);
     }
@@ -97,6 +98,7 @@ class PropertyListController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
+      // LogoutController().logout();
       InvalidToken().showErrorSnackBar();
     }
     // matchingClientList = matchingClients;
@@ -140,6 +142,8 @@ class PropertyListController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
+      // LogoutController().logout();
+
       InvalidToken().showErrorSnackBar();
     }
     // update();
@@ -175,6 +179,7 @@ class PropertyListController extends GetxController {
       }
     } catch (e) {
       isLoading.value = false;
+      // LogoutController().logout();
       InvalidToken().showErrorSnackBar();
     }
   }
@@ -253,7 +258,9 @@ class PropertyListController extends GetxController {
             snackStyle: SnackStyle.FLOATING);
       }
     } catch (e) {
+      print(e);
       isLoading.value = false;
+      // LogoutController().logout();
       InvalidToken().showErrorSnackBar();
     }
   }

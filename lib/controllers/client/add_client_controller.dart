@@ -69,9 +69,9 @@ class AddClientController extends GetxController {
   var aana;
   var roadAccess;
   var waterSupply;
-  var kitchens;
-  var bathrooms;
-  var bedrooms;
+  var kitchens = "".obs;
+  var bathrooms = "".obs;
+  var bedrooms = "".obs;
   var floors;
   var province = "".obs;
   var district = "".obs;
@@ -114,9 +114,12 @@ class AddClientController extends GetxController {
     aanaController.clear();
     roadAccessConttroller.clear();
     waterSupplyController.clear();
-    kitchenController.clear();
-    bathroomController.clear();
-    bedroomController.clear();
+    // kitchenController.clear();
+    // bathroomController.clear();
+    // bedroomController.clear();
+    kitchens.value = "";
+    bathrooms.value = "";
+    bedrooms.value = "";
     floorController.clear();
     province.value = "";
     district.value = "";
@@ -209,16 +212,19 @@ class AddClientController extends GetxController {
       var phoneNumber = int.parse(phone.substring(phone.length - 10));
 
       var type = 1;
+      var kitch;
+      var bedr;
+      var bath;
       if (!(propertyType.value)) {
-        kitchens = 0;
-        bathrooms = 0;
-        bedrooms = 0;
+        kitch = 0;
+        bedr = 0;
+        bath = 0;
         floors = 0;
         type = 0;
       } else {
-        kitchens = int.parse(kitchens);
-        bathrooms = int.parse(bathrooms);
-        bedrooms = int.parse(bedrooms);
+        kitch = int.parse(kitchens.value);
+        bath = int.parse(bathrooms.value);
+        bedr = int.parse(bedrooms.value);
         floors = double.parse(floors);
       }
       // print(propertyType);
@@ -234,9 +240,9 @@ class AddClientController extends GetxController {
 
         'roadAccess': roadAccess,
         'waterSupply': waterSupply,
-        'kitchens': kitchens,
-        'bathrooms': bathrooms,
-        'bedrooms': bedrooms,
+        'kitchens': kitch,
+        'bathrooms': bath,
+        'bedrooms': bedr,
         'floors': floors,
         'province': int.parse(province.value),
         'district': district.value,
@@ -330,7 +336,7 @@ class AddClientController extends GetxController {
   }
 
   void setPropertyInfo(typeofProperty, price, landArea, roadAccess, waterSupply,
-      kitchens, bathrooms, bedrooms, floors) {
+      kitch, bath, bedr, floors) {
     // propertyType.value = propertyType;
     priceController.text = price.toString();
     landAreaController.text = landArea.toString();
@@ -339,9 +345,9 @@ class AddClientController extends GetxController {
     if (typeofProperty == 1) {
       propertyType.value = true;
       propertyCurrentItem.value = "Home";
-      kitchenController.text = kitchens.toString();
-      bathroomController.text = bathrooms.toString();
-      bedroomController.text = bedrooms.toString();
+      kitchens.value = kitch.toString();
+      bathrooms.value = bath.toString();
+      bedrooms.value = bedr.toString();
       floorController.text = floors.toString();
     }
   }

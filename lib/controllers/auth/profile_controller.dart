@@ -30,9 +30,9 @@ class GetProfile extends GetxController {
       var response = await ProfileServices.getProfileDetails();
       if (response.statusCode == 401) {
         isLoading.value = false;
-        InvalidToken().showSnackBar();
-        LogoutController().logout();
-        return;
+        // InvalidToken().showSnackBar();
+        // LogoutController().logout();
+        // return;
       }
       if (response.statusCode == 200) {
         isLoading.value = false;

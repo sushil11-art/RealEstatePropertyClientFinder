@@ -63,9 +63,9 @@ class HomeController extends GetxController {
   var aana;
   var roadAccess;
   var waterSupply;
-  var kitchens;
-  var bathrooms;
-  var bedrooms;
+  var kitchens = "".obs;
+  var bathrooms = "".obs;
+  var bedrooms = "".obs;
   var floors;
   var province = "".obs;
   var district = "".obs;
@@ -208,9 +208,9 @@ class HomeController extends GetxController {
         // 'landArea': double.parse(landArea),
         'roadAccess': roadAccess,
         'waterSupply': waterSupply,
-        'kitchens': int.parse(kitchens),
-        'bathrooms': int.parse(bathrooms),
-        'bedrooms': int.parse(bedrooms),
+        'kitchens': int.parse(kitchens.value),
+        'bathrooms': int.parse(bathrooms.value),
+        'bedrooms': int.parse(bedrooms.value),
         'floors': double.parse(floors),
         'province': int.parse(province.value),
         'district': district.value,
@@ -277,9 +277,9 @@ class HomeController extends GetxController {
     landArea,
     roadAccess,
     waterSupply,
-    kitchens,
-    bathrooms,
-    bedrooms,
+    kitch,
+    bath,
+    bedr,
     floors,
   ) async {
     propertyId = id;
@@ -287,9 +287,13 @@ class HomeController extends GetxController {
     landAreaController.text = landArea.toString();
     roadAccessConttroller.text = roadAccess.toString();
     waterSupplyController.text = waterSupply;
-    kitchenController.text = kitchens.toString();
-    bathroomController.text = bathrooms.toString();
-    bedroomController.text = bedrooms.toString();
+    kitchens.value = kitch.toString();
+    bathrooms.value = bath.toString();
+    bedrooms.value = bedr.toString();
+
+    // kitchenController.text = kitchens.toString();
+    // bathroomController.text = bathrooms.toString();
+    // bedroomController.text = bedrooms.toString();
     floorController.text = floors.toString();
   }
 
@@ -312,13 +316,16 @@ class HomeController extends GetxController {
     aanaController.clear();
     roadAccessConttroller.clear();
     waterSupplyController.clear();
-    kitchenController.clear();
-    bathroomController.clear();
-    bedroomController.clear();
+    // kitchenController.clear();
+    // bathroomController.clear();
+    // bedroomController.clear();
     floorController.clear();
     district.value = "";
     province.value = "";
     municipality.value = "";
+    kitchens.value = "";
+    bathrooms.value = "";
+    bedrooms.value = "";
     // provinceController.clear();
     // districtController.clear();
     // municipalityController.clear();

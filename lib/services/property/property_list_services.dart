@@ -4,12 +4,16 @@ import 'package:property_client_finder_app/helpers/api_url.dart';
 import 'dart:convert';
 
 import 'package:property_client_finder_app/models/property_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final box = GetStorage();
-var token = box.read('token');
+// final box = GetStorage();
+// var token = box.read('token');
 
 class PropertyListServices {
   static Future getProperties() async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       // Map data = {'email': email, 'password': password};
       // var body = json.encode(data);
@@ -21,7 +25,7 @@ class PropertyListServices {
           'authorization': token
         },
       );
-    
+
       return response;
     } catch (e) {
       print(e);
@@ -31,8 +35,10 @@ class PropertyListServices {
   }
 
   static Future deleteProperty(propertyId, landId, homeId) async {
- 
     var base_url = API.localApiUrl;
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       var url;
       if (homeId == null) {
@@ -54,11 +60,13 @@ class PropertyListServices {
       return response;
     } catch (e) {
       print(e);
-  
     }
   }
 
   static Future propertyDetails(propertyId) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       final url = API.localApiUrl + "getProperty/${propertyId}";
 
@@ -71,7 +79,7 @@ class PropertyListServices {
           'authorization': token
         },
       );
-  
+
       return response;
     } catch (e) {
       print(e);
@@ -79,6 +87,9 @@ class PropertyListServices {
   }
 
   static Future getMatchingClientsForProperty(propertyId) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       var url = API.localApiUrl + "allClient/$propertyId";
       final response = await http.get(

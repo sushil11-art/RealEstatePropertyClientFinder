@@ -35,8 +35,8 @@ class ClientController extends GetxController {
       var response = await ClientServices.getClients();
       if (response.statusCode == 401) {
         isLoading.value = false;
-        InvalidToken().showSnackBar();
-        LogoutController().logout();
+        // InvalidToken().showSnackBar();
+        // LogoutController().logout();
       }
       if (response.statusCode == 200) {
         isLoading.value = false;

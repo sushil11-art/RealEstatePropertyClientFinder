@@ -5,12 +5,16 @@ import 'dart:io';
 import 'package:async/async.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:property_client_finder_app/helpers/api_url.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-final box = GetStorage();
-var token = box.read('token');
+// final box = GetStorage();
+// var token = box.read('token');
 
 class ImageUploadServices {
   static Future uploadImages(List<XFile> images) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
     try {
       var base_url = API.localApiUrl + "upload";
       var url = Uri.parse(base_url);

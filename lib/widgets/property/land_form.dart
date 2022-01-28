@@ -30,7 +30,13 @@ class _LandFormState extends State<LandForm> {
 
   List _items = [];
 
-  List province = ["1", "2", "3", "4", "5", "6", "7"];
+  var province = ["1", "2", "3", "4", "5", "6", "7"];
+
+  var ropani = [for (var i = 1; i <= 50; i++) i.toString()];
+
+  var aana = [for (var i = 1; i <= 15; i++) i.toString()];
+
+  // List homeFeatures = [for (var i = 1; i <= 20; i++) i];
 
   // Fetch content from the json file
   Future<void> readJson() async {
@@ -133,54 +139,128 @@ class _LandFormState extends State<LandForm> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
-                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-                  controller: landController.ropaniController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: ropani,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Ropani",
+                    prefixIcon: const Icon(Icons.landscape_rounded),
+                    labelText: "Ropani",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select ropani";
+                    } else {
+                      return null;
+                    }
+                  },
+                  // selectedItem: homeController.province.value.length == 1
+                  //     ? homeController.province.value
+                  //     : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
+                    // print(value);
                     landController.ropani = value!.trim();
                   },
-                  validator: (value) {
-                    return landController.validatePriceOrLand(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  // obscureText: true,
-                  decoration: InputDecoration(
-                      // suffixIcon: const Icon(Icons.landscape_rounded),
-                      prefixIcon: const Icon(Icons.landscape_rounded),
-                      labelText: "Ropani",
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
-                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-                  controller: landController.aanaController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: aana,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Aana",
+                    prefixIcon: const Icon(Icons.archive_sharp),
+                    labelText: "Aana",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select aana";
+                    } else {
+                      return null;
+                    }
+                  },
+                  // selectedItem: homeController.province.value.length == 1
+                  //     ? homeController.province.value
+                  //     : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
+                    // print(value);
                     landController.aana = value!.trim();
                   },
-                  validator: (value) {
-                    return landController.validatePriceOrLand(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  // obscureText: true,
-                  decoration: InputDecoration(
-                      // suffixIcon: const Icon(Icons.landscape_rounded),
-                      prefixIcon: const Icon(Icons.archive_sharp),
-                      labelText: "Aana",
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+
+              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              //     controller: landController.ropaniController,
+              //     onSaved: (value) {
+              //       landController.ropani = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return landController.validatePriceOrLand(value);
+              //     },
+              //     // obscureText: true,
+              //     decoration: InputDecoration(
+              //         // suffixIcon: const Icon(Icons.landscape_rounded),
+              //         prefixIcon: const Icon(Icons.landscape_rounded),
+              //         labelText: "Ropani",
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+
+              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              //     controller: landController.aanaController,
+              //     onSaved: (value) {
+              //       landController.aana = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return landController.validatePriceOrLand(value);
+              //     },
+              //     // obscureText: true,
+              //     decoration: InputDecoration(
+              //         // suffixIcon: const Icon(Icons.landscape_rounded),
+              //         prefixIcon: const Icon(Icons.archive_sharp),
+              //         labelText: "Aana",
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(

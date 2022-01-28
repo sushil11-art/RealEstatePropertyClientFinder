@@ -12,7 +12,7 @@ class InvalidToken {
   }
 
   void showErrorSnackBar() {
-    Get.snackbar('Server error', 'Something went wrong',
+    Get.snackbar('Error occured', 'Something went wrong',
         duration: const Duration(seconds: 5),
         backgroundColor: Colors.red,
         margin: const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),

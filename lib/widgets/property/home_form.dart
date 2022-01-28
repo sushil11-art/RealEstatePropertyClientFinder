@@ -32,6 +32,12 @@ class _HomeFormState extends State<HomeForm> {
 
   List province = ["1", "2", "3", "4", "5", "6", "7"];
 
+  var ropani = [for (var i = 1; i <= 50; i++) i.toString()];
+
+  var aana = [for (var i = 1; i <= 15; i++) i.toString()];
+
+  var homeFeatures = [for (var i = 1; i <= 20; i++) i.toString()];
+
   // Fetch content from the json file
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/address.json');
@@ -131,54 +137,128 @@ class _HomeFormState extends State<HomeForm> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
-                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-                  controller: homeController.ropaniController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: ropani,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Ropani",
+                    prefixIcon: const Icon(Icons.landscape_rounded),
+                    labelText: "Ropani",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select ropani";
+                    } else {
+                      return null;
+                    }
+                  },
+                  // selectedItem: homeController.province.value.length == 1
+                  //     ? homeController.province.value
+                  //     : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
+                    // print(value);
                     homeController.ropani = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validatePriceOrLandOrFloor(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  // obscureText: true,
-                  decoration: InputDecoration(
-                      // suffixIcon: const Icon(Icons.landscape_rounded),
-                      prefixIcon: const Icon(Icons.landscape_rounded),
-                      labelText: "Ropani",
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-
-                  // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-                  controller: homeController.aanaController,
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: aana,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Aana",
+                    prefixIcon: const Icon(Icons.archive_sharp),
+                    labelText: "Aana",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select aana";
+                    } else {
+                      return null;
+                    }
+                  },
+                  // selectedItem: homeController.province.value.length == 1
+                  //     ? homeController.province.value
+                  //     : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
+                    // print(value);
                     homeController.aana = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validatePriceOrLandOrFloor(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  // obscureText: true,
-                  decoration: InputDecoration(
-                      // suffixIcon: const Icon(Icons.landscape_rounded),
-                      prefixIcon: const Icon(Icons.archive_sharp),
-                      labelText: "Aana",
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+
+              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              //     controller: homeController.ropaniController,
+              //     onSaved: (value) {
+              //       homeController.ropani = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validatePriceOrLandOrFloor(value);
+              //     },
+              //     // obscureText: true,
+              //     decoration: InputDecoration(
+              //         // suffixIcon: const Icon(Icons.landscape_rounded),
+              //         prefixIcon: const Icon(Icons.landscape_rounded),
+              //         labelText: "Ropani",
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+
+              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+
+              //     controller: homeController.aanaController,
+              //     onSaved: (value) {
+              //       homeController.aana = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validatePriceOrLandOrFloor(value);
+              //     },
+              //     // obscureText: true,
+              //     decoration: InputDecoration(
+              //         // suffixIcon: const Icon(Icons.landscape_rounded),
+              //         prefixIcon: const Icon(Icons.archive_sharp),
+              //         labelText: "Aana",
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -220,67 +300,138 @@ class _HomeFormState extends State<HomeForm> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: homeController.kitchenController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: homeFeatures,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Kitchens",
+                    prefixIcon: const Icon(Icons.kitchen),
+                    labelText: "Kitchens",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select kitchens";
+                    } else {
+                      return null;
+                    }
+                  },
+                  selectedItem: homeController.kitchens.value.isNotEmpty
+                      ? homeController.kitchens.value
+                      : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
-                    homeController.kitchens = value!.trim();
+                    // print(value);
+                    homeController.kitchens.value = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validateData(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  decoration: InputDecoration(
-                      labelText: "Kitchens",
-                      prefixIcon: const Icon(Icons.kitchen),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.all(10),
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: homeFeatures,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Bathrooms",
+                    prefixIcon: const Icon(Icons.bathroom),
+                    labelText: "Bathrooms",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select bathrooms";
+                    } else {
+                      return null;
+                    }
+                  },
+                  selectedItem: homeController.bathrooms.value.isNotEmpty
+                      ? homeController.bathrooms.value
+                      : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
+                  onSaved: (value) {
+                    // print(value);
+                    homeController.bathrooms.value = value!.trim();
+                  },
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
+                  },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: homeController.bathroomController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                child: DropdownSearch<String>(
+                  mode: Mode.MENU,
+                  showSelectedItems: true,
+                  // autovalidateMode: AutovalidateMode.onUserInteraction,
+                  items: homeFeatures,
+                  dropdownSearchDecoration: InputDecoration(
+                    hintText: "Bedrooms",
+                    prefixIcon: const Icon(Icons.bedroom_baby),
+                    labelText: "Bedrooms",
+                    contentPadding: const EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(width: 2)),
+                  ),
+                  validator: (String? value) {
+                    if (value == null) {
+                      return "Please select bedrooms";
+                    } else {
+                      return null;
+                    }
+                  },
+                  selectedItem: homeController.bedrooms.value.isNotEmpty
+                      ? homeController.bedrooms.value
+                      : null,
+                  autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
-                    homeController.bathrooms = value!.trim();
+                    // print(value);
+                    homeController.bedrooms.value = value!.trim();
                   },
-                  validator: (value) {
-                    return homeController.validateData(value);
+                  onChanged: (value) {
+                    // districtData(value!);
+                    // print(value);
                   },
-                  decoration: InputDecoration(
-                      labelText: "Bathrooms",
-                      prefixIcon: const Icon(Icons.bathroom),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  controller: homeController.bedroomController,
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  onSaved: (value) {
-                    homeController.bedrooms = value!.trim();
-                  },
-                  validator: (value) {
-                    return homeController.validateData(value);
-                  },
-                  decoration: InputDecoration(
-                      labelText: "Bedrooms",
-                      prefixIcon: const Icon(Icons.bedroom_baby),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(width: 2))),
-                ),
-              ),
+
+              // Padding(
+              //   padding: const EdgeInsets.all(10),
+              //   child: TextFormField(
+              //     keyboardType: TextInputType.number,
+              //     autovalidateMode: AutovalidateMode.onUserInteraction,
+              //     controller: homeController.bedroomController,
+              //     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              //     onSaved: (value) {
+              //       homeController.bedrooms = value!.trim();
+              //     },
+              //     validator: (value) {
+              //       return homeController.validateData(value);
+              //     },
+              //     decoration: InputDecoration(
+              //         labelText: "Bedrooms",
+              //         prefixIcon: const Icon(Icons.bedroom_baby),
+              //         enabledBorder: OutlineInputBorder(
+              //             borderRadius: BorderRadius.circular(10),
+              //             borderSide: const BorderSide(width: 2))),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(

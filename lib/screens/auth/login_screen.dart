@@ -9,11 +9,14 @@ import 'package:property_client_finder_app/widgets/auth/auth_image.dart';
 import 'package:property_client_finder_app/widgets/auth/auth_title.dart';
 import 'package:property_client_finder_app/widgets/auth/login_form.dart';
 // import 'package:property_client_finder_app/widgets/loading/loading.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+// import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
-  // const LoginScreen({Key? key}) : super(key: key);
+  // String token;
+
   final LoginController loginController = Get.put(LoginController());
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

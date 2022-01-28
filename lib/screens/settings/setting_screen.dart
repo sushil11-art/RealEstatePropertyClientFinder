@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
 import 'package:property_client_finder_app/routes.dart';
 
@@ -171,11 +172,44 @@ class Settings extends StatelessWidget {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            const SizedBox(width: 170),
+                            // const SizedBox(width: 170),
+                            // const Icon(
+                            //   Icons.forward,
+                            //   color: Colors.red,
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      LogoutController().logout();
+                    },
+                    child: Card(
+                      margin: const EdgeInsets.all(12),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
                             const Icon(
-                              Icons.forward,
+                              Icons.logout,
                               color: Colors.red,
-                            )
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: Text(
+                                'Logout',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            // const SizedBox(width: 170),
+                            // const Icon(
+                            //   Icons.forward,
+                            //   color: Colors.red,
+                            // )
                           ],
                         ),
                       ),

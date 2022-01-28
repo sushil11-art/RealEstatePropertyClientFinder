@@ -3,11 +3,13 @@ import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/shared_preferences.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
 import 'package:property_client_finder_app/services/auth/login_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   final loginFormKey = GlobalKey<FormState>();
@@ -74,10 +76,12 @@ class LoginController extends GetxController {
         // print(results["token"]);
 
         // await StorageManager().setUserToken(results["token"]);
-        await box.write('token', results["token"]);
+        await StorageManager().setUserToken(results["token"]);
+        // await box.write('token', results["token"]);
         final authService = Get.put(AuthService());
+        SharedPreferences prefs = await SharedPreferences.getInstance();
         // final authService = Get.find<AuthService>();
-        authService.setIsAuthenticated(box.read('token'));
+        authService.setIsAuthenticated(prefs.getString('userToken'));
         if (authService.isAuthenticated.value) {
           clearController();
           Get.offAndToNamed(Routes.tabScreen);

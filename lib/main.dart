@@ -1,79 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:property_client_finder_app/config/logout_controller.dart';
+// import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/config/shared_preferences.dart';
+// import 'package:property_client_finder_app/models/home.dart';
 import 'package:property_client_finder_app/navigation.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:property_client_finder_app/screens/auth/login_screen.dart';
-// import 'package:property_client_finder_app/widgets/auth/login_form.dart';
+import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:get/get.dart';
-// import 'package:property_client_finder_app/screens/home/home_screen.dart';
-// import 'package:property_client_finder_app/screens/property/add_land_screen.dart';
-// import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import 'package:property_client_finder_app/services/auth/auth_services.dart';
 // import 'package:property_client_finder_app/services/property/property_list_services.dart';
 import 'package:get_storage/get_storage.dart';
 
+// bool isLoggegIn = false;
 void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
   await Get.putAsync(() => AuthService().init());
+  // SharedPreferences prefs = await SharedPreferences.getInstance();
+  // var token = prefs.getString('userToken');
+  // print(token);
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  // const MyApp({Key? key}) : super(key: key);
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isToken = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    checkToken();
-    super.initState();
-  }
-
-  void checkToken() async {
-    final box = GetStorage();
-    var token = box.read('token');
-    if (token != null) {
-      setState(() {
-        isToken = true;
-      });
-    }
-  }
-
-  // Future checkStatus() async {
-  //   final response = await PropertyListServices.getProperties();
-  //   if (response.statusCode == 401) {
-  //     setState(() {
-  //       isValidToken = false;
-  //     });
-  //     Get.snackbar('Invalid token', "Login session expired",
-  //         duration: const Duration(seconds: 5),
-  //         backgroundColor: Colors.red,
-  //         margin:
-  //             const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
-  //         snackPosition: SnackPosition.BOTTOM,
-  //         snackStyle: SnackStyle.FLOATING);
-  //     LogoutController().logout();
-  //   }
-  //   if (response.statusCode == 200) {
-  //     setState(() {
-  //       isValidToken = true;
-  //     });
-  //   }
-  // }
-
+class MyApp extends StatelessWidget {
+  final storeManager = StorageManager();
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
         title: 'Property Client Finder',
         // key: myAppKey,
+        home: FutureBuilder(
+            future: storeManager.tryAutoLogin(),
+            builder: (context, authResult) {
+              if (authResult.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.red),
+                );
+              } else {
+                if (authResult.data == true) {
+                  return TabScreen();
+                }
+                return LoginScreen();
+              }
+            }),
         navigatorKey: Get.key,
         debugShowCheckedModeBanner: false,
-        initialRoute: isToken ? Routes.tabScreen : Routes.login,
+        // initialRoute: Routes.login,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
