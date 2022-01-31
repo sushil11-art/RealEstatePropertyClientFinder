@@ -2,6 +2,7 @@ import 'package:get/state_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/config/show_snackbar.dart';
 // import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/map/map_controller.dart';
@@ -227,6 +228,12 @@ class HomeController extends GetxController {
         response = await HomeServices.editHome(data, propertyId);
       } else {
         response = await HomeServices.addHome(data);
+      }
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        LogoutController().logout();
+        return;
       }
       if (response.statusCode == 200) {
         var data = json.decode(response.body);

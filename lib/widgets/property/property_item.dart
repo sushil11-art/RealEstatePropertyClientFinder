@@ -5,6 +5,8 @@ import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:intl/intl.dart';
+
 // import 'package:blurry/blurry.dart';
 // import 'package:blurry/resources/arrays.dart';
 // import 'package:property_client_finder_app/routes.dart';
@@ -33,10 +35,15 @@ class PropertyItem extends StatelessWidget {
         property.location.ward.toString();
 
     if (property.home == null) {
-      price = property.land["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+      price = f.format(property.land["price"]);
+      // price = f.format(int.parse(price));
       title = "Land for Sale";
     } else {
-      price = property.home["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+      price = f.format(property.home["price"]);
+
+      // price = f.format(int.parse(price));
       title = "Home for Sale";
     }
     // print(price);
@@ -65,6 +72,7 @@ class PropertyItem extends StatelessWidget {
                         StackTrace? stackTrace) {
                       return Container(
                         decoration: const BoxDecoration(
+
                             // borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                           fit: BoxFit.cover,

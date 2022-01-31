@@ -16,6 +16,7 @@ import 'package:property_client_finder_app/screens/property/add_land_screen.dart
 import 'package:property_client_finder_app/screens/property/matching_properties_screen.dart';
 import 'package:property_client_finder_app/screens/property/property_details_screen.dart';
 import 'package:property_client_finder_app/screens/settings/change_password.dart';
+import 'package:property_client_finder_app/screens/settings/edit_profile.dart';
 import 'package:property_client_finder_app/screens/tabs/tabs_screen.dart';
 
 final appPages = [
@@ -46,6 +47,10 @@ final appPages = [
   GetPage(
       name: Routes.addClient,
       page: () => AddClient(),
+      middlewares: [AuthGuard()]),
+  GetPage(
+      name: Routes.editProfile,
+      page: () => EditProfile(),
       middlewares: [AuthGuard()]),
   GetPage(
       name: Routes.propertyDetails,

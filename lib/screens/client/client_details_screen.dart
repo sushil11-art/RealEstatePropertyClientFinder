@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ClientDetails extends StatelessWidget {
   // const ClientDetails({Key? key}) : super(key: key);
@@ -50,6 +51,8 @@ class ClientDetails extends StatelessWidget {
     landArea = clientController.clientDescription["area"];
     roadAccess = clientController.clientDescription["roadAccess"];
     waterSupply = clientController.clientDescription["waterSupply"];
+    var f = NumberFormat("##,##,###.0#", "en_US");
+    price = f.format(clientController.clientDescription["price"]);
 
     if (clientController.clientDescription["propertyType"] == 1) {
       propertyType = "House";
@@ -83,7 +86,7 @@ class ClientDetails extends StatelessWidget {
               ),
             ),
             clientInfo(name, email, phone),
-            propertyInfo(propertyType, landArea, roadAccess, waterSupply,
+            propertyInfo(propertyType, price, landArea, roadAccess, waterSupply,
                 kitchens, bathrooms, bedrooms, floors),
             locationInfo(district, province, municipality, ward, street)
           ],
@@ -194,7 +197,7 @@ class ClientDetails extends StatelessWidget {
     );
   }
 
-  Card propertyInfo(var propertyType, var landArea, var roadAcess,
+  Card propertyInfo(var propertyType, var price, var landArea, var roadAcess,
       var waterSupply, var kitchens, var bathrooms, var bedrooms, var floors) {
     return Card(
         elevation: 10,
@@ -213,6 +216,24 @@ class ClientDetails extends StatelessWidget {
                   Flexible(
                     child: Text(
                       'Property Type:- $propertyType',
+                      style: const TextStyle(fontWeight: FontWeight.w500),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.money,
+                    color: Colors.blue,
+                  ),
+                  const SizedBox(width: 10),
+                  Flexible(
+                    child: Text(
+                      'Nrs.${price.toString()}',
                       style: const TextStyle(fontWeight: FontWeight.w500),
                     ),
                   )

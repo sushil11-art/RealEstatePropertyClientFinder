@@ -106,13 +106,13 @@ class _TabScreenState extends State<TabScreen> {
                 //       ))
                 // ],
               ),
-              floatingActionButton: _selectedPageIndex == 0
-                  ? FloatingActionButton(
-                      onPressed: () {},
-                      backgroundColor: Colors.red,
-                      child: const Icon(Icons.add),
-                    )
-                  : null,
+              // floatingActionButton: _selectedPageIndex == 0
+              //     ? FloatingActionButton(
+              //         onPressed: () {},
+              //         backgroundColor: Colors.red,
+              //         child: const Icon(Icons.add),
+              //       )
+              //     : null,
               body: _pages[_selectedPageIndex]['page'] as Widget,
               bottomNavigationBar: BottomNavigationBar(
                 selectedItemColor: Colors.red,

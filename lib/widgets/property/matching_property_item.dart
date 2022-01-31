@@ -5,6 +5,7 @@ import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:get/get.dart';
 import 'package:blurry/blurry.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
 
 // import 'package:blurry/resources/arrays.dart';
 // import 'package:property_client_finder_app/routes.dart';
@@ -33,10 +34,14 @@ class MatchingPropertyItem extends StatelessWidget {
         property["location"]["ward"].toString();
 
     if (property["home"] == null) {
-      price = property["land"]["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+      price = f.format(property["land"]["price"]);
       title = "Land for Sale";
     } else {
-      price = property["home"]["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+
+      price = f.format(property["home"]["price"]);
+
       title = "Home for Sale";
     }
     // print(price);
@@ -86,35 +91,8 @@ class MatchingPropertyItem extends StatelessWidget {
                           ),
                         ),
                       );
-                      // return FancyShimmerImage(
-                      //     shimmerBaseColor: Colors.grey,
-                      //     shimmerHighlightColor: Colors.redAccent,
-                      //     shimmerBackColor: Colors.blue,
-                      //     imageUrl:
-                      //         'https://image.shutterstock.com/image-photo/polarization-pearl-sequins-shiny-glitter-260nw-1095200171.jpg');
-                      // return Center(
-                      //   child: CircularProgressIndicator(
-                      //     value: loadingProgress.expectedTotalBytes != null
-                      //         ? loadingProgress.cumulativeBytesLoaded /
-                      //             loadingProgress.expectedTotalBytes!
-                      //         : null,
-                      //   ),
-                      // );
                     },
-                  )
-                  //  CachedNetworkImage(
-                  //   imageUrl: images[0],
-                  //   fit: BoxFit.cover,
-                  //   placeholder: (context, url) => CircularProgressIndicator(),
-                  //   errorWidget: (context, url, error) => Icon(Icons.error),
-                  // ),
-                  // decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(10),
-                  //     image: DecorationImage(
-                  //       fit: BoxFit.cover, image: NetworkImage(images[0]),
-                  //       // image: AssetImage("assets/images/home.jpg")
-                  //     )),
-                  ),
+                  )),
               Expanded(
                   child: Container(
                 margin: const EdgeInsets.only(top: 14, left: 8),

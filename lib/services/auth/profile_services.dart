@@ -33,4 +33,28 @@ class ProfileServices {
       // return e;
     }
   }
+
+  static Future editProfileServices(data) async {
+    var token;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('userToken');
+    try {
+      // Map data = {'oldPassword': oldPassword, 'newPassword': newPassword};
+      // var body = json.encode(data);
+      var body = json.encode(data);
+      // print(body);
+
+      final url = API.localApiUrl + 'edit-profile';
+      final response = await http.put(Uri.parse(url),
+          headers: <String, String>{
+            'Content-Type': 'Application/json; charset=UTF-8',
+            'authorization': token
+          },
+          body: body);
+      return response;
+    } catch (e) {
+      print(e);
+      // return e;
+    }
+  }
 }

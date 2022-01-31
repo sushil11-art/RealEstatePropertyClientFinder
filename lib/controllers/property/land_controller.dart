@@ -219,6 +219,12 @@ class LandController extends GetxController {
       } else {
         response = await LandServices.addLand(data);
       }
+      if (response.statusCode == 401) {
+        isLoading.value = false;
+        InvalidToken().showSnackBar();
+        LogoutController().logout();
+        return;
+      }
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
         // EasyLoading.dismiss();

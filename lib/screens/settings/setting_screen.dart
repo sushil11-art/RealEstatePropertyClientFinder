@@ -3,12 +3,15 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:property_client_finder_app/config/logout_controller.dart';
 import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:property_client_finder_app/routes.dart';
+import 'package:shimmer/shimmer.dart';
 
 // import 'package:property_client_finder_app/controllers/auth/change_password_controller.dart';
 
 class Settings extends StatelessWidget {
-  const Settings({Key? key}) : super(key: key);
+  // const Settings({Key? key}) : super(key: key);
+  final createImageUrl = CreateImageUrl();
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +23,19 @@ class Settings extends StatelessWidget {
     var email;
     var properties;
     var clients;
+    var imageUrl;
+    // print(getProfile.profile);
     if (getProfile.profile.value != null) {
       username = getProfile.profile["data"]["broker"]["username"];
       email = getProfile.profile["data"]["broker"]["email"];
+
+      // print(imageUrl);
       properties = getProfile.profile["data"]["propertyCount"];
       clients = getProfile.profile["data"]["clientCount"];
+    }
+    if (getProfile.profile['data']["broker"]["imageUrl"] != null) {
+      imageUrl = createImageUrl
+          .profileImage(getProfile.profile["data"]["broker"]["imageUrl"]);
     }
 
     return Obx(() => ModalProgressHUD(
@@ -34,19 +45,82 @@ class Settings extends StatelessWidget {
               child: Column(
                 children: [
                   Center(
-                    child: Container(
-                      height: height * 0.15,
-                      width: width * 0.3,
-                      margin: const EdgeInsets.only(top: 40),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: const DecorationImage(
-                              fit: BoxFit.cover,
-                              image: AssetImage("assets/images/userImage.png")
-                              // image: AssetImage("assets/images/home.jpg")
+                    child: imageUrl != null
+                        ? Container(
+                            height: height * 0.15,
+                            width: width * 0.3,
+                            margin: const EdgeInsets.only(top: 40),
+                            decoration: const BoxDecoration(
+                                // borderRadius: BorderRadius.circular(10),
 
-                              )),
-                    ),
+                                // image: const DecorationImage(
+                                //     fit: BoxFit.cover,
+                                //     image: AssetImage("assets/images/userImage.png")
+                                //     // image: AssetImage("assets/images/home.jpg")
+
+                                //     )
+                                ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(50),
+                              child: Image.network(
+                                imageUrl,
+                                errorBuilder: (BuildContext context,
+                                    Object exception, StackTrace? stackTrace) {
+                                  return Container(
+                                    decoration: const BoxDecoration(
+                                        // borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/userImage.png"),
+                                      // image: AssetImage("assets/images/home.jpg")
+                                    )),
+                                  );
+                                },
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Container(
+                                    decoration: const BoxDecoration(
+                                        // borderRadius: BorderRadius.circular(10),
+                                        image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "assets/images/userImage.png"),
+                                      // image: AssetImage("assets/images/home.jpg")
+                                    )),
+                                  );
+                                  // Shimmer.fromColors(
+                                  //   baseColor: Colors.red,
+                                  //   highlightColor: Colors.yellow,
+                                  //   child: const Text(
+                                  //     '',
+                                  //     textAlign: TextAlign.center,
+                                  //     style: TextStyle(
+                                  //       fontSize: 40.0,
+                                  //       fontWeight: FontWeight.bold,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                },
+                              ),
+                            ),
+                          )
+                        : Container(
+                            height: height * 0.15,
+                            width: width * 0.3,
+                            margin: const EdgeInsets.only(top: 40),
+                            child: CircleAvatar(
+                              radius: 40,
+                              backgroundColor: Colors.grey,
+                              backgroundImage: const AssetImage(
+                                  "assets/images/userImage.png"),
+                              onBackgroundImageError: (_, a) {
+                                getProfile.isProfileImageError.value = true;
+                              },
+                            ),
+                          ),
                   ),
                   Card(
                     elevation: 10,
@@ -168,6 +242,40 @@ class Settings extends StatelessWidget {
                             Flexible(
                               child: Text(
                                 'Change Password',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                            // const SizedBox(width: 170),
+                            // const Icon(
+                            //   Icons.forward,
+                            //   color: Colors.red,
+                            // )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.editProfile);
+                      // Get.toNamed(Routes.changePassword);
+                    },
+                    child: Card(
+                      margin: const EdgeInsets.all(12),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        child: Row(
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Icon(
+                              Icons.edit,
+                              color: Colors.red,
+                            ),
+                            const SizedBox(width: 10),
+                            Flexible(
+                              child: Text(
+                                'Edit Profile',
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w500),
                               ),

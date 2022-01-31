@@ -55,7 +55,8 @@ dependencies:
   dropdown_search: ^2.0.1
   shimmer: ^2.0.0
   fancy_shimmer_image: ^2.0.1+1
-
+  intl: ^0.17.0
+  flutter_speed_dial: ^5.0.0+1
 
 
 

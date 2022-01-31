@@ -5,6 +5,7 @@ import 'package:property_client_finder_app/controllers/property/property_list_co
 import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:intl/intl.dart';
 
 class PropertyDetails extends StatelessWidget {
   final imageUrl = CreateImageUrl();
@@ -37,13 +38,18 @@ class PropertyDetails extends StatelessWidget {
     street = propertyController.propertyDescription["location"]["street"];
 
     if (propertyController.propertyDescription["home"] == null) {
-      price = propertyController.propertyDescription["land"]["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+      // price = f.format(property.land["price"]);
+      price = f.format(propertyController.propertyDescription["land"]["price"]);
       roadAccess = propertyController.propertyDescription["land"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["land"]["waterSupply"];
       title = "Land";
     } else {
-      price = propertyController.propertyDescription["home"]["price"];
+      var f = NumberFormat("##,##,###.0#", "en_US");
+      // price = f.format(property.land["price"]);
+      price = f.format(propertyController.propertyDescription["home"]["price"]);
+      // price = propertyController.propertyDescription["home"]["price"];
       roadAccess = propertyController.propertyDescription["home"]["roadAccess"];
       waterSupply =
           propertyController.propertyDescription["home"]["waterSupply"];

@@ -123,6 +123,12 @@ class _LandFormState extends State<LandForm> {
 
                   // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                   controller: landController.priceController,
+                  onChanged: (value) {
+                    // var f = NumberFormat("##,##,###.0#", "en_US");
+                    // landController.priceController.text = f
+                    //     .format(int.parse(landController.priceController.text))
+                    //     .toString();
+                  },
                   onSaved: (value) {
                     landController.price = value!.trim();
                   },

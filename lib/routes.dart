@@ -7,6 +7,7 @@ abstract class Routes {
   static const addHome = "/add-home";
   static const addClient = "/add-client";
   static const editClient = "/edit-client";
+  static const editProfile = "/ediit-profile";
 
   static const picklocation = "/picklocation";
   static const propertyDetails = "/propertyDetails";

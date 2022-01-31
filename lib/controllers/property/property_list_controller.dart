@@ -25,6 +25,8 @@ class PropertyListController extends GetxController {
   ClientController clientController = Get.put(ClientController());
   GetProfile profileController = Get.put(GetProfile());
 
+  var isFloatingButtonPressed = false.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -41,6 +43,9 @@ class PropertyListController extends GetxController {
   //   clientController.clientList();
   //   super.onClose();
   // }
+  void toggleFloatingActionButton() {
+    isFloatingButtonPressed.value = !isFloatingButtonPressed.value;
+  }
 
   void fetchProperties() async {
     // EasyLoading.show(status: 'Loading');

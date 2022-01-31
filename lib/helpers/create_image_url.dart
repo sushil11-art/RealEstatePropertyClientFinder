@@ -14,4 +14,10 @@ class CreateImageUrl {
     }
     return imageUrls;
   }
+
+  String profileImage(String image) {
+    var name = image.split('/');
+    String url = API.localApiUrl + "files/" + name[1];
+    return url;
+  }
 }
