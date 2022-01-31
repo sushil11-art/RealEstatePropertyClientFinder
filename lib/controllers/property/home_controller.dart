@@ -55,8 +55,6 @@ class HomeController extends GetxController {
   PropertyListController propertyListController =
       Get.find<PropertyListController>();
 
-  GetProfile getProfile = Get.put(GetProfile());
-
   var propertyId;
   var price;
   var landArea;
@@ -247,6 +245,7 @@ class HomeController extends GetxController {
             snackStyle: SnackStyle.FLOATING);
         // Get.off(LoginScreen());
         clearController();
+        GetProfile getProfile = Get.put(GetProfile());
         getProfile.profileDetails();
         Get.offAndToNamed(Routes.tabScreen);
       }

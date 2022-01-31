@@ -4,8 +4,14 @@ import 'package:get/get.dart';
 
 class StorageManager {
   clearSharedPreference() async {
+    // SharedPreferences spreferences =
+    //     PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    // SharedPreferences.Editor editor = spreferences.edit();
+    // editor.clear();
+    // editor.commit();
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    // print(prefs.)
+    prefs.remove('userToken');
   }
 
   setUserToken(String token) async {

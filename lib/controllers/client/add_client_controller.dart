@@ -50,8 +50,6 @@ class AddClientController extends GetxController {
 
   MapController mapController = Get.put(MapController());
 
-  GetProfile getProfile = Get.put(GetProfile());
-
   // ClientController clientController = Get.put(ClientController());
   // ImageUploadController imageUploadController =
   //     Get.put(ImageUploadController());
@@ -277,6 +275,7 @@ class AddClientController extends GetxController {
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
             snackStyle: SnackStyle.FLOATING);
+        GetProfile getProfile = Get.put(GetProfile());
         getProfile.profileDetails();
         clearController();
 

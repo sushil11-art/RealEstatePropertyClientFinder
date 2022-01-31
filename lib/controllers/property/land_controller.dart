@@ -48,8 +48,6 @@ class LandController extends GetxController {
   PropertyListController propertyListController =
       Get.find<PropertyListController>();
 
-  GetProfile getProfile = Get.put(GetProfile());
-
   var propertyId;
 
   var price;
@@ -238,6 +236,7 @@ class LandController extends GetxController {
             snackStyle: SnackStyle.FLOATING);
         // Get.off(LoginScreen());
         clearController();
+        GetProfile getProfile = Get.put(GetProfile());
         getProfile.profileDetails();
         Get.offAndToNamed(Routes.tabScreen);
       }
