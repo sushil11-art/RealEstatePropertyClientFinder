@@ -209,56 +209,6 @@ class _HomeFormState extends State<HomeForm> {
                   },
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.number,
-              //     autovalidateMode: AutovalidateMode.onUserInteraction,
-
-              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-              //     controller: homeController.ropaniController,
-              //     onSaved: (value) {
-              //       homeController.ropani = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validatePriceOrLandOrFloor(value);
-              //     },
-              //     // obscureText: true,
-              //     decoration: InputDecoration(
-              //         // suffixIcon: const Icon(Icons.landscape_rounded),
-              //         prefixIcon: const Icon(Icons.landscape_rounded),
-              //         labelText: "Ropani",
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.number,
-              //     autovalidateMode: AutovalidateMode.onUserInteraction,
-
-              //     // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-
-              //     controller: homeController.aanaController,
-              //     onSaved: (value) {
-              //       homeController.aana = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validatePriceOrLandOrFloor(value);
-              //     },
-              //     // obscureText: true,
-              //     decoration: InputDecoration(
-              //         // suffixIcon: const Icon(Icons.landscape_rounded),
-              //         prefixIcon: const Icon(Icons.archive_sharp),
-              //         labelText: "Aana",
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -335,7 +285,6 @@ class _HomeFormState extends State<HomeForm> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: DropdownSearch<String>(
@@ -410,28 +359,6 @@ class _HomeFormState extends State<HomeForm> {
                   },
                 ),
               ),
-
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.number,
-              //     autovalidateMode: AutovalidateMode.onUserInteraction,
-              //     controller: homeController.bedroomController,
-              //     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              //     onSaved: (value) {
-              //       homeController.bedrooms = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validateData(value);
-              //     },
-              //     decoration: InputDecoration(
-              //         labelText: "Bedrooms",
-              //         prefixIcon: const Icon(Icons.bedroom_baby),
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(
@@ -554,76 +481,16 @@ class _HomeFormState extends State<HomeForm> {
                   selectedItem: homeController.municipality.value.length > 1
                       ? homeController.municipality.value
                       : null,
-
                   autoValidateMode: AutovalidateMode.onUserInteraction,
                   onSaved: (value) {
                     homeController.municipality.value = value!.trim();
                   },
-                  // validator: (value) {
-                  //   return landController.validateData(value);
-                  // },
                   onChanged: (value) {
                     // nagarpalikaData(value!);
                     // districtData(value);
                   },
                 ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     keyboardType: TextInputType.number,
-              //     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              //     controller: homeController.provinceController,
-              //     onSaved: (value) {
-              //       homeController.province = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validateData(value);
-              //     },
-              //     decoration: InputDecoration(
-              //         labelText: "Province",
-              //         prefixIcon: const Icon(Icons.accessibility),
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     controller: homeController.districtController,
-              //     onSaved: (value) {
-              //       homeController.district = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validateData(value);
-              //     },
-              //     decoration: InputDecoration(
-              //         labelText: "District",
-              //         prefixIcon: const Icon(Icons.directions_transit_sharp),
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(10),
-              //   child: TextFormField(
-              //     controller: homeController.municipalityController,
-              //     onSaved: (value) {
-              //       homeController.municipality = value!.trim();
-              //     },
-              //     validator: (value) {
-              //       return homeController.validateData(value);
-              //     },
-              //     decoration: InputDecoration(
-              //         labelText: "Municipality",
-              //         prefixIcon: const Icon(Icons.multiline_chart_outlined),
-              //         enabledBorder: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(10),
-              //             borderSide: const BorderSide(width: 2))),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.all(10),
                 child: TextFormField(

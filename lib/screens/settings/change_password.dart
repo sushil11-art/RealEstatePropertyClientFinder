@@ -86,13 +86,10 @@ class ChangePasswordScreen extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: TextFormField(
-                                // keyboardType: TextInputType.number,
                                 obscureText:
                                     changePassword.isNewInvisible.value,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
-
-                                // inputFormatters: [FilteringTextInputFormastter.digitsOnly],
                                 controller:
                                     changePassword.newPasswordController,
                                 onSaved: (value) {

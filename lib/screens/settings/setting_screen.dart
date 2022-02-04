@@ -8,8 +8,6 @@ import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:property_client_finder_app/routes.dart';
 import 'package:shimmer/shimmer.dart';
 
-// import 'package:property_client_finder_app/controllers/auth/change_password_controller.dart';
-
 class Settings extends StatelessWidget {
   // const Settings({Key? key}) : super(key: key);
   final createImageUrl = CreateImageUrl();
@@ -235,24 +233,18 @@ class Settings extends StatelessWidget {
                         margin: const EdgeInsets.all(10),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Icon(
+                          children: const [
+                            Icon(
                               Icons.settings,
                               color: Colors.red,
                             ),
-                            const SizedBox(width: 10),
+                            SizedBox(width: 10),
                             Flexible(
                               child: Text(
                                 'Change Password',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
-                            // const SizedBox(width: 170),
-                            // const Icon(
-                            //   Icons.forward,
-                            //   color: Colors.red,
-                            // )
                           ],
                         ),
                       ),
@@ -268,24 +260,18 @@ class Settings extends StatelessWidget {
                         margin: const EdgeInsets.all(10),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Icon(
+                          children: const [
+                            Icon(
                               Icons.edit,
                               color: Colors.red,
                             ),
-                            const SizedBox(width: 10),
+                            SizedBox(width: 10),
                             Flexible(
                               child: Text(
                                 'Edit Profile',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
-                            // const SizedBox(width: 170),
-                            // const Icon(
-                            //   Icons.forward,
-                            //   color: Colors.red,
-                            // )
                           ],
                         ),
                       ),
@@ -301,24 +287,18 @@ class Settings extends StatelessWidget {
                         margin: const EdgeInsets.all(10),
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Icon(
+                          children: const [
+                            Icon(
                               Icons.logout,
                               color: Colors.red,
                             ),
-                            const SizedBox(width: 10),
+                            SizedBox(width: 10),
                             Flexible(
                               child: Text(
                                 'Logout',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500),
+                                style: TextStyle(fontWeight: FontWeight.w500),
                               ),
                             ),
-                            // const SizedBox(width: 170),
-                            // const Icon(
-                            //   Icons.forward,
-                            //   color: Colors.red,
-                            // )
                           ],
                         ),
                       ),

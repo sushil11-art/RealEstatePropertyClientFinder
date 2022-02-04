@@ -4,8 +4,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:property_client_finder_app/controllers/client/client_controller.dart';
 import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
 import 'package:property_client_finder_app/widgets/property/matching_property_item.dart';
-// import 'package:property_client_finder_app/controllers/property/property_list_controller.dart';
-// import 'package:property_client_finder_app/widgets/property/property_item.dart';
 
 class MatchingProperty extends StatelessWidget {
   const MatchingProperty({Key? key}) : super(key: key);

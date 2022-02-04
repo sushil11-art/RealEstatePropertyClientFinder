@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:property_client_finder_app/controllers/auth/editprofile_controller.dart';
-// import 'package:property_client_finder_app/config/show_snackbar.dart';
-// import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 
@@ -31,7 +30,6 @@ class _EditProfileState extends State<EditProfile> {
             ListTile(
               onTap: () {
                 _openGallery(context);
-                // Navigator.pop(context);
               },
               leading: const Icon(
                 Icons.folder,
@@ -42,11 +40,6 @@ class _EditProfileState extends State<EditProfile> {
             ListTile(
               onTap: () {
                 _openCamera(context);
-                // propertyListController.deleteProperty(
-                //     property.id,
-                //     property.landId,
-                //     property.homeId);
-                // Navigator.pop(context);
               },
               leading: const Icon(Icons.camera, color: Colors.red),
               title: const Text('Camera'),
@@ -262,8 +255,6 @@ class _EditProfileState extends State<EditProfile> {
                                   } else {
                                     profileController.editProfileDetails(
                                         null, context);
-                                    // profileController.getProfileDetails();
-                                    // InvalidToken().showImageSnackBar();
                                   }
                                   // changePassword.chanePassword(context);
                                 },

@@ -20,13 +20,8 @@ class LandForm extends StatefulWidget {
 }
 
 class _LandFormState extends State<LandForm> {
-  // late List<DropdownMenuItem<String>> _dropDownMenuProvince;
   List<String> _dropDownMenuDistrict = [];
   List<String> _dropDownMenuMunicipality = [];
-
-  // String? _currentProvince;
-  // String? _currentDistrict;
-  // String? _currentMunicipality;
 
   List _items = [];
 
