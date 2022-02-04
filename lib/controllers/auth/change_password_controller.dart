@@ -78,7 +78,7 @@ class ChangePassword extends GetxController {
 
         var results = json.decode(response.body);
         Get.snackbar('Password updated', "Password updated successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),
@@ -93,7 +93,7 @@ class ChangePassword extends GetxController {
         isLoading.value = false;
         Get.snackbar(
             'Error occured', "Enter correct old password and try again later",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 70),

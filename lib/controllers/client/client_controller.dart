@@ -68,7 +68,7 @@ class ClientController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Client', "Cleint deleted successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -81,7 +81,7 @@ class ClientController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = true;
         Get.snackbar('Error occured', "Failed to delete client details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -115,7 +115,7 @@ class ClientController extends GetxController {
       }
       if ((response.statusCode == 500) || (response.statusCode == 400)) {
         Get.snackbar('Error occured', "Failed to fetch properties list",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -157,7 +157,7 @@ class ClientController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to fetch client details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -224,7 +224,7 @@ class ClientController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to fetch client details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,

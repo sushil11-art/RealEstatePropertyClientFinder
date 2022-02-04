@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:flutter/material.dart';
 
 class ImageUploadController extends GetxController {
   final ImagePicker imagePicker = ImagePicker();
@@ -9,7 +13,7 @@ class ImageUploadController extends GetxController {
   // List<Widget> imageWidgets = _images.map((c) => new Image.file(c)).toList();
   // RxList imageFileList = [].obs;
   // var imageFileList = [].obs;
-  void showDialog() async {
+  void showDialog(BuildContext context) async {
     await Get.dialog(AlertDialog(
       title: const Text('Choose an option'),
       content: SingleChildScrollView(
@@ -22,7 +26,7 @@ class ImageUploadController extends GetxController {
             ListTile(
               onTap: () {
                 // _picker.pickImage
-                openGallery();
+                openGallery(context);
               },
               title: const Text("Gallery"),
               leading: const Icon(
@@ -34,7 +38,6 @@ class ImageUploadController extends GetxController {
               height: 1,
               color: Colors.blue,
             ),
-          
           ],
         ),
       ),
@@ -46,7 +49,7 @@ class ImageUploadController extends GetxController {
     ));
   }
 
-  void openGallery() async {
+  void openGallery(BuildContext context) async {
     final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
     try {
       if (imageFileList!.length > 10) {
@@ -61,13 +64,50 @@ class ImageUploadController extends GetxController {
             snackStyle: SnackStyle.FLOATING);
         return;
       }
-      if (selectedImages!.isNotEmpty) {
+      if (selectedImages!.length == 1) {
+        File? croppedFile = await ImageCropper.cropImage(
+            sourcePath: selectedImages[0].path,
+            aspectRatioPresets: Platform.isAndroid
+                ? [
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio16x9
+                  ]
+                : [
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio5x3,
+                    CropAspectRatioPreset.ratio5x4,
+                    CropAspectRatioPreset.ratio7x5,
+                    CropAspectRatioPreset.ratio16x9
+                  ],
+            androidUiSettings: const AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Colors.deepOrange,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+            iosUiSettings: const IOSUiSettings(
+              title: 'Cropper',
+            ));
+        // final File? file = File(croppedImages[0].path);
+        imageFileList!.add(XFile(croppedFile!.path));
+      }
+      if (selectedImages.length > 1) {
         imageFileList!.addAll(selectedImages);
       }
-      Get.back();
+      // Get.back();
+      Navigator.pop(context);
       update();
       // print("Image List Length:" + imageFileList!.length.toString());
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+      Navigator.pop(context);
+    }
 
     // setState((){});
   }

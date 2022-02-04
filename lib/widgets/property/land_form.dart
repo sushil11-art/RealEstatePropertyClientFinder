@@ -110,7 +110,7 @@ class _LandFormState extends State<LandForm> {
       margin: const EdgeInsets.all(8),
       child: Form(
           key: landController.landFormKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

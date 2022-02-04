@@ -76,7 +76,7 @@ class RegisterController extends GetxController {
       if (response.statusCode == 200) {
         isLoading.value = false;
         Get.snackbar('Register Success', "Account created successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 60),
             snackPosition: SnackPosition.TOP,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:property_client_finder_app/config/show_snackbar.dart';
-import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
+import 'package:property_client_finder_app/controllers/auth/editprofile_controller.dart';
+// import 'package:property_client_finder_app/config/show_snackbar.dart';
+// import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -13,6 +15,9 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final EditProfileController profileController =
+      Get.put(EditProfileController());
+
   File? file;
   // PickedFile? imageFile = null;
   ImagePicker _picker = ImagePicker();
@@ -53,26 +58,99 @@ class _EditProfileState extends State<EditProfile> {
   void _openGallery(BuildContext context) async {
     try {
       final XFile? image = await _picker.pickImage(
-          source: ImageSource.gallery, maxWidth: 150, imageQuality: 50);
-      setState(() {
-        file = File(image!.path);
-      });
-      // widget.imagePickFn(file!);
+        source: ImageSource.gallery,
+      );
+      // print(image!.path);
+      if (image!.path != null) {
+        File? croppedFile = await ImageCropper.cropImage(
+            sourcePath: image.path,
+            aspectRatioPresets: Platform.isAndroid
+                ? [
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio16x9
+                  ]
+                : [
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio5x3,
+                    CropAspectRatioPreset.ratio5x4,
+                    CropAspectRatioPreset.ratio7x5,
+                    CropAspectRatioPreset.ratio16x9
+                  ],
+            androidUiSettings: const AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Colors.deepOrange,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+            iosUiSettings: const IOSUiSettings(
+              title: 'Cropper',
+            ));
+        if (croppedFile != null) {
+          file = croppedFile;
+          setState(() {
+            file = File(croppedFile.path);
+            // state = AppState.cropped;
+          });
+          profileController.isProfileEditMode.value = false;
+        }
+      }
 
       Navigator.pop(context);
     } catch (e) {
-      Navigator.pop(context);
+      print(e);
+      // Navigator.pop(context);
     }
   }
 
   void _openCamera(BuildContext context) async {
     try {
-      final XFile? image = await _picker.pickImage(
-          source: ImageSource.camera, maxWidth: 150, imageQuality: 50);
-      setState(() {
-        file = File(image!.path);
-      });
-      // widget.imagePickFn(file!);
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+      // print(image!.path);
+      if (image!.path != null) {
+        File? croppedFile = await ImageCropper.cropImage(
+            sourcePath: image.path,
+            aspectRatioPresets: Platform.isAndroid
+                ? [
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio16x9
+                  ]
+                : [
+                    CropAspectRatioPreset.original,
+                    CropAspectRatioPreset.square,
+                    CropAspectRatioPreset.ratio3x2,
+                    CropAspectRatioPreset.ratio4x3,
+                    CropAspectRatioPreset.ratio5x3,
+                    CropAspectRatioPreset.ratio5x4,
+                    CropAspectRatioPreset.ratio7x5,
+                    CropAspectRatioPreset.ratio16x9
+                  ],
+            androidUiSettings: const AndroidUiSettings(
+                toolbarTitle: 'Cropper',
+                toolbarColor: Colors.deepOrange,
+                toolbarWidgetColor: Colors.white,
+                initAspectRatio: CropAspectRatioPreset.original,
+                lockAspectRatio: false),
+            iosUiSettings: const IOSUiSettings(
+              title: 'Cropper',
+            ));
+        if (croppedFile != null) {
+          file = croppedFile;
+          setState(() {
+            file = File(croppedFile.path);
+            // state = AppState.cropped;
+          });
+          profileController.isProfileEditMode.value = false;
+        }
+      }
 
       Navigator.pop(context);
     } catch (e) {
@@ -85,7 +163,6 @@ class _EditProfileState extends State<EditProfile> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
-    final GetProfile profileController = Get.put(GetProfile());
     return Obx(() => AbsorbPointer(
           absorbing: profileController.isLoading.value,
           child: Scaffold(
@@ -113,15 +190,32 @@ class _EditProfileState extends State<EditProfile> {
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: Colors.grey,
-                                    backgroundImage:
-                                        file != null ? FileImage(file!) : null,
-                                  ),
+                                  if (profileController.profileImage != null &&
+                                      profileController.isProfileEditMode.value)
+                                    CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: Colors.grey,
+                                      backgroundImage: NetworkImage(
+                                          profileController.profileImage),
+                                      onBackgroundImageError: (_, a) {
+                                        // getProfile.isProfileImageError.value = true;
+                                      },
+                                    ),
+                                  if (!profileController
+                                      .isProfileEditMode.value)
+                                    CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor: Colors.grey,
+                                      backgroundImage: file != null
+                                          ? FileImage(file!)
+                                          : null,
+                                    ),
                                   TextButton.icon(
                                       onPressed: () {
-                                        _showChoiceDialog(context);
+                                        if (profileController.isLoading.value) {
+                                        } else {
+                                          _showChoiceDialog(context);
+                                        }
                                       },
                                       icon: const Icon(
                                         Icons.camera_alt,
@@ -164,8 +258,12 @@ class _EditProfileState extends State<EditProfile> {
                                   if (file != null) {
                                     profileController.editProfileDetails(
                                         file, context);
+                                    // profileController.getProfileDetails();
                                   } else {
-                                    InvalidToken().showImageSnackBar();
+                                    profileController.editProfileDetails(
+                                        null, context);
+                                    // profileController.getProfileDetails();
+                                    // InvalidToken().showImageSnackBar();
                                   }
                                   // changePassword.chanePassword(context);
                                 },

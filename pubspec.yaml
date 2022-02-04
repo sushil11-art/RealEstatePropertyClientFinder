@@ -57,6 +57,8 @@ dependencies:
   fancy_shimmer_image: ^2.0.1+1
   intl: ^0.17.0
   flutter_speed_dial: ^5.0.0+1
+  image_cropper: ^1.4.1
+
 
 
 

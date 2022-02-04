@@ -94,7 +94,7 @@ class PropertyListController extends GetxController {
       }
       if ((response.statusCode == 500) || (response.statusCode == 400)) {
         Get.snackbar('Error occured', "Failed to fetch clients list",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -126,7 +126,7 @@ class PropertyListController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Property deleted', "Property deleted successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -138,7 +138,7 @@ class PropertyListController extends GetxController {
       if ((response.statusCode == 500) || (response.statusCode == 400)) {
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to delete property details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
@@ -176,7 +176,7 @@ class PropertyListController extends GetxController {
       if ((response.statusCode == 400) || (response.statusCode == 500)) {
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to fetch property details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -256,7 +256,7 @@ class PropertyListController extends GetxController {
       if ((response.statusCode == 400) || (response.statusCode == 500)) {
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to fetch property details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,

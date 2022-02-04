@@ -197,7 +197,7 @@ class AddClientController extends GetxController {
           ((mapController.longitude) == null &&
               (mapController.latitude) == null)) {
         Get.snackbar('Error occured', "Please pick a location in map",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -270,7 +270,7 @@ class AddClientController extends GetxController {
         isLoading.value = false;
         // EasyLoading.dismiss();
         Get.snackbar('Client uploaded', "Client details uploaded successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -289,7 +289,7 @@ class AddClientController extends GetxController {
         // EasyLoading.dismiss();
 
         Get.snackbar('Error occured', "Failed to upload client details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),

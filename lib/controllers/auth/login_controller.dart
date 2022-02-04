@@ -88,7 +88,7 @@ class LoginController extends GetxController {
         } else {
           clearController();
           Get.snackbar('Something went wrong', "Please try again",
-              duration: const Duration(seconds: 5),
+              duration: const Duration(seconds: 2),
               backgroundColor: Colors.red,
               margin: const EdgeInsets.only(bottom: 40),
               snackPosition: SnackPosition.BOTTOM,

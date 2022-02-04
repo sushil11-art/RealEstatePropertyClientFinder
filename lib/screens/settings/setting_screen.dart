@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:property_client_finder_app/config/logout_controller.dart';
+import 'package:property_client_finder_app/controllers/auth/editprofile_controller.dart';
 import 'package:property_client_finder_app/controllers/auth/profile_controller.dart';
 import 'package:property_client_finder_app/helpers/create_image_url.dart';
 import 'package:property_client_finder_app/routes.dart';
@@ -18,6 +19,7 @@ class Settings extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     // final ChangePassword changePassword = Get.put(ChangePassword());
+    final EditProfileController editProfile = Get.put(EditProfileController());
     final GetProfile getProfile = Get.put(GetProfile());
     var username;
     var email;
@@ -258,8 +260,7 @@ class Settings extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Get.toNamed(Routes.editProfile);
-                      // Get.toNamed(Routes.changePassword);
+                      editProfile.getProfileDetails();
                     },
                     child: Card(
                       margin: const EdgeInsets.all(12),

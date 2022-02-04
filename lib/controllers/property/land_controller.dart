@@ -133,7 +133,7 @@ class LandController extends GetxController {
         // check whether user upload at least one image or not
         Get.snackbar(
             'Error occured', "Upload at least one image of your property",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -154,7 +154,7 @@ class LandController extends GetxController {
           ((mapController.longitude) == null &&
               (mapController.latitude) == null)) {
         Get.snackbar('Error occured', "Please pick a location in map",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -186,7 +186,7 @@ class LandController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Error occured', "Uploading images failed",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -229,7 +229,7 @@ class LandController extends GetxController {
         isLoading.value = false;
 
         Get.snackbar('Property uploaded', "Land details uploaded successfully",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.green,
             margin: const EdgeInsets.only(top: 70, left: 20, right: 20),
             snackPosition: SnackPosition.TOP,
@@ -244,7 +244,7 @@ class LandController extends GetxController {
         // EasyLoading.dismiss();
         isLoading.value = false;
         Get.snackbar('Error occured', "Failed to upload property details",
-            duration: const Duration(seconds: 5),
+            duration: const Duration(seconds: 2),
             backgroundColor: Colors.red,
             margin:
                 const EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 30),
